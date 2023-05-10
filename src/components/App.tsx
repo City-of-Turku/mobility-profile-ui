@@ -1,10 +1,15 @@
+import { ThemeProvider } from '@mui/material/styles';
 import React from 'react';
+import { mainTheme } from '../themes/theme';
+import Content from './Content/Content';
 
 const App: React.FC = () => {
   return (
-    <div>
-      <p>App</p>
-    </div>
+      <ThemeProvider theme={mainTheme}>
+        <div>
+          <Content />
+        </div>
+      </ThemeProvider>
   );
 };
 
