@@ -1,15 +1,20 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks/reduxHooks';
 import Footer from '../Footer/Footer';
 import TopBar from '../TopBar/TopBar';
+import TextBasic from '../Typography/TextBasic/TextBasic';
 
 const Content = () => {
-  const { settings } = useAppSelector((state) => state);
-  const locale = settings.localeSelection;
-  console.log(locale);
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
       <TopBar />
+      <main>
+        <div>
+          <TextBasic text='app.subtitle' />
+        </div>
+      </main>
       <Footer />
     </div>
   );

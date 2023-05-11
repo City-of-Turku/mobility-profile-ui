@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const Footer = () => {
   const theme = useTheme();
@@ -19,7 +20,7 @@ const Footer = () => {
       }}
     >
       <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>
-        City of Turku
+        <FormattedMessage id="app.footer" />
       </Typography>
     </div>
   );

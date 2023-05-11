@@ -1,25 +1,34 @@
 import { AppBar, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import LocaleSelection from './components/LocaleSelection/LocaleSelection';
 
 const TopBar = () => {
   const theme = useTheme();
   return (
-    <AppBar>
+    <>
       <LocaleSelection />
-      <div style={{ backgroundColor: theme.palette.primary.main }}>
-        <div style={{ padding: '0.7rem' }}>
+      <div
+        style={{
+          backgroundColor: theme.palette.primary.main,
+          height: '4rem',
+          paddingLeft: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <div>
           <Typography
             component="h2"
             variant="h2"
             sx={{ mb: '0.3rem', color: '#ffff', ...theme.typography.h2 }}
           >
-            Mobility Profile
+            <FormattedMessage id="app.title" />
           </Typography>
         </div>
       </div>
-    </AppBar>
+    </>
   );
 };
 

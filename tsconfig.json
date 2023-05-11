@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true
   },

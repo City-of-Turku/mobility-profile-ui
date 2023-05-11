@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
+import { FormattedMessage } from "react-intl";
 import { TextBasicProps } from "../../../types";
 
 const TextBasic = ({ text }: TextBasicProps) => {
@@ -12,7 +13,7 @@ const TextBasic = ({ text }: TextBasicProps) => {
         variant="body2"
         sx={{ m: "0.1rem", ...theme.typography.body2 }}
       >
-        {text}
+        <FormattedMessage id={text} />
       </Typography>
     </div>
   );
