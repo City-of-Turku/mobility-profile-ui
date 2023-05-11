@@ -1,4 +1,4 @@
-import { ButtonBase, Toolbar, Typography } from '@mui/material';
+import { ButtonBase, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React from 'react';

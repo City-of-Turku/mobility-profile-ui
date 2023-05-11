@@ -5,14 +5,16 @@ import TextBasic from '../Typography/TextBasic/TextBasic';
 
 const Content = () => {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <TopBar />
       <main>
         <div>
-          <TextBasic text='app.subtitle' />
+          <TextBasic text="app.subtitle" />
         </div>
       </main>
       <Footer />

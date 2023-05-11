@@ -1,16 +1,16 @@
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface SettingsState {
   localeSelection: string;
 }
 
 export const initialState: SettingsState = {
-  localeSelection: "fi",
+  localeSelection: 'fi',
 };
 
 export const settingsSlice = createSlice({
-  name: "settings",
+  name: 'settings',
   initialState,
   reducers: {
     setLocaleSelection: (state, action: PayloadAction<string>) => {

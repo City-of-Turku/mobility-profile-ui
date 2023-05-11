@@ -1,9 +1,9 @@
 import { ThemeProvider } from '@mui/material/styles';
-import { useAppSelector } from '../hooks/reduxHooks';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import LocaleUtility from '../utils/locale';
+import { useAppSelector } from '../hooks/reduxHooks';
 import { mainTheme } from '../themes/theme';
+import LocaleUtility from '../utils/locale';
 import Content from './Content/Content';
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
     <IntlProvider {...intlData}>
       <ThemeProvider theme={mainTheme}>
         <Content />
-    </ThemeProvider>
+      </ThemeProvider>
     </IntlProvider>
   );
 };
