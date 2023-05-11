@@ -2,8 +2,8 @@ import { ThemeProvider } from '@mui/material';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { mainTheme } from '../../../../themes/theme';
 import finnish from '../../../../i18n/fi.json';
+import { mainTheme } from '../../../../themes/theme';
 import TextBasic from '../TextBasic';
 
 const intlMock = {

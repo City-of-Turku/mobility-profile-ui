@@ -1,9 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface SettingsState {
-  localeSelection: string;
-}
+import { SettingsState } from '../../types';
 
 export const initialState: SettingsState = {
   localeSelection: 'fi',
