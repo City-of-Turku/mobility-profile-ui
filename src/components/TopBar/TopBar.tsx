@@ -1,4 +1,4 @@
-import { AppBar, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
