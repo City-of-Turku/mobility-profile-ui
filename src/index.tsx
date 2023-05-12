@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/App';
 import { store as reduxStore } from './redux/store';
+import './style.scss';
 
 const rootNode = document.getElementById('root');
 const store = reduxStore();

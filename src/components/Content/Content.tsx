@@ -5,12 +5,7 @@ import TextBasic from '../Typography/TextBasic/TextBasic';
 
 const Content = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div className="flex">
       <TopBar />
       <main>
         <div>

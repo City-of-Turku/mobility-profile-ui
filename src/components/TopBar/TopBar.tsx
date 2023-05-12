@@ -9,15 +9,7 @@ const TopBar = () => {
   return (
     <>
       <LocaleSelection />
-      <div
-        style={{
-          backgroundColor: theme.palette.primary.main,
-          height: '4rem',
-          paddingLeft: '1rem',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
+      <div className="topbar">
         <div>
           <Typography
             component="h2"

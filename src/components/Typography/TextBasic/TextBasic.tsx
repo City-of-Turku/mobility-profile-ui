@@ -7,7 +7,7 @@ import { TextBasicProps } from '../../../types';
 const TextBasic = ({ text }: TextBasicProps) => {
   const theme = useTheme();
   return (
-    <div style={{ padding: '0.5rem' }}>
+    <div className="text-container">
       <Typography component="p" variant="body2" sx={{ m: '0.1rem', ...theme.typography.body2 }}>
         <FormattedMessage id={text} />
       </Typography>

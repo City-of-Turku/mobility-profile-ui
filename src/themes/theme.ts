@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const baseTypography = {
   root: {
     fontSize: 16,
-    fontFamily: 'Arial',
+    fontFamily: 'Arial, sans-serif',
     fontWeightReqular: 400,
     fontWeightBold: 700,
   },

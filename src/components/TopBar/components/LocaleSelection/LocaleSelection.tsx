@@ -40,16 +40,8 @@ const LocaleSelection: React.FC = () => {
   ];
 
   return (
-    <div
-      style={{
-        backgroundColor: '#000000',
-        height: '3rem',
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: '1rem',
-      }}
-    >
-      <nav style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+    <div className="locale-header">
+      <nav className="locale-list">
         {languages.map((item) => (
           <ButtonBase key={item.id} role="button" onClick={() => handleChange(item.id)}>
             <Typography
