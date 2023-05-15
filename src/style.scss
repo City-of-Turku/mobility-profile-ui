@@ -1,0 +1,46 @@
+$color-main: #006bb6;
+$color-black: #000000;
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background-color: $color-main;
+  height: 4rem;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.locale-header {
+  background-color: $color-black;
+  display: flex;
+  height: 3rem;
+  padding-left: 1rem;
+  align-items: center;
+}
+
+.locale-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.text-container {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.footer {
+  background-color: $color-main;
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
