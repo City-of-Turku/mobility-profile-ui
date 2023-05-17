@@ -8,7 +8,7 @@ const Content = () => {
     <div className="flex">
       <TopBar />
       <main>
-        <div>
+        <div className="content-container">
           <TextBasic text="app.subtitle" />
         </div>
       </main>
