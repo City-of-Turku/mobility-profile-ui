@@ -6,6 +6,18 @@ $color-black: #000000;
   flex-direction: column;
 }
 
+.active {
+  background-color: #000000 !important;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .topbar {
   background-color: $color-main;
   height: 4rem;
@@ -36,6 +48,10 @@ $color-black: #000000;
 .content-container {
   text-align: center;
   margin-top: 1rem;
+}
+
+.list-container {
+  margin: 1rem 0;
 }
 
 .footer {
