@@ -29,10 +29,3 @@ export interface QuestionListItem {
   options: OptionsItem[];
   sub_questions: SubQuestioItem[];
 }
-
-export interface PaginationProps {
-  items: QuestionListItem[];
-  itemsPerPage: number;
-  currentPage: number;
-  setCurrentPage: (e: number) => void;
-}
