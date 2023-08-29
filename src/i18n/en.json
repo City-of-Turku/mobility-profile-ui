@@ -1,5 +1,8 @@
 {
   "app.title": "Mobility survey",
   "app.subtitle": "Questions",
-  "app.footer": "City of Turku"
+  "app.footer": "City of Turku",
+  "app.buttons.previous": "Previous",
+  "app.buttons.next": "Next",
+  "app.buttons.submit": "Submit"
 }

@@ -4,11 +4,15 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { TextBasicProps } from '../../../types';
 
-const TextBasic = ({ text }: TextBasicProps) => {
+const TextBasic = ({ isTitle, text }: TextBasicProps) => {
   const theme = useTheme();
   return (
     <div className="text-container">
-      <Typography component="p" variant="body2" sx={{ m: '0.1rem', ...theme.typography.body2 }}>
+      <Typography
+        component={isTitle ? 'h3' : 'p'}
+        variant={isTitle ? 'subtitle1' : 'body2'}
+        sx={{ m: '0.1rem', ...theme.typography.body2 }}
+      >
         <FormattedMessage id={text} />
       </Typography>
     </div>

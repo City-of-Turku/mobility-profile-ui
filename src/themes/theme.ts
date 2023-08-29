@@ -53,7 +53,8 @@ export const mainTheme = createTheme({
       main: '#006BB6',
     },
     text: {
-      primary: '#0000',
+      primary: '#000000',
+      secondary: '#ffffff',
     },
   },
   typography: {

@@ -1,5 +1,8 @@
 {
   "app.title": "Liikkumisprofiili",
   "app.subtitle": "Kysymykset",
-  "app.footer": "Turun kaupunki"
+  "app.footer": "Turun kaupunki",
+  "app.buttons.previous": "Edellinen",
+  "app.buttons.next": "Seuraava",
+  "app.buttons.submit": "Lähetä"
 }
