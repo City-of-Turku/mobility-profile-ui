@@ -4,5 +4,8 @@
   "app.footer": "Turun kaupunki",
   "app.buttons.previous": "Edellinen",
   "app.buttons.next": "Seuraava",
-  "app.buttons.submit": "Lähetä"
+  "app.buttons.submit": "Lähetä",
+  "app.general.language.fi": "Suomeksi",
+  "app.general.language.en": "In English",
+  "app.general.language.sv": "På svenska"
 }

@@ -1,7 +1,6 @@
 import React from 'react';
-import QuestionList from '../QuestionList/QuestionList';
+import QuestionForm from '../QuestionForm/QuestionForm';
 import TopBar from '../TopBar/TopBar';
-import TextBasic from '../Typography/TextBasic/TextBasic';
 
 const Content = () => {
   return (
@@ -9,8 +8,7 @@ const Content = () => {
       <TopBar />
       <main>
         <div className="content-container">
-          <TextBasic isTitle text="app.subtitle" />
-          <QuestionList />
+          <QuestionForm />
         </div>
       </main>
     </div>

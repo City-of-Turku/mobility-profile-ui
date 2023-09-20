@@ -2,6 +2,13 @@ $color-main: #006bb6;
 $color-black: #000000;
 $color-white: #ffffff;
 
+$path--rel: './assets/images';
+
+@mixin background-image($img) {
+  background-image: url('#{$path--rel}/#{$img}');
+  background-repeat: no-repeat;
+}
+
 .flex {
   display: flex;
   flex-direction: column;
@@ -11,20 +18,17 @@ $color-white: #ffffff;
   background-color: $color-black !important;
 }
 
+.topbar {
+  background-image: url('./assets/images/mobility-profile-up.png');
+  background-repeat: no-repeat;
+}
+
 .pagination {
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: center;
   gap: 1rem;
-}
-
-.topbar {
-  background-color: $color-main;
-  height: 4rem;
-  padding-left: 1rem;
-  display: flex;
-  align-items: center;
 }
 
 .locale-header {
@@ -54,24 +58,18 @@ $color-white: #ffffff;
   align-items: center;
 }
 
-.content-inner {
+.form-content-inner {
   margin: 0.4rem 0;
 }
 
-.list-container {
+.form-list-container {
   margin: 1rem 0;
 }
 
 .button-container {
   display: flex;
   flex-direction: row;
-  width: 400px;
   justify-content: space-between;
-}
-
-.input-select {
-  width: 400px;
-  height: 35px;
 }
 
 .footer {

@@ -2,8 +2,10 @@ import { ButtonBase, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import settingsSlice from '../../../../redux/slices/settingsSlice';
+import LocaleUtility from '../../../../utils/locale';
 
 const LocaleSelection: React.FC = () => {
   const theme = useTheme();
@@ -17,45 +19,29 @@ const LocaleSelection: React.FC = () => {
     return setLocaleSelection(lng);
   };
 
-  const setFontWeight = (langId: string) => {
-    if (langId === locale) {
-      return '700';
-    }
-    return '400';
-  };
-
-  const languages = [
-    {
-      id: 'fi',
-      label: 'Suomeksi',
-    },
-    {
-      id: 'en',
-      label: 'In English',
-    },
-    {
-      id: 'sv',
-      label: 'På svenska',
-    },
-  ];
-
   return (
     <div className="locale-header">
       <nav className="locale-list">
-        {languages.map((item) => (
-          <ButtonBase key={item.id} role="button" onClick={() => handleChange(item.id)}>
+        {LocaleUtility.availableLocales.map((currentLocale) => (
+          <ButtonBase
+            key={currentLocale}
+            role="link"
+            lang={currentLocale}
+            aria-current={currentLocale === locale ? 'true' : false}
+            onClick={() => handleChange(currentLocale)}
+          >
             <Typography
               component="p"
               variant="subtitle2"
               sx={{
                 mb: '0.3rem',
                 pl: '0.7rem',
-                color: '#ffffff',
+                color: currentLocale === locale ? '#ffffff' : '#DEDEF1',
                 fontSize: theme.typography.body1.fontSize,
-                fontWeight: setFontWeight(item.id),
+                fontWeight: currentLocale === locale ? '700' : '400',
               }}
             >
-              {item.label}
+              <FormattedMessage id={`app.general.language.${currentLocale}`} />
             </Typography>
           </ButtonBase>
         ))}

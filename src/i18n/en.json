@@ -4,5 +4,8 @@
   "app.footer": "City of Turku",
   "app.buttons.previous": "Previous",
   "app.buttons.next": "Next",
-  "app.buttons.submit": "Submit"
+  "app.buttons.submit": "Submit",
+  "app.general.language.fi": "Suomeksi",
+  "app.general.language.en": "In English",
+  "app.general.language.sv": "På svenska"
 }

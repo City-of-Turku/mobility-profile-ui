@@ -17,10 +17,10 @@ describe('<TextBasic />', () => {
     render(
       <IntlProvider {...intlMock}>
         <ThemeProvider theme={mainTheme}>
-          <TextBasic text="Test text" />
+          <TextBasic text="app.title" isTitle />
         </ThemeProvider>
       </IntlProvider>,
     );
-    expect(screen.getByText(/Test text/)).toBeInTheDocument();
+    expect(screen.getByText(/Liikkumisprofiili/)).toBeInTheDocument();
   });
 });

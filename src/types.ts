@@ -11,21 +11,21 @@ export interface QuestionListProps {
   itemsPerPage: number;
 }
 
-export interface OptionsItem {
-  id: string;
+export interface Option {
+  id: number;
   value: string;
 }
 
-export interface SubQuestioItem {
-  id: string;
+export interface SubQuestion {
+  id: number;
   description: string;
-  options: OptionsItem[];
+  options: Option[];
 }
 
-export interface QuestionListItem {
-  id: string;
+export interface Question {
+  id: number;
   question: string;
   description: string;
-  options: OptionsItem[];
-  sub_questions: SubQuestioItem[];
+  options: Option[];
+  sub_questions: SubQuestion[];
 }

@@ -4,5 +4,8 @@
   "app.footer": "Åbo stad",
   "app.buttons.previous": "Föregående",
   "app.buttons.next": "Nästä",
-  "app.buttons.submit": "Inkomma"
+  "app.buttons.submit": "Inkomma",
+  "app.general.language.fi": "Suomeksi",
+  "app.general.language.en": "In English",
+  "app.general.language.sv": "På svenska"
 }

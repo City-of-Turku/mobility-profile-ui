@@ -25,6 +25,14 @@ module.exports = {
         test: /\.(scss|css)$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.png$/,
+        type: 'asset/inline',
+      },
+      {
+        test: /\.(jpg|webp)$/,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
