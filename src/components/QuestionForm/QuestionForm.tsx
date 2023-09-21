@@ -1,6 +1,5 @@
-import { Button, FormControl } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Question } from '../../types';
@@ -38,6 +37,19 @@ const QuestionForm = () => {
     }
   };
 
+  const formatQuestion = (inputString: string) => {
+    if (inputString.includes('(')) {
+      const parts = inputString.split(':');
+      return (
+        <>
+          <h4>{`${parts[0]}?`}</h4>
+          <h5>{parts[1]}</h5>
+        </>
+      );
+    }
+    return <h4>{inputString}</h4>;
+  };
+
   const renderList = () => {
     return (
       <div className="form-content">
@@ -45,30 +57,30 @@ const QuestionForm = () => {
           ?.slice(currentPage * itemsPerPage, currentPage * itemsPerPage + itemsPerPage)
           .map((question) => (
             <div key={question.id} className="form-content-inner">
-              <h3>{question.question}</h3>
+              <div className="text-container ml-0">{formatQuestion(question.question)}</div>
               <div className="form-list-container">
-                <FormControl fullWidth>
+                <Form.Group>
                   <ListItemCheckBox question={question} />
-                </FormControl>
+                </Form.Group>
               </div>
-              {question.sub_questions && <ListItemRadio question={question} />}
+              {question.sub_questions && (
+                <div className="form-list-container">
+                  <ListItemRadio question={question} />
+                </div>
+              )}
             </div>
           ))}
         <div className="button-container">
-          <StyledButton variant="contained" onClick={handlePrevious} disabled={currentPage === 0}>
+          <Button variant="primary" onClick={handlePrevious} disabled={currentPage === 0}>
             <FormattedMessage id="app.buttons.previous" />
-          </StyledButton>
-          <StyledButton
-            variant="contained"
-            onClick={handleNext}
-            disabled={currentPage === pageCount - 1}
-          >
+          </Button>
+          <Button variant="primary" onClick={handleNext} disabled={currentPage === pageCount - 1}>
             <FormattedMessage id="app.buttons.next" />
-          </StyledButton>
+          </Button>
           {currentPage === pageCount - 1 && (
-            <StyledButton variant="contained" type="submit">
+            <Button variant="success" type="submit">
               <FormattedMessage id="app.buttons.submit" />
-            </StyledButton>
+            </Button>
           )}
         </div>
       </div>
@@ -81,10 +93,5 @@ const QuestionForm = () => {
     </div>
   );
 };
-
-const StyledButton = styled(Button)({
-  textTransform: 'none',
-  fontSize: '1rem',
-});
 
 export default QuestionForm;

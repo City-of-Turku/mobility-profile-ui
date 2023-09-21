@@ -24,6 +24,7 @@ export interface SubQuestion {
 
 export interface Question {
   id: number;
+  number: string;
   question: string;
   description: string;
   options: Option[];
