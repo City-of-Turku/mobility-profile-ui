@@ -15,5 +15,5 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true
   },
-  "include": ["src"]
+  "include": ["src", "custom.d.ts"]
 }

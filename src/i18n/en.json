@@ -2,10 +2,14 @@
   "app.title": "Mobility survey",
   "app.subtitle": "Questions",
   "app.footer": "City of Turku",
+  "app.buttons.survey.start": "Start the survey",
   "app.buttons.previous": "Previous",
   "app.buttons.next": "Next",
   "app.buttons.submit": "Submit",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
-  "app.general.language.sv": "På svenska"
+  "app.general.language.sv": "På svenska",
+  "page.home.title": "What kind of traveller are you?",
+  "page.home.subTitle": "Take the survey.",
+  "page.home.description": "With this test you will find out your traveler profile"
 }

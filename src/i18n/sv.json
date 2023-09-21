@@ -2,10 +2,14 @@
   "app.title": "Mobilitetsökning",
   "app.subtitle": "Frågor",
   "app.footer": "Åbo stad",
+  "app.buttons.survey.start": "Start the survey",
   "app.buttons.previous": "Föregående",
   "app.buttons.next": "Nästä",
   "app.buttons.submit": "Inkomma",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
-  "app.general.language.sv": "På svenska"
+  "app.general.language.sv": "På svenska",
+  "page.home.title": "What kind of traveller are you?",
+  "page.home.subTitle": "Take the survey.",
+  "page.home.description": "With this test you will find out your traveler profile"
 }

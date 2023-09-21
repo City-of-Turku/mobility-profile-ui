@@ -2,10 +2,14 @@
   "app.title": "Liikkumisprofiili",
   "app.subtitle": "Kysymykset",
   "app.footer": "Turun kaupunki",
+  "app.buttons.survey.start": "Aloita kysely",
   "app.buttons.previous": "Edellinen",
   "app.buttons.next": "Seuraava",
   "app.buttons.submit": "Lähetä",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
-  "app.general.language.sv": "På svenska"
+  "app.general.language.sv": "På svenska",
+  "page.home.title": "Millainen liikkuja olet?",
+  "page.home.subTitle": "Tee kysely nyt.",
+  "page.home.description": "Vastaamalla kyselyyn saat selville liikkumisprofiilisi."
 }

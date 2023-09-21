@@ -70,7 +70,7 @@ const QuestionForm = () => {
               )}
             </div>
           ))}
-        <div className="button-container">
+        <div className="buttons-container">
           <Button variant="primary" onClick={handlePrevious} disabled={currentPage === 0}>
             <FormattedMessage id="app.buttons.previous" />
           </Button>

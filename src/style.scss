@@ -12,15 +12,11 @@ $path--rel: './assets/images';
 .flex {
   display: flex;
   flex-direction: column;
+  flex: 1 0 auto;
 }
 
 .active {
   background-color: $color-black !important;
-}
-
-.topbar {
-  background-image: url('./assets/images/mobility-profile-up.png');
-  background-repeat: no-repeat;
 }
 
 .pagination {
@@ -50,12 +46,28 @@ $path--rel: './assets/images';
   margin-top: 0.5rem;
 }
 
+.container-wrap {
+  width: 66%;
+  padding-left: 8%;
+  padding-top: 45px;
+}
+
 .content-container {
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.image-container {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .form-content-inner {
@@ -66,7 +78,7 @@ $path--rel: './assets/images';
   margin: 1rem 0;
 }
 
-.button-container {
+.buttons-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -76,10 +88,6 @@ $path--rel: './assets/images';
   background-color: $color-main;
   height: 3rem;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  flex-shrink: 0;
+  text-align: center;
 }
