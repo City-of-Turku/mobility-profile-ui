@@ -21,7 +21,7 @@ class LocaleUtility {
 
   // Figure out if give locale is valid locale
   static isValidLocale = (locale: string) =>
-    locale && Object.prototype.hasOwnProperty.call(LocaleUtility.messages, locale);
+    locale && Object.hasOwn(LocaleUtility.messages, locale);
 
   // Get data object with locale and messages (for React Intl)
   static intlData = (locale: string) => {

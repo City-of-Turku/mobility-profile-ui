@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Question } from '../../types';
 import { fetchQuestions } from '../../utils/mobilityProfileAPI';
+import useLocaleText from '../../utils/useLocaleText';
 import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
 import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 
@@ -12,6 +13,8 @@ import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 const QuestionForm = () => {
   const [questionListData, setQuestionListData] = useState<Array<Question>>([]);
   const [currentPage, setCurrentPage] = useState(0);
+
+  const getLocaleText = useLocaleText();
 
   const { handleSubmit } = useForm<Question>();
 
@@ -37,9 +40,17 @@ const QuestionForm = () => {
     }
   };
 
-  const formatQuestion = (inputString: string) => {
-    if (inputString.includes('(')) {
-      const parts = inputString.split(':');
+  const formatQuestion = (...texts: string[]) => {
+    const localeTexts = {
+      fi: texts[0],
+      en: texts[1],
+      sv: texts[2],
+    };
+
+    const localeText = getLocaleText(localeTexts);
+
+    if (localeText.includes('(')) {
+      const parts = localeText.split(':');
       return (
         <>
           <h4>{`${parts[0]}?`}</h4>
@@ -47,7 +58,7 @@ const QuestionForm = () => {
         </>
       );
     }
-    return <h4>{inputString}</h4>;
+    return <h4>{localeText}</h4>;
   };
 
   const renderList = () => {
@@ -57,7 +68,9 @@ const QuestionForm = () => {
           ?.slice(currentPage * itemsPerPage, currentPage * itemsPerPage + itemsPerPage)
           .map((question) => (
             <div key={question.id} className="form-content-inner">
-              <div className="text-container ml-0">{formatQuestion(question.question)}</div>
+              <div className="text-container ml-0">
+                {formatQuestion(question.question_fi, question.question_en, question.question_sv)}
+              </div>
               <div className="form-list-container">
                 <Form.Group>
                   <ListItemCheckBox question={question} />

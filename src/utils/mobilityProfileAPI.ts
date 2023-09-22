@@ -1,9 +1,7 @@
 import React from 'react';
-import { QuestionListItem } from '../types';
+import { Question } from '../types';
 
-export const fetchQuestions = async (
-  setData: React.Dispatch<React.SetStateAction<QuestionListItem[]>>,
-) => {
+export const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
   try {
     const response = await fetch('http://127.0.0.1:8000/api/v1/question/?page_size=20');
     const jsonData = await response.json();
