@@ -1,6 +1,9 @@
-export interface TextBasicProps {
-  isTitle: boolean;
+export interface TextBasicRequiredProps {
   text: string;
+}
+
+export interface TextBasicOptionalProps {
+  isTitle: boolean;
 }
 
 export interface SettingsState {

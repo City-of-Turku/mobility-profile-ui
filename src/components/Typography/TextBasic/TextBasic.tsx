@@ -2,7 +2,13 @@ import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { TextBasicProps } from '../../../types';
+import { TextBasicOptionalProps, TextBasicRequiredProps } from '../../../types';
+
+interface TextBasicProps extends TextBasicRequiredProps, TextBasicOptionalProps {}
+
+const defaultProps: TextBasicOptionalProps = {
+  isTitle: false,
+};
 
 const TextBasic = ({ isTitle, text }: TextBasicProps) => {
   const theme = useTheme();
@@ -18,5 +24,7 @@ const TextBasic = ({ isTitle, text }: TextBasicProps) => {
     </div>
   );
 };
+
+TextBasic.defaultProps = defaultProps;
 
 export default TextBasic;
