@@ -33,7 +33,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
             </th>
             {optionsArray.map((item) => (
               <th
-                key={item.value}
+                key={item.value_fi}
                 style={{ fontSize: question.number === '4' ? '0.8rem' : '1rem' }}
               >
                 {renderLocaleValue(item.value_fi, item.value_en, item.value_sv)}

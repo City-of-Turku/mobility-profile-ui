@@ -28,7 +28,6 @@ export interface Option {
 
 export interface SubQuestion {
   id: number;
-  description: string;
   description_fi: string;
   description_en: string;
   description_sv: string;
@@ -42,7 +41,6 @@ export interface Question {
   question_fi: string;
   question_en: string;
   question_sv: string;
-  description: string;
   description_fi: string;
   description_en: string;
   description_sv: string;
