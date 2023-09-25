@@ -25,7 +25,7 @@ const LocaleSelection: React.FC = () => {
         {LocaleUtility.availableLocales.map((currentLocale) => (
           <ButtonBase
             key={currentLocale}
-            role="link"
+            role="button"
             lang={currentLocale}
             aria-current={currentLocale === locale ? 'true' : false}
             onClick={() => handleChange(currentLocale)}
