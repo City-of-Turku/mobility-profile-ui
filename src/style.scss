@@ -86,7 +86,15 @@ $path--rel: './assets/images';
 
 .footer {
   background-color: $color-main;
-  height: 3rem;
+  height: 6rem;
   width: 100%;
   margin-top: auto;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 2rem;
+  height: 100%;
 }
