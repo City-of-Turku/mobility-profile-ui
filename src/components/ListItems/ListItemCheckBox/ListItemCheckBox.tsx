@@ -21,12 +21,12 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
   };
 
   return (
-    <div>
+    <div className="table-responsive">
       <Table bordered striped hover>
         <tbody>
           {question?.options?.map((option) => (
             <tr key={option.id}>
-              <td>
+              <td className="center-input">
                 <Controller
                   name={'id'}
                   control={control}

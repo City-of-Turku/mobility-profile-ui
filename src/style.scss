@@ -78,6 +78,11 @@ $path--rel: './assets/images';
   margin: 1rem 0;
 }
 
+.center-input {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
 .buttons-container {
   display: flex;
   flex-direction: row;

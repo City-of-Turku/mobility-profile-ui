@@ -3,7 +3,7 @@ import QuestionForm from '../QuestionForm/QuestionForm';
 
 const Content = () => {
   return (
-    <div className="content-container">
+    <div className="content-inner">
       <QuestionForm />
     </div>
   );

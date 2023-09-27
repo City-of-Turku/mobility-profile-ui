@@ -101,7 +101,7 @@ const QuestionForm = () => {
   };
 
   return (
-    <div className="content-wrapper">
+    <div className="form-wrapper">
       <form onSubmit={handleSubmit(onSubmit)}>{renderList()}</form>
     </div>
   );

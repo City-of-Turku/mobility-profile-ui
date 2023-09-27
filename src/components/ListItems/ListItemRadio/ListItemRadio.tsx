@@ -24,7 +24,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
   const optionsArray = question.sub_questions[0].options;
 
   return (
-    <div>
+    <div className="table-responsive">
       <Table bordered striped hover size={question.number === '4' ? 'sm' : 'md'}>
         <thead>
           <tr>
@@ -54,7 +54,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
               {subQuestion.options
                 .filter((option) => option.value !== 'None')
                 .map((option) => (
-                  <td key={option.id}>
+                  <td key={option.id} className="center-input">
                     <Controller
                       name={'id'}
                       control={control}
