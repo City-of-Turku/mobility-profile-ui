@@ -11,7 +11,7 @@ export interface SettingsState {
 }
 
 export interface User {
-  id: string;
+  userId: string;
 }
 
 export interface LocaleTextObject {
