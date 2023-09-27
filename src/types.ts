@@ -10,6 +10,10 @@ export interface SettingsState {
   localeSelection: string;
 }
 
+export interface User {
+  id: string;
+}
+
 export interface LocaleTextObject {
   [key: string]: string | undefined;
 }
