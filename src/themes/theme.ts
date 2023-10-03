@@ -1,6 +1,18 @@
 import { createTheme } from '@mui/material/styles';
 
-const baseTypography = {
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 700,
+    md: 900,
+    lg: 1280,
+    xl: 1920,
+  },
+};
+
+const spacing = 8;
+
+const typography = {
   root: {
     fontSize: 16,
     fontFamily: 'Arial, sans-serif',
@@ -18,12 +30,12 @@ const baseTypography = {
     lineHeight: 'normal',
   },
   h3: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     lineHeight: 'normal',
   },
   h4: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     lineHeight: 'normal',
   },
@@ -38,56 +50,40 @@ const baseTypography = {
     lineHeight: 'normal',
   },
   body1: {
-    lineHeight: 1.5,
     fontSize: 16,
+    lineHeight: 1.4,
   },
   body2: {
-    lineHeight: 1.5,
     fontSize: 18,
+    lineHeight: 1.5,
+  },
+};
+
+const palette = {
+  primary: {
+    main: 'rgb(0, 98, 174)',
+  },
+  secondary: {
+    main: 'rgb(0, 155, 260)',
+  },
+  yellow: {
+    main: 'rgb(255, 210, 57)',
+  },
+  white: {
+    light: '#f2f2f2',
+    main: '#fff',
+    dark: '#949494',
+    contrastText: '#000',
+  },
+  text: {
+    primary: '#000',
+    secondary: '#fff',
   },
 };
 
 export const mainTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#006BB6',
-    },
-    text: {
-      primary: '#000000',
-      secondary: '#ffffff',
-    },
-  },
-  typography: {
-    ...baseTypography.root,
-    h1: {
-      ...baseTypography.h1,
-      fontWeight: 900,
-      letterSpacing: 1,
-    },
-    h2: {
-      ...baseTypography.h2,
-      fontWeight: 900,
-      letterSpacing: 1,
-    },
-    h3: {
-      ...baseTypography.h3,
-    },
-    h4: {
-      ...baseTypography.h4,
-    },
-    h5: {
-      ...baseTypography.h5,
-    },
-    h6: {
-      ...baseTypography.h6,
-    },
-    body1: {
-      ...baseTypography.body1,
-      color: '#2B2B2B',
-    },
-    body2: {
-      ...baseTypography.body2,
-      color: '#2B2B2B',
-    },
-  },
+  breakpoints,
+  typography,
+  spacing,
+  palette,
 });

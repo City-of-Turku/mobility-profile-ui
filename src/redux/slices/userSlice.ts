@@ -4,6 +4,7 @@ import { User } from '../../types';
 
 export const initialState: User = {
   userId: '',
+  csrfToken: '',
 };
 
 export const userSlice = createSlice({
@@ -13,9 +14,12 @@ export const userSlice = createSlice({
     setUserId: (state, action: PayloadAction<string>) => {
       state.userId = action.payload;
     },
+    setCsrfToken: (state, action: PayloadAction<string>) => {
+      state.csrfToken = action.payload;
+    },
   },
 });
 
-export const { setUserId } = userSlice.actions;
+export const { setUserId, setCsrfToken } = userSlice.actions;
 
 export default userSlice;

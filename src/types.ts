@@ -12,6 +12,7 @@ export interface SettingsState {
 
 export interface User {
   userId: string;
+  csrfToken: string;
 }
 
 export interface LocaleTextObject {

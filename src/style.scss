@@ -1,6 +1,8 @@
-$color-main: #006bb6;
-$color-black: #000000;
-$color-white: #ffffff;
+$color-main: rgb(0, 98, 174);
+$color-secondary: rgb(0, 155, 216);
+$color-yellow: rgb(255, 210, 57);
+$color-black: #000;
+$color-white: #fff;
 
 $path--rel: './assets/images';
 
@@ -28,7 +30,7 @@ $path--rel: './assets/images';
 }
 
 .locale-header {
-  background-color: $color-black;
+  background-color: $color-main;
   display: flex;
   height: 3rem;
   padding-left: 1rem;

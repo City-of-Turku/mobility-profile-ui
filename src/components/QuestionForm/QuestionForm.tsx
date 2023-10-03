@@ -1,20 +1,28 @@
+import { Button, Typography } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { Question } from '../../types';
-import { fetchQuestions } from '../../utils/mobilityProfileAPI';
+import { endPoll, fetchQuestions } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
 import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 
-// TODO finalize state handling & adjust styles
+// TODO finalize state handling, form functiomality & adjust styles
 
 const QuestionForm = () => {
   const [questionListData, setQuestionListData] = useState<Array<Question>>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
+  const theme = useTheme();
+
   const getLocaleText = useLocaleText();
+
+  const { user } = useAppSelector((state) => state);
+  const token = user.csrfToken;
 
   const { handleSubmit } = useForm<Question>();
 
@@ -53,12 +61,21 @@ const QuestionForm = () => {
       const parts = localeText.split(':');
       return (
         <>
-          <h4>{`${parts[0]}?`}</h4>
-          <h5>{parts[1]}</h5>
+          <Typography
+            component="h3"
+            sx={{ mb: theme.spacing(1.2), ...theme.typography.h3 }}
+          >{`${parts[0]}?`}</Typography>
+          <Typography component="h4" sx={{ mb: theme.spacing(1), ...theme.typography.h4 }}>
+            {parts[1]}
+          </Typography>
         </>
       );
     }
-    return <h4>{localeText}</h4>;
+    return (
+      <Typography component="h3" sx={{ ...theme.typography.h3 }}>
+        {localeText}
+      </Typography>
+    );
   };
 
   const renderList = () => {
@@ -84,16 +101,25 @@ const QuestionForm = () => {
             </div>
           ))}
         <div className="buttons-container">
-          <Button variant="primary" onClick={handlePrevious} disabled={currentPage === 0}>
+          <StyledButton variant="contained" onClick={handlePrevious} disabled={currentPage === 0}>
             <FormattedMessage id="app.buttons.previous" />
-          </Button>
-          <Button variant="primary" onClick={handleNext} disabled={currentPage === pageCount - 1}>
+          </StyledButton>
+          <StyledButton
+            variant="contained"
+            onClick={handleNext}
+            disabled={currentPage === pageCount - 1}
+          >
             <FormattedMessage id="app.buttons.next" />
-          </Button>
+          </StyledButton>
           {currentPage === pageCount - 1 && (
-            <Button variant="success" type="submit">
+            <StyledButton
+              variant="contained"
+              type="submit"
+              onClick={() => endPoll(token)}
+              sx={{ backgroundColor: 'rgb(0, 133, 95)' }}
+            >
               <FormattedMessage id="app.buttons.submit" />
-            </Button>
+            </StyledButton>
           )}
         </div>
       </div>
@@ -106,5 +132,11 @@ const QuestionForm = () => {
     </div>
   );
 };
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  textTransform: 'none',
+  backgroundColor: theme.palette.primary.main,
+  ...theme.typography.body1,
+}));
 
 export default QuestionForm;
