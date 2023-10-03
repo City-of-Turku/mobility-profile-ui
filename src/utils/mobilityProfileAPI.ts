@@ -1,9 +1,12 @@
 import React from 'react';
 import { Question } from '../types';
 
+const apiUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
+const tokenUrl = process.env.REACT_APP_MOBILITY_PROFILE_API_TOKEN;
+
 const fetchToken = async () => {
   try {
-    const response = await fetch('http://127.0.0.1:8000/csrf/');
+    const response = await fetch(`${tokenUrl}/`);
     const jsonData = await response.json();
     return jsonData.csrfToken;
   } catch (error) {
@@ -16,7 +19,7 @@ const fetchToken = async () => {
 
 const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/v1/question/?page_size=20');
+    const response = await fetch(`${apiUrl}/question/?page_size=20`);
     const jsonData = await response.json();
     setData(jsonData.results);
   } catch (error) {
@@ -34,10 +37,7 @@ const startPoll = async () => {
   };
 
   try {
-    const response = await fetch(
-      'http://127.0.0.1:8000/api/v1/question/start_poll/',
-      requestOptions,
-    );
+    const response = await fetch(`${apiUrl}/question/start_poll/`, requestOptions);
     const jsonData = await response.json();
     const userValues = jsonData;
     return userValues;
@@ -61,7 +61,7 @@ const endPoll = async (csrfToken: string) => {
   };
 
   try {
-    await fetch('http://127.0.0.1:8000/api/v1/question/end_poll/', requestOptions);
+    await fetch(`${apiUrl}/question/end_poll/`, requestOptions);
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
