@@ -60,3 +60,9 @@ export interface ListItemCheckBoxProps {
 export interface ListItemRadioProps {
   question: Question;
 }
+
+export interface QuestionIdType {
+  questionId: number;
+  optionId: number;
+  subQuestionId: number;
+}

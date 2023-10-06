@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { Question } from '../../types';
 import { endPoll, fetchQuestions } from '../../utils/mobilityProfileAPI';
@@ -31,7 +32,7 @@ const QuestionForm = () => {
   }, []);
 
   // TODO update this to post data into endpoint
-  const onSubmit = (data: Question) => alert(data);
+  const onSubmit = (data: Question) => alert(JSON.stringify(data));
 
   const itemsPerPage = 1;
   const pageCount = Math.ceil(questionListData.length / itemsPerPage);
@@ -100,7 +101,7 @@ const QuestionForm = () => {
               )}
             </div>
           ))}
-        <div className="buttons-container">
+        <div className="buttons-container-flex">
           <StyledButton variant="contained" onClick={handlePrevious} disabled={currentPage === 0}>
             <FormattedMessage id="app.buttons.previous" />
           </StyledButton>
@@ -112,14 +113,16 @@ const QuestionForm = () => {
             <FormattedMessage id="app.buttons.next" />
           </StyledButton>
           {currentPage === pageCount - 1 && (
-            <StyledButton
-              variant="contained"
-              type="submit"
-              onClick={() => endPoll(token)}
-              sx={{ backgroundColor: 'rgb(0, 133, 95)' }}
-            >
-              <FormattedMessage id="app.buttons.submit" />
-            </StyledButton>
+            <Link to="/summary">
+              <StyledButton
+                variant="contained"
+                type="submit"
+                onClick={() => endPoll(token)}
+                sx={{ backgroundColor: 'rgb(0, 133, 95)' }}
+              >
+                <FormattedMessage id="app.buttons.submit" />
+              </StyledButton>
+            </Link>
           )}
         </div>
       </div>

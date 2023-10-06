@@ -17,6 +17,12 @@ $path--rel: './assets/images';
   min-height: 100vh;
 }
 
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .active {
   background-color: $color-black !important;
 }
@@ -85,7 +91,7 @@ $path--rel: './assets/images';
   vertical-align: middle !important;
 }
 
-.buttons-container {
+.buttons-container-flex {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

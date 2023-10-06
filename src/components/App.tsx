@@ -7,6 +7,7 @@ import LocaleUtility from '../utils/locale';
 import Content from './Content/Content';
 import HomePage from './Pages/HomePage/HomePage';
 import Layout from './Pages/Layout/Layout';
+import ResultPage from './Pages/ResultPage/ResultPage';
 
 const App = () => {
   const { settings } = useAppSelector((state) => state);
@@ -20,6 +21,7 @@ const App = () => {
             <Routes>
               <Route index element={<HomePage />} />
               <Route path="/questions" element={<Content />} />
+              <Route path="/summary" element={<ResultPage />} />
             </Routes>
           </Layout>
         </BrowserRouter>

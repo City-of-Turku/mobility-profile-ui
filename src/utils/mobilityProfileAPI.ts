@@ -1,5 +1,5 @@
 import React from 'react';
-import { Question } from '../types';
+import { Question, QuestionIdType } from '../types';
 
 const apiUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 const tokenUrl = process.env.REACT_APP_MOBILITY_PROFILE_API_TOKEN;
@@ -70,4 +70,82 @@ const endPoll = async (csrfToken: string) => {
   }
 };
 
-export { fetchToken, fetchQuestions, startPoll, endPoll };
+const hasQuestionCondition = async (questionId: number) => {
+  const bodyObj = {
+    question: questionId,
+  };
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    body: JSON.stringify(bodyObj),
+  };
+
+  try {
+    const response = await fetch(`${apiUrl}/question/in_condition/`, requestOptions);
+    const jsonData = await response.json();
+    const conditionValue = jsonData;
+    return conditionValue?.in_condition;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const isQuestionConditionMet = async ({ questionId, optionId, subQuestionId }: QuestionIdType) => {
+  const bodyObj = {
+    question: questionId,
+    option: optionId,
+    sub_question: subQuestionId,
+  };
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    body: JSON.stringify(bodyObj),
+  };
+
+  try {
+    const response = await fetch(`${apiUrl}/question/check_if_condition_met/`, requestOptions);
+    const jsonData = await response.json();
+    const conditionValue = jsonData;
+    return conditionValue?.condition_met;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const postQuestionAnswer = async ({ questionId, optionId, subQuestionId }: QuestionIdType) => {
+  const bodyObj = {
+    question: questionId,
+    option: optionId,
+    sub_question: subQuestionId,
+  };
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    body: JSON.stringify(bodyObj),
+  };
+
+  try {
+    const response = await fetch(`${apiUrl}/answer/`, requestOptions);
+    const jsonData = await response.json();
+    const conditionValue = jsonData;
+    return conditionValue?.condition_met;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+export {
+  fetchToken,
+  fetchQuestions,
+  startPoll,
+  endPoll,
+  hasQuestionCondition,
+  isQuestionConditionMet,
+  postQuestionAnswer,
+};
