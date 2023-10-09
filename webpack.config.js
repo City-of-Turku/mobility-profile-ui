@@ -2,9 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
+const NODE_ENV = process.env.REACT_APP_NODE_ENV;
+const isEnvProduction = NODE_ENV === 'production';
+const isEnvDevelopment = !isEnvProduction;
+
 module.exports = {
   entry: './src/index.tsx',
-  mode: 'development',
+  mode: isEnvProduction ? 'production' : 'development',
+  target: 'web',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
@@ -16,7 +21,7 @@ module.exports = {
       directory: path.resolve(__dirname, './dist'),
     },
   },
-  devtool: 'source-map',
+  devtool: isEnvDevelopment ? 'source-map' : undefined,
   module: {
     rules: [
       {
