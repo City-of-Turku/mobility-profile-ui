@@ -1,8 +1,5 @@
-$color-main: rgb(0, 98, 174);
-$color-secondary: rgb(0, 155, 216);
-$color-yellow: rgb(255, 210, 57);
-$color-black: #000;
-$color-white: #fff;
+@import './styles/base/colors.scss', './styles//base/typography.scss',
+  './styles//base/breakpoints.scss';
 
 $path--rel: './assets/images';
 
@@ -95,6 +92,11 @@ $path--rel: './assets/images';
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.button-primary {
+  background-color: $color-main;
+  color: $color-white;
 }
 
 .footer {

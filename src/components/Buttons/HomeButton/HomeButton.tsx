@@ -7,8 +7,8 @@ const HomeButton = () => {
   return (
     <div className="button-container">
       <Link to="/">
-        <Button variant="primary" role="button" type="button" className="p-2">
-          <p>
+        <Button role="button" type="button" className="button-primary p-2">
+          <p className="text-normal">
             <FormattedMessage id="app.buttons.back.home" />
           </p>
         </Button>

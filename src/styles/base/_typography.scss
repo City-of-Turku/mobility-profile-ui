@@ -1,0 +1,47 @@
+.header-root {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+}
+
+.text-normal {
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  margin-bottom: 0;
+}
+
+.header-h1 {
+  @extend .header-root;
+  font-size: 1.625rem;
+  line-height: 1.8rem;
+}
+
+.header-h2 {
+  @extend .header-root;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+
+.header-h3 {
+  @extend .header-root;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+}
+
+.header-h4 {
+  @extend .header-root;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+}
+
+.header-h5 {
+  @extend .header-root;
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+}
+
+.header-h6 {
+  @extend .header-root;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
