@@ -1,7 +1,6 @@
-import { Button, Typography } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import bgImage from '../../../assets/images/mobility-profile-up.png';
@@ -12,8 +11,6 @@ import { startPoll } from '../../../utils/mobilityProfileAPI';
 const HomePage = () => {
   const dispatch = useAppDispatch();
   const { setUserId, setCsrfToken } = bindActionCreators(userSlice.actions, dispatch);
-
-  const theme = useTheme();
 
   const handleClick = async () => {
     const userValues = await startPoll();
@@ -26,36 +23,32 @@ const HomePage = () => {
       <div className="wrap-all container-wrap">
         <div className="container">
           <div className="txt-container">
-            <Typography component="h3" sx={{ mb: theme.spacing(1.25), ...theme.typography.h1 }}>
+            <h1 className="header-h1 mb-3">
               <FormattedMessage id="page.home.title" />
-            </Typography>
-            <Typography component="h4" sx={{ mb: theme.spacing(1.25), ...theme.typography.h2 }}>
+            </h1>
+            <h2 className="header-h2 mb-3">
               <FormattedMessage id="page.home.subTitle" />
-            </Typography>
-            <Typography component="p" sx={{ mb: theme.spacing(1.25), ...theme.typography.body2 }}>
+            </h2>
+            <p className="text-normal mb-3">
               <FormattedMessage id="page.home.description" />
-            </Typography>
+            </p>
           </div>
           <div className="button-container">
             <Link to="/questions">
-              <StyledButton variant="contained" onClick={() => handleClick()}>
-                <FormattedMessage id="app.buttons.survey.start" />
-              </StyledButton>
+              <Button className="button-primary p-2" role="button" onClick={() => handleClick()}>
+                <p className="text-subtitle">
+                  <FormattedMessage id="app.buttons.survey.start" />
+                </p>
+              </Button>
             </Link>
           </div>
         </div>
       </div>
       <div className="image-container">
-        <img className="image" src={bgImage} alt="turku" />
+        <img className="image" src={bgImage} alt="turku-illustration" />
       </div>
     </div>
   );
 };
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  textTransform: 'none',
-  backgroundColor: theme.palette.primary.main,
-  ...theme.typography.body2,
-}));
 
 export default HomePage;

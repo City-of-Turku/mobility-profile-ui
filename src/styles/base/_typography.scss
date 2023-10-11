@@ -3,11 +3,22 @@
   font-weight: 700;
 }
 
-.text-normal {
+.text-root {
   font-family: Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.3rem;
   margin-bottom: 0;
+  font-weight: 400;
+}
+
+.text-normal {
+  @extend .text-root;
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
+.text-subtitle {
+  @extend .text-root;
+  font-size: 1.2rem;
+  line-height: 1.3rem;
 }
 
 .header-h1 {
