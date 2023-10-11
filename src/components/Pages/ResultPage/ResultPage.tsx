@@ -1,6 +1,6 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import HomeButton from '../../Buttons/HomeButton/HomeButton';
 
 // TODO update to show survey results to user, finalize texts & styles
 
@@ -17,11 +17,7 @@ const ResultPage = () => {
           Kyselyn tulokset näkyvät täällä.
         </Typography>
       </div>
-      <div className="button-container mt-2">
-        <Link to="/">
-          <Button variant="contained">Palaa etusivulle</Button>
-        </Link>
-      </div>
+      <HomeButton />
     </div>
   );
 };

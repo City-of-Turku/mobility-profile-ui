@@ -30,6 +30,7 @@ module.exports = () => {
     output: {
       path: path.resolve(__dirname, './dist'),
       filename: 'bundle.js',
+      publicPath: '/',
     },
     devServer: {
       port: 8080,
@@ -37,6 +38,7 @@ module.exports = () => {
       static: {
         directory: path.resolve(__dirname, './dist'),
       },
+      historyApiFallback: true,
     },
     devtool: isEnvDevelopment ? 'source-map' : undefined,
     module: {

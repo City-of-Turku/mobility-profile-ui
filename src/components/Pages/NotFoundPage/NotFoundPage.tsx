@@ -1,0 +1,23 @@
+import React from 'react';
+import { Button } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
+import HomeButton from '../../Buttons/HomeButton/HomeButton';
+
+const NotFoundPage = () => {
+  return (
+    <div className="container flex-center">
+      <div className="mb-2">
+        <h1>404</h1>
+      </div>
+      <div className="mb-2">
+        <h2>
+          <FormattedMessage id="app.general.not.found" />
+        </h2>
+      </div>
+      <HomeButton />
+    </div>
+  );
+};
+
+export default NotFoundPage;
