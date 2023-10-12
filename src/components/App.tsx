@@ -2,7 +2,6 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../hooks/reduxHooks';
-import ThemeWrapper from '../themes/ThemeWrapper';
 import LocaleUtility from '../utils/locale';
 import Content from './Content/Content';
 import HomePage from './Pages/HomePage/HomePage';
@@ -15,20 +14,18 @@ const App = () => {
   const locale = settings.localeSelection;
   const intlData = LocaleUtility.intlData(locale);
   return (
-    <ThemeWrapper>
-      <IntlProvider {...intlData}>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route index element={<HomePage />} />
-              <Route path="/questions" element={<Content />} />
-              <Route path="/summary" element={<ResultPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </IntlProvider>
-    </ThemeWrapper>
+    <IntlProvider {...intlData}>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="/questions" element={<Content />} />
+            <Route path="/summary" element={<ResultPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </IntlProvider>
   );
 };
 
