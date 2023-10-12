@@ -1,11 +1,3 @@
-export interface TextBasicRequiredProps {
-  text: string;
-}
-
-export interface TextBasicOptionalProps {
-  isTitle: boolean;
-}
-
 export interface SettingsState {
   localeSelection: string;
 }
