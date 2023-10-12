@@ -1,7 +1,5 @@
-import { Button, Typography } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
@@ -17,8 +15,6 @@ import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 const QuestionForm = () => {
   const [questionListData, setQuestionListData] = useState<Array<Question>>([]);
   const [currentPage, setCurrentPage] = useState(0);
-
-  const theme = useTheme();
 
   const getLocaleText = useLocaleText();
 
@@ -62,21 +58,12 @@ const QuestionForm = () => {
       const parts = localeText.split(':');
       return (
         <>
-          <Typography
-            component="h3"
-            sx={{ mb: theme.spacing(1.2), ...theme.typography.h3 }}
-          >{`${parts[0]}?`}</Typography>
-          <Typography component="h4" sx={{ mb: theme.spacing(1), ...theme.typography.h4 }}>
-            {parts[1]}
-          </Typography>
+          <h3 className="header-h3 mb-3">{`${parts[0]}?`}</h3>
+          <h4 className="header-h4 mb-3">{parts[1]}</h4>
         </>
       );
     }
-    return (
-      <Typography component="h3" sx={{ ...theme.typography.h3 }}>
-        {localeText}
-      </Typography>
-    );
+    return <h3 className="header-h3">{localeText}</h3>;
   };
 
   const renderList = () => {
@@ -102,26 +89,38 @@ const QuestionForm = () => {
             </div>
           ))}
         <div className="buttons-container-flex">
-          <StyledButton variant="contained" onClick={handlePrevious} disabled={currentPage === 0}>
-            <FormattedMessage id="app.buttons.previous" />
-          </StyledButton>
-          <StyledButton
-            variant="contained"
+          <Button
+            className="button-primary"
+            role="button"
+            onClick={handlePrevious}
+            disabled={currentPage === 0}
+          >
+            <p className="text-normal">
+              <FormattedMessage id="app.buttons.previous" />
+            </p>
+          </Button>
+          <Button
+            className="button-primary"
+            role="button"
             onClick={handleNext}
             disabled={currentPage === pageCount - 1}
           >
-            <FormattedMessage id="app.buttons.next" />
-          </StyledButton>
+            <p className="text-normal">
+              <FormattedMessage id="app.buttons.next" />
+            </p>
+          </Button>
           {currentPage === pageCount - 1 && (
             <Link to="/summary">
-              <StyledButton
-                variant="contained"
+              <Button
+                className="button-submit"
+                role="button"
                 type="submit"
                 onClick={() => endPoll(token)}
-                sx={{ backgroundColor: 'rgb(0, 133, 95)' }}
               >
-                <FormattedMessage id="app.buttons.submit" />
-              </StyledButton>
+                <p className="text-normal">
+                  <FormattedMessage id="app.buttons.submit" />
+                </p>
+              </Button>
             </Link>
           )}
         </div>
@@ -135,11 +134,5 @@ const QuestionForm = () => {
     </div>
   );
 };
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  textTransform: 'none',
-  backgroundColor: theme.palette.primary.main,
-  ...theme.typography.body1,
-}));
 
 export default QuestionForm;
