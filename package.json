@@ -4,8 +4,8 @@
   "description": "Mobility Profile UI",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack serve",
-    "build": "webpack --mode production --progress --hide-modules",
+    "dev": "NODE_ENV=development webpack serve",
+    "build": "NODE_ENV=production webpack --mode production --progress --hide-modules",
     "tscheck": "tsc",
     "test": "jest",
     "lint": "eslint . --fix --max-warnings=0",

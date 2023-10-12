@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = () => {
-  const NODE_ENV = process.env.REACT_APP_NODE_ENV;
+  const NODE_ENV = process.env.NODE_ENV;
   const isEnvProduction = NODE_ENV === 'production';
   const isEnvDevelopment = !isEnvProduction;
 
