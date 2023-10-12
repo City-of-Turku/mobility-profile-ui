@@ -1,14 +1,12 @@
-import { ButtonBase, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import settingsSlice from '../../../../redux/slices/settingsSlice';
 import LocaleUtility from '../../../../utils/locale';
 
 const LocaleSelection: React.FC = () => {
-  const theme = useTheme();
   const dispatch = useAppDispatch();
   const { setLocaleSelection } = bindActionCreators(settingsSlice.actions, dispatch);
 
@@ -23,27 +21,21 @@ const LocaleSelection: React.FC = () => {
     <div className="locale-header">
       <nav className="locale-list">
         {LocaleUtility.availableLocales.map((currentLocale) => (
-          <ButtonBase
+          <Button
             key={currentLocale}
-            role="button"
+            variant="link"
+            role="link"
             lang={currentLocale}
             aria-current={currentLocale === locale ? 'true' : false}
             onClick={() => handleChange(currentLocale)}
           >
-            <Typography
-              component="p"
-              variant="subtitle2"
-              sx={{
-                mb: '0.3rem',
-                pl: '0.7rem',
-                color: currentLocale === locale ? '#ffffff' : '#DEDEF1',
-                fontSize: theme.typography.body1.fontSize,
-                fontWeight: currentLocale === locale ? '700' : '400',
-              }}
+            <p
+              className={`mb-2 pl-2 ${currentLocale === locale ? 'header-h6' : 'text-normal'}`}
+              style={{ color: currentLocale === locale ? '#fff' : '#DEDEF1' }}
             >
               <FormattedMessage id={`app.general.language.${currentLocale}`} />
-            </Typography>
-          </ButtonBase>
+            </p>
+          </Button>
         ))}
       </nav>
     </div>
