@@ -26,7 +26,7 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
         <tbody>
           {question?.options?.map((option) => (
             <tr key={option.id}>
-              <td className="center-input">
+              <td className="center-input checkbox">
                 <Controller
                   name={'id'}
                   control={control}
