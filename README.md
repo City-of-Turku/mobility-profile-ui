@@ -2,6 +2,9 @@
 
 The Mobility Profile UI
 
+[![Mobility Profile UI CI](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/codeql-analysis.yml/badge.svg?branch=develop)](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/codeql-analysis.yml)
+
 ## Requirements
 
 Using following:
