@@ -1,13 +1,6 @@
 @import './styles/base/colors.scss', './styles//base/typography.scss',
   './styles//base/breakpoints.scss';
 
-$path--rel: './assets/images';
-
-@mixin background-image($img) {
-  background-image: url('#{$path--rel}/#{$img}');
-  background-repeat: no-repeat;
-}
-
 html {
   height: 100%;
 }

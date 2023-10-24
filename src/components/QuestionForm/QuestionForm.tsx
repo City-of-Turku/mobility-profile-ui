@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { Question } from '../../types';
@@ -15,6 +15,8 @@ import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 const QuestionForm = () => {
   const [questionListData, setQuestionListData] = useState<Array<Question>>([]);
   const [currentPage, setCurrentPage] = useState(0);
+
+  const intl = useIntl();
 
   const getLocaleText = useLocaleText();
 
@@ -94,20 +96,20 @@ const QuestionForm = () => {
             role="button"
             onClick={handlePrevious}
             disabled={currentPage === 0}
+            aria-disabled={currentPage === 0}
+            aria-label={intl.formatMessage({ id: 'app.buttons.previous' })}
           >
-            <p className="text-normal">
-              <FormattedMessage id="app.buttons.previous" />
-            </p>
+            <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.previous' })}</p>
           </Button>
           <Button
             className="button-primary"
             role="button"
             onClick={handleNext}
             disabled={currentPage === pageCount - 1}
+            aria-disabled={currentPage === pageCount - 1}
+            aria-label={intl.formatMessage({ id: 'app.buttons.next' })}
           >
-            <p className="text-normal">
-              <FormattedMessage id="app.buttons.next" />
-            </p>
+            <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
           </Button>
           {currentPage === pageCount - 1 && (
             <Link to="/summary">
@@ -116,10 +118,9 @@ const QuestionForm = () => {
                 role="button"
                 type="submit"
                 onClick={() => endPoll(token)}
+                aria-label={intl.formatMessage({ id: 'app.buttons.submit' })}
               >
-                <p className="text-normal">
-                  <FormattedMessage id="app.buttons.submit" />
-                </p>
+                <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.submit' })}</p>
               </Button>
             </Link>
           )}

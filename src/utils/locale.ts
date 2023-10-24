@@ -13,8 +13,8 @@ class LocaleUtility {
   // Translation messages
   static messages = {
     fi: messagesFi,
-    en: messagesEn,
     sv: messagesSv,
+    en: messagesEn,
   };
 
   static availableLocales = Object.keys(LocaleUtility.messages);

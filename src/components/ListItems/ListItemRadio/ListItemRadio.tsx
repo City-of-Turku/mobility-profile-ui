@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { ListItemRadioProps, Question } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 
 const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
   const [subOptions, setSubOptions] = useState<string[]>([]);
+
+  const intl = useIntl();
 
   const { control } = useForm<Question>();
 
@@ -29,7 +31,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
         <thead>
           <tr>
             <th style={{ fontSize: question.number === '4' ? '0.8rem' : '1rem' }}>
-              <FormattedMessage id="app.text.options" />
+              {intl.formatMessage({ id: 'app.text.options' })}
             </th>
             {optionsArray.map((item) => (
               <th

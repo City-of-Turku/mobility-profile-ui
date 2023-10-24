@@ -1,7 +1,7 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import bgImage from '../../../assets/images/mobility-profile-up.png';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
@@ -11,6 +11,8 @@ import { startPoll } from '../../../utils/mobilityProfileAPI';
 const HomePage = () => {
   const dispatch = useAppDispatch();
   const { setUserId, setCsrfToken } = bindActionCreators(userSlice.actions, dispatch);
+
+  const intl = useIntl();
 
   const handleClick = async () => {
     const userValues = await startPoll();
@@ -23,21 +25,22 @@ const HomePage = () => {
       <div className="wrap-all container-wrap">
         <div className="container">
           <div className="txt-container">
-            <h1 className="header-h1 mb-3">
-              <FormattedMessage id="page.home.title" />
-            </h1>
-            <h2 className="header-h2 mb-3">
-              <FormattedMessage id="page.home.subTitle" />
-            </h2>
+            <h1 className="header-h1 mb-3">{intl.formatMessage({ id: 'page.home.title' })}</h1>
+            <h2 className="header-h2 mb-3">{intl.formatMessage({ id: 'page.home.subTitle' })}</h2>
             <p className="text-normal mb-3">
-              <FormattedMessage id="page.home.description" />
+              {intl.formatMessage({ id: 'page.home.description' })}
             </p>
           </div>
           <div className="button-container">
             <Link to="/questions">
-              <Button className="button-primary p-2" role="button" onClick={() => handleClick()}>
+              <Button
+                className="button-primary p-2"
+                role="button"
+                aria-label={intl.formatMessage({ id: 'app.buttons.survey.start' })}
+                onClick={() => handleClick()}
+              >
                 <p className="text-subtitle">
-                  <FormattedMessage id="app.buttons.survey.start" />
+                  {intl.formatMessage({ id: 'app.buttons.survey.start' })}
                 </p>
               </Button>
             </Link>

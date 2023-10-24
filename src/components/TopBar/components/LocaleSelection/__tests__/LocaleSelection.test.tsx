@@ -19,7 +19,7 @@ describe('<LocaleSelection />', () => {
     const { container } = renderWithProviders(<LocaleSelection />);
     const p = container.querySelectorAll('p');
     expect(p[0].textContent).toContain(finnishTranslations['app.general.language.fi']);
-    expect(p[1].textContent).toContain(finnishTranslations['app.general.language.en']);
-    expect(p[2].textContent).toContain(finnishTranslations['app.general.language.sv']);
+    expect(p[1].textContent).toContain(finnishTranslations['app.general.language.sv']);
+    expect(p[2].textContent).toContain(finnishTranslations['app.general.language.en']);
   });
 });
