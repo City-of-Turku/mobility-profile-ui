@@ -1,6 +1,6 @@
 import React from 'react';
-import scaleUpLogo from '../../assets/images/scale-up-logo.png';
-import turkuLogo from '../../assets/images/turku-logo-sm.png';
+import scaleUpLogo from '../../assets/images/scale-up-logo.webp';
+import turkuLogo from '../../assets/images/turku-logo-sm.webp';
 
 const Footer = () => {
   return (

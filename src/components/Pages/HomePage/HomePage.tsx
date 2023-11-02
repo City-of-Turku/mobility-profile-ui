@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import bgImage from '../../../assets/images/mobility-profile-up.png';
+import bgImage from '../../../assets/images/mobility-profile-up.webp';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import userSlice from '../../../redux/slices/userSlice';
 import { startPoll } from '../../../utils/mobilityProfileAPI';
