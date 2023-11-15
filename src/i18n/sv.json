@@ -2,7 +2,7 @@
   "app.title": "Mobilitetsökning",
   "app.subtitle": "Frågor",
   "app.footer": "Åbo stad",
-  "app.buttons.survey.start": "Start the survey",
+  "app.buttons.survey.start": "Starta testet",
   "app.buttons.previous": "Föregående",
   "app.buttons.next": "Nästä",
   "app.buttons.submit": "Inkomma",
@@ -13,7 +13,7 @@
   "app.general.not.found": "Sidan hittas inte",
   "app.general.summary": "Sammanfattning",
   "app.text.options": "Valmöjligheter",
-  "page.home.title": "What kind of traveller are you?",
-  "page.home.subTitle": "Take the survey.",
-  "page.home.description": "With this test you will find out your traveler profile."
+  "page.home.title": "Hur rör du dig?",
+  "page.home.subTitle": "Gör Åbos mobilitetsprofiltest.",
+  "page.home.description": "Med den här enkäten får du inte bara reda på din mobilitetsprofil, utan vi ger dig också användbara tips om mobilitetsalternativ som kan vara av intresse för dig."
 }

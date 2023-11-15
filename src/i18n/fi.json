@@ -2,7 +2,7 @@
   "app.title": "Liikkumisprofiili",
   "app.subtitle": "Kysymykset",
   "app.footer": "Turun kaupunki",
-  "app.buttons.survey.start": "Aloita kysely",
+  "app.buttons.survey.start": "Aloita testi",
   "app.buttons.previous": "Edellinen",
   "app.buttons.next": "Seuraava",
   "app.buttons.submit": "Lähetä",
@@ -14,6 +14,6 @@
   "app.general.summary": "Yhteenveto",
   "app.text.options": "Vaihtoehdot",
   "page.home.title": "Millainen liikkuja olet?",
-  "page.home.subTitle": "Vastaa kyselyyn.",
-  "page.home.description": "Vastaamalla kyselyyn saat selville omat liikkumistottumuksesi."
+  "page.home.subTitle": "Tee Turun liikkumistesti.",
+  "page.home.description": "Tällä kyselyllä et ainoastaan selvitä liikkumisprofiilisi, vaan tarjoamme sinulle myös hyödyllisiä vinkkejä sinua mahdollisesti kiinnostavista liikkumisvaihtoehdoista."
 }
