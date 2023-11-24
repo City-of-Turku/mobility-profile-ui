@@ -35,7 +35,7 @@ const LocaleSelection: React.FC = () => {
             onClick={() => handleChange(currentLocale)}
           >
             <p
-              className={`mb-2 pl-2 ${currentLocale === locale ? 'header-h6' : 'text-normal'}`}
+              className={`mb-1 pl-2 ${currentLocale === locale ? 'header-h6' : 'text-normal'}`}
               style={{ color: currentLocale === locale ? '#fff' : '#DEDEF1' }}
             >
               {intl.formatMessage({ id: `app.general.language.${currentLocale}` })}

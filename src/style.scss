@@ -110,6 +110,12 @@ body {
   color: $color-white;
 }
 
+.button-locale {
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
 .checkbox {
   width: 50px;
 }
