@@ -7,6 +7,7 @@ import martenImg from '../../../assets/images/marten.webp';
 import mooseImg from '../../../assets/images/moose.webp';
 import rabbitImg from '../../../assets/images/rabbit.webp';
 import useLocaleText from '../../../utils/useLocaleText';
+import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
 
 //TODO update to show survey results to user, finalize texts & styles
@@ -15,15 +16,6 @@ const ResultPage = () => {
   const intl = useIntl();
 
   const getLocaleText = useLocaleText();
-
-  const renderLocaleValue = (...values: string[]) => {
-    const localeTexts = {
-      fi: values[0],
-      en: values[1],
-      sv: values[2],
-    };
-    return getLocaleText(localeTexts);
-  };
 
   // TODO take this values from data
   const item = {
@@ -78,12 +70,17 @@ const ResultPage = () => {
       </div>
       <div className="text-container mb-2">
         <p className="header-h4">
-          {renderLocaleValue(item.value_fi, item.value_en, item.value_sv)}
+          {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
         </p>
       </div>
       <div className="text-container mb-2">
         <p className="text-normal">
-          {renderLocaleValue(item.description_fi, item.description_en, item.description_sv)}
+          {renderLocaleValue(
+            getLocaleText,
+            item.description_fi,
+            item.description_en,
+            item.description_sv,
+          )}
         </p>
       </div>
       <div className="image-flex-container">

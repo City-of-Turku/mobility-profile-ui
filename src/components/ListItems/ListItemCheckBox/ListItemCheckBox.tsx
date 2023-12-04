@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { ListItemCheckBoxProps, Question } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
+import { renderLocaleValue } from '../../../utils/utils';
 
 const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
   const [mainOptions, setMainOptions] = useState<string[]>([]);
@@ -10,15 +11,6 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
   const { control } = useForm<Question>();
 
   const getLocaleText = useLocaleText();
-
-  const renderLocaleValue = (...values: string[]) => {
-    const localeTexts = {
-      fi: values[0],
-      en: values[1],
-      sv: values[2],
-    };
-    return getLocaleText(localeTexts);
-  };
 
   return (
     <div className="table-responsive">
@@ -42,7 +34,12 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
               </td>
               <td>
                 <label>
-                  {renderLocaleValue(option.value_fi, option.value_en, option.value_sv)}
+                  {renderLocaleValue(
+                    getLocaleText,
+                    option.value_fi,
+                    option.value_en,
+                    option.value_sv,
+                  )}
                 </label>
               </td>
             </tr>

@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { ListItemRadioProps, Question } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
+import { renderLocaleValue } from '../../../utils/utils';
 
 const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
   const [subOptions, setSubOptions] = useState<string[]>([]);
@@ -13,15 +14,6 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
   const { control } = useForm<Question>();
 
   const getLocaleText = useLocaleText();
-
-  const renderLocaleValue = (...values: string[]) => {
-    const localeTexts = {
-      fi: values[0],
-      en: values[1],
-      sv: values[2],
-    };
-    return getLocaleText(localeTexts);
-  };
 
   const optionsArray = question.sub_questions[0].options;
 
@@ -38,7 +30,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
                 key={item.value_fi}
                 style={{ fontSize: question.number === '4' ? '0.8rem' : '1rem' }}
               >
-                {renderLocaleValue(item.value_fi, item.value_en, item.value_sv)}
+                {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
               </th>
             ))}
           </tr>
@@ -48,6 +40,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
             <tr key={subQuestion.id}>
               <td style={{ fontSize: question.number === '4' ? '0.8rem' : '1rem' }}>
                 {renderLocaleValue(
+                  getLocaleText,
                   subQuestion.description_fi,
                   subQuestion.description_en,
                   subQuestion.description_sv,

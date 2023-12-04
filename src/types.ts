@@ -58,3 +58,7 @@ export interface QuestionIdType {
   optionId: number;
   subQuestionId: number;
 }
+
+export interface GetLocaleTextFunction {
+  (localeTexts: { fi: string; en: string; sv: string }): string;
+}
