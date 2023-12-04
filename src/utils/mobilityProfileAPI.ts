@@ -1,5 +1,5 @@
 import React from 'react';
-import { Question, QuestionIdType } from '../types';
+import { Question, QuestionIdType, Result } from '../types';
 
 const apiUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 const tokenUrl = process.env.REACT_APP_MOBILITY_PROFILE_API_TOKEN;
@@ -20,6 +20,19 @@ const fetchToken = async () => {
 const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
   try {
     const response = await fetch(`${apiUrl}/question/?page_size=20`);
+    const jsonData = await response.json();
+    setData(jsonData.results);
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const fetchProfileResults = async (setData: React.Dispatch<React.SetStateAction<Result[]>>) => {
+  try {
+    const response = await fetch(`${apiUrl}/result/`);
     const jsonData = await response.json();
     setData(jsonData.results);
   } catch (error) {
@@ -143,6 +156,7 @@ const postQuestionAnswer = async ({ questionId, optionId, subQuestionId }: Quest
 export {
   fetchToken,
   fetchQuestions,
+  fetchProfileResults,
   startPoll,
   endPoll,
   hasQuestionCondition,

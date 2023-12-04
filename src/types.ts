@@ -59,6 +59,17 @@ export interface QuestionIdType {
   subQuestionId: number;
 }
 
+export interface Result {
+  id: number;
+  value: string;
+  value_fi: string;
+  value_en: string;
+  value_sv: string;
+  description_fi: string;
+  description_en: string;
+  description_sv: string;
+}
+
 export interface GetLocaleTextFunction {
   (localeTexts: { fi: string; en: string; sv: string }): string;
 }
