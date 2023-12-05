@@ -65,7 +65,7 @@ const ResultPage = () => {
   };
 
   return (
-    <div className="container flex-center">
+    <section className="container flex-center">
       <div className="text-container">
         <h5 className="header-h3 mb-2">{intl.formatMessage({ id: 'app.general.summary' })}</h5>
       </div>
@@ -87,12 +87,12 @@ const ResultPage = () => {
             </p>
           </div>
           <div className="image-flex-container">
-            <img src={getProfile(item.value)} className="image-profile" alt="illustration" />
+            <img src={getProfile(item.value)} className="img-fluid" alt="illustration" />
           </div>
         </React.Fragment>
       ))}
       <HomeButton />
-    </div>
+    </section>
   );
 };
 
