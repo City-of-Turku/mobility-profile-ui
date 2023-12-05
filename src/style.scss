@@ -54,6 +54,7 @@ body {
 
 .text-container {
   margin-left: 1rem;
+  margin-right: 1rem;
   margin-top: 0.5rem;
 }
 
@@ -75,9 +76,7 @@ body {
   width: 100%;
 }
 
-.image-flex-container {
-  display: flex;
-  justify-content: center;
+.image-container-md {
   width: 50%;
   height: 50%;
 }
@@ -146,5 +145,15 @@ body {
   .container-wrap {
     width: 99%;
     padding: 1rem;
+  }
+
+  .image-container-md {
+    width: 75%;
+    height: 75%;
+  }
+
+  .text-container {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
   }
 }

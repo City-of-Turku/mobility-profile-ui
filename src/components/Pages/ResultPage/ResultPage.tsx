@@ -86,7 +86,7 @@ const ResultPage = () => {
               )}
             </p>
           </div>
-          <div className="image-flex-container">
+          <div className="image-container-md">
             <img src={getProfile(item.value)} className="img-fluid" alt="illustration" />
           </div>
         </React.Fragment>
