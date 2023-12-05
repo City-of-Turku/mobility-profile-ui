@@ -144,3 +144,10 @@ body {
   margin-left: 2rem;
   height: 100%;
 }
+
+@media (max-width: $screen-sm-max) {
+  .container-wrap {
+    width: 99%;
+    padding: 1rem;
+  }
+}
