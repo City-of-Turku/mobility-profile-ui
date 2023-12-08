@@ -73,3 +73,7 @@ export interface Result {
 export interface GetLocaleTextFunction {
   (localeTexts: { fi: string; en: string; sv: string }): string;
 }
+
+export interface EmailForm {
+  email: string;
+}

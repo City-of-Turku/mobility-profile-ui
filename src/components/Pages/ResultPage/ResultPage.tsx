@@ -11,6 +11,7 @@ import { fetchProfileResults } from '../../../utils/mobilityProfileAPI';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
+import EmailField from '../../EmailField/EmailField';
 
 //TODO update to show survey results to user, finalize texts & styles
 
@@ -26,7 +27,7 @@ const ResultPage = () => {
   }, []);
 
   // TODO get this from data
-  const profileValue = 'Nokkela Näätä';
+  const profileValue = 'Käytännöllinen Kettu';
 
   const profileResult: Result[] = profileResults.reduce((acc: Result[], curr: Result) => {
     if (curr.value === profileValue) {
@@ -91,6 +92,7 @@ const ResultPage = () => {
           </div>
         </React.Fragment>
       ))}
+      <EmailField />
       <HomeButton />
     </section>
   );
