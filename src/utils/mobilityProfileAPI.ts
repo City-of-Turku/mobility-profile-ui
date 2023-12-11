@@ -43,6 +43,19 @@ const fetchProfileResults = async (setData: React.Dispatch<React.SetStateAction<
   }
 };
 
+const fetchUserResult = async (setData: React.Dispatch<React.SetStateAction<Result>>) => {
+  try {
+    const response = await fetch(`${apiUrl}/answer/get_result/`);
+    const jsonData = await response.json();
+    setData(jsonData);
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
 const startPoll = async () => {
   const requestOptions: RequestInit = {
     method: 'POST',
@@ -157,6 +170,7 @@ export {
   fetchToken,
   fetchQuestions,
   fetchProfileResults,
+  fetchUserResult,
   startPoll,
   endPoll,
   hasQuestionCondition,
