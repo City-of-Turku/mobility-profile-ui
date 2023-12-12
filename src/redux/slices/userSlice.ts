@@ -5,6 +5,16 @@ import { User } from '../../types';
 export const initialState: User = {
   userId: '',
   csrfToken: '',
+  profileResult: {
+    id: 0,
+    value: '',
+    value_fi: '',
+    value_en: '',
+    value_sv: '',
+    description_fi: '',
+    description_en: '',
+    description_sv: '',
+  },
 };
 
 export const userSlice = createSlice({
@@ -17,9 +27,12 @@ export const userSlice = createSlice({
     setCsrfToken: (state, action: PayloadAction<string>) => {
       state.csrfToken = action.payload;
     },
+    setProfileResult: (state, action) => {
+      state.profileResult = action.payload;
+    },
   },
 });
 
-export const { setUserId, setCsrfToken } = userSlice.actions;
+export const { setUserId, setCsrfToken, setProfileResult } = userSlice.actions;
 
 export default userSlice;

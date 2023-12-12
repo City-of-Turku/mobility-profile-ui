@@ -5,6 +5,7 @@ export interface SettingsState {
 export interface User {
   userId: string;
   csrfToken: string;
+  profileResult: Result;
 }
 
 export interface LocaleTextObject {
