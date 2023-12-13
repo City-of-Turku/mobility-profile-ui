@@ -46,6 +46,11 @@ export interface Question {
   sub_questions: SubQuestion[];
 }
 
+export interface QuestionNumber {
+  id: number;
+  number: string;
+}
+
 export interface ListItemCheckBoxProps {
   question: Question;
 }

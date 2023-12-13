@@ -1,13 +1,44 @@
 import React from 'react';
-import { Question, QuestionIdType, Result } from '../types';
+import { Question, QuestionIdType, QuestionNumber, Result } from '../types';
 
 const apiUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 
 const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
   try {
-    const response = await fetch(`${apiUrl}/question/?page_size=20`);
+    const response = await fetch(`${apiUrl}/question/?page_size=25`);
     const jsonData = await response.json();
     setData(jsonData.results);
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const fetchQuestionNumbers = async (
+  setData: React.Dispatch<React.SetStateAction<QuestionNumber[]>>,
+) => {
+  try {
+    const response = await fetch(`${apiUrl}/question/get_question_numbers/?page_size=30`);
+    const jsonData = await response.json();
+    setData(jsonData.results);
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const fetchOneQuestion = async (
+  questionId: number,
+  setData: React.Dispatch<React.SetStateAction<Question>>,
+) => {
+  try {
+    const response = await fetch(`${apiUrl}/question/${questionId}/`);
+    const jsonData = await response.json();
+    setData(jsonData);
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
@@ -162,6 +193,8 @@ const postQuestionAnswer = async (
 
 export {
   fetchQuestions,
+  fetchOneQuestion,
+  fetchQuestionNumbers,
   fetchProfileResults,
   fetchUserResult,
   startPoll,
