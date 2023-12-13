@@ -2,20 +2,6 @@ import React from 'react';
 import { Question, QuestionIdType, Result } from '../types';
 
 const apiUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
-const tokenUrl = process.env.REACT_APP_MOBILITY_PROFILE_API_TOKEN;
-
-const fetchToken = async () => {
-  try {
-    const response = await fetch(`${tokenUrl}/`);
-    const jsonData = await response.json();
-    return jsonData.csrfToken;
-  } catch (error) {
-    let message;
-    if (error instanceof Error) message = error.message;
-    else message = String(error);
-    console.warn(message);
-  }
-};
 
 const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
   try {
@@ -59,7 +45,6 @@ const fetchUserResult = async (setData: React.Dispatch<React.SetStateAction<Resu
 const startPoll = async () => {
   const requestOptions: RequestInit = {
     method: 'POST',
-    credentials: 'include',
   };
 
   try {
@@ -83,7 +68,6 @@ const endPoll = async (csrfToken: string) => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
-    credentials: 'include',
   };
 
   try {
@@ -118,14 +102,16 @@ const hasQuestionCondition = async (questionId: number) => {
   }
 };
 
-const isQuestionConditionMet = async ({ questionId, optionId, subQuestionId }: QuestionIdType) => {
+const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken: string) => {
+  const headers = new Headers({
+    'X-CSRFToken': csrfToken,
+  });
   const bodyObj = {
     question: questionId,
-    option: optionId,
-    sub_question: subQuestionId,
   };
   const requestOptions: RequestInit = {
     method: 'POST',
+    headers: headers,
     body: JSON.stringify(bodyObj),
   };
 
@@ -142,7 +128,14 @@ const isQuestionConditionMet = async ({ questionId, optionId, subQuestionId }: Q
   }
 };
 
-const postQuestionAnswer = async ({ questionId, optionId, subQuestionId }: QuestionIdType) => {
+const postQuestionAnswer = async (
+  { questionId, optionId, subQuestionId }: QuestionIdType,
+  csrfToken: string,
+) => {
+  const headers = new Headers({
+    'X-CSRFToken': csrfToken,
+  });
+
   const bodyObj = {
     question: questionId,
     option: optionId,
@@ -150,6 +143,7 @@ const postQuestionAnswer = async ({ questionId, optionId, subQuestionId }: Quest
   };
   const requestOptions: RequestInit = {
     method: 'POST',
+    headers: headers,
     body: JSON.stringify(bodyObj),
   };
 
@@ -167,7 +161,6 @@ const postQuestionAnswer = async ({ questionId, optionId, subQuestionId }: Quest
 };
 
 export {
-  fetchToken,
   fetchQuestions,
   fetchProfileResults,
   fetchUserResult,
