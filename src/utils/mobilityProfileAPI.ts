@@ -93,7 +93,7 @@ const startPoll = async () => {
 
 const endPoll = async (csrfToken: string) => {
   const headers = new Headers({
-    'X-CSRFToken': csrfToken,
+    'X-CSRFTOKEN': csrfToken,
   });
 
   const requestOptions: RequestInit = {
@@ -111,12 +111,16 @@ const endPoll = async (csrfToken: string) => {
   }
 };
 
-const hasQuestionCondition = async (questionId: number) => {
+const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
+  const headers = new Headers({
+    'X-CSRFTOKEN': csrfToken,
+  });
   const bodyObj = {
     question: questionId,
   };
   const requestOptions: RequestInit = {
     method: 'POST',
+    headers: headers,
     body: JSON.stringify(bodyObj),
   };
 
