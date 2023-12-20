@@ -74,8 +74,13 @@ const fetchUserResult = async (setData: React.Dispatch<React.SetStateAction<Resu
 };
 
 const startPoll = async () => {
+  const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  });
   const requestOptions: RequestInit = {
     method: 'POST',
+    headers: headers,
   };
 
   try {
@@ -93,7 +98,9 @@ const startPoll = async () => {
 
 const endPoll = async (csrfToken: string) => {
   const headers = new Headers({
-    'X-CSRFTOKEN': csrfToken,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
   });
 
   const requestOptions: RequestInit = {
@@ -113,7 +120,9 @@ const endPoll = async (csrfToken: string) => {
 
 const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
   const headers = new Headers({
-    'X-CSRFTOKEN': csrfToken,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
   });
   const bodyObj = {
     question: questionId,
@@ -139,6 +148,8 @@ const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
 
 const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken: string) => {
   const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
     'X-CSRFToken': csrfToken,
   });
   const bodyObj = {
@@ -168,6 +179,8 @@ const postQuestionAnswer = async (
   csrfToken: string,
 ) => {
   const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
     'X-CSRFToken': csrfToken,
   });
 
