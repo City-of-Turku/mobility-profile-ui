@@ -162,7 +162,41 @@ const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken:
   };
 
   try {
-    const response = await fetch(`${apiUrl}/question/check_if_condition_met/`, requestOptions);
+    const response = await fetch(
+      `${apiUrl}/question/check_if_question_condition_met/`,
+      requestOptions,
+    );
+    const jsonData = await response.json();
+    const conditionValue = jsonData;
+    return conditionValue?.condition_met;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrfToken: string) => {
+  const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
+  });
+  const bodyObj = {
+    sub_question: subQuestionId,
+  };
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(bodyObj),
+  };
+
+  try {
+    const response = await fetch(
+      `${apiUrl}/question/check_if_sub_question_condition_met/`,
+      requestOptions,
+    );
     const jsonData = await response.json();
     const conditionValue = jsonData;
     return conditionValue?.condition_met;
@@ -218,5 +252,6 @@ export {
   endPoll,
   hasQuestionCondition,
   isQuestionConditionMet,
+  isSubQuestionConditionMet,
   postQuestionAnswer,
 };
