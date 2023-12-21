@@ -29,6 +29,9 @@ const QuestionForm2 = () => {
 
   const { handleSubmit } = useForm<Question>();
 
+  /**
+   * Fetch first question
+   */
   useEffect(() => {
     fetchOneQuestion(questionId, setQuestionData);
   }, [questionId]);
@@ -55,20 +58,28 @@ const QuestionForm2 = () => {
     }, [] as QuestionNumber[]);
   };
 
+  const lastItem = sortedQuestionsData.slice(-1);
+
+  useEffect(() => {
+    const items = filterQuestionNumbers();
+    const questionItemNumber = items[0]?.number;
+    const lastQuestienNumber = lastItem[0]?.number;
+    if (questionItemNumber === lastQuestienNumber) {
+      setIsLastPage(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastItem, questionIndex]);
+
   // TODO update this to post data into endpoint
   const onSubmit = (data: Question) => console.warn(JSON.stringify(data));
 
-  // TODO Improve logic that sets isLastPage value
+  // TODO Add remaining POST requests (hasCondition & isConditionMet)
   const handleNext = () => {
     setQuestionIndex(questionIndex + 1);
     const items = filterQuestionNumbers();
     const questionIdValue = items[0]?.id;
     if (questionIdValue) {
       fetchOneQuestion(questionIdValue, setQuestionData);
-    }
-    // TODO Maybe move this elsewhere & refactor
-    if (!questionIdValue || !items?.length) {
-      setIsLastPage(true);
     }
   };
 
@@ -120,6 +131,8 @@ const QuestionForm2 = () => {
             className="button-primary"
             role="button"
             onClick={handleNext}
+            disabled={isLastPage}
+            aria-disabled={isLastPage}
             aria-label={intl.formatMessage({ id: 'app.buttons.next' })}
           >
             <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
