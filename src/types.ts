@@ -97,6 +97,14 @@ interface GetLocaleTextFunction {
 
 interface EmailForm {
   email: string;
+  postal_code: string;
+  optional_postal_code: string;
+  is_filled_for_fun: boolean;
+  result_can_be_used: boolean;
+}
+
+interface UserInfo {
+  userInfo: EmailForm;
 }
 
 export {
@@ -116,4 +124,5 @@ export {
   Result,
   GetLocaleTextFunction,
   EmailForm,
+  UserInfo,
 };

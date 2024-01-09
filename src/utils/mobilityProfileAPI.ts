@@ -1,7 +1,16 @@
 import React from 'react';
-import { Question, QuestionAnswer, QuestionIdType, QuestionNumber, Result } from '../types';
+import {
+  Question,
+  QuestionAnswer,
+  QuestionIdType,
+  QuestionNumber,
+  Result,
+  UserInfo,
+} from '../types';
 
-const apiUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
+const apiBaseUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
+const apiVersion = process.env.REACT_APP_MOBILITY_PROFILE_API_VERSION;
+const apiUrl = `${apiBaseUrl}${apiVersion}`;
 
 const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
   try {
@@ -234,6 +243,32 @@ const postQuestionAnswer = async ({ questionAnswer }: QuestionAnswer, csrfToken:
   }
 };
 
+const postUserInfo = async ({ userInfo }: UserInfo, csrfToken: string) => {
+  const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
+  });
+
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(userInfo),
+  };
+
+  try {
+    const response = await fetch(`${apiBaseUrl}/account/profile/save_email/`, requestOptions);
+    const jsonData = await response.json();
+    const conditionValue = jsonData;
+    return conditionValue?.condition_met;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
 export {
   fetchQuestions,
   fetchOneQuestion,
@@ -246,4 +281,5 @@ export {
   isQuestionConditionMet,
   isSubQuestionConditionMet,
   postQuestionAnswer,
+  postUserInfo,
 };
