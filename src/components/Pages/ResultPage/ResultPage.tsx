@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 import capercaillieImg from '../../../assets/images/capercaillie.webp';
 import deerImg from '../../../assets/images/deer.webp';
@@ -7,13 +7,13 @@ import martenImg from '../../../assets/images/marten.webp';
 import mooseImg from '../../../assets/images/moose.webp';
 import rabbitImg from '../../../assets/images/rabbit.webp';
 import { useAppSelector } from '../../../hooks/reduxHooks';
-import { logoutUser } from '../../../utils/mobilityProfileAPI';
+// import { logoutUser } from '../../../utils/mobilityProfileAPI';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
 import EmailField from '../../EmailField/EmailField';
 
-//TODO finalize functionality, texts & styles
+//TODO finalize logout functionality, texts & styles
 
 const ResultPage = () => {
   const intl = useIntl();
@@ -23,7 +23,7 @@ const ResultPage = () => {
   const { user } = useAppSelector((state) => state);
 
   const userResult = user.profileResult;
-  const token = user.csrfToken;
+  // const token = user.csrfToken;
 
   const mobilityProfiles = {
     moose: mooseImg,
@@ -54,9 +54,9 @@ const ResultPage = () => {
     }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     logoutUser(token);
-  }, [token]);
+  }, [token]); */
 
   return (
     <section className="container flex-center">
@@ -84,9 +84,11 @@ const ResultPage = () => {
             )}
           </p>
         </div>
-        <div className="image-container-md">
-          <img src={getProfile(userResult.value)} className="img-fluid" alt="illustration" />
-        </div>
+        {userResult?.value.length ? (
+          <div className="image-container-md">
+            <img src={getProfile(userResult.value)} className="img-fluid" alt="illustration" />
+          </div>
+        ) : null}
       </React.Fragment>
       <EmailField />
       <HomeButton />
