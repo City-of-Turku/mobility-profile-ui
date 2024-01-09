@@ -1,11 +1,13 @@
+import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import userSlice from '../../redux/slices/userSlice';
 import { Question, QuestionNumber } from '../../types';
-import { endPoll, fetchOneQuestion } from '../../utils/mobilityProfileAPI';
+import { fetchOneQuestion, fetchUserResult } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
 import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
@@ -22,8 +24,10 @@ const QuestionForm2 = () => {
 
   const getLocaleText = useLocaleText();
 
-  const { user, question } = useAppSelector((state) => state);
-  const token = user.csrfToken;
+  const dispatch = useAppDispatch();
+  const { setProfileResult } = bindActionCreators(userSlice.actions, dispatch);
+
+  const { question } = useAppSelector((state) => state);
   const questionId = question.questionId;
   const questionNumbersData = question.questionNumbers;
 
@@ -70,10 +74,14 @@ const QuestionForm2 = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastItem, questionIndex]);
 
+  const endPoll = () => {
+    fetchUserResult(setProfileResult);
+  };
+
   // TODO update this to post data into endpoint
   const onSubmit = (data: Question) => console.warn(JSON.stringify(data));
 
-  // TODO Add remaining POST requests (hasCondition & isConditionMet)
+  // TODO Add remaining POST requests (hasCondition, isConditionMet & answer)
   const handleNext = () => {
     setQuestionIndex(questionIndex + 1);
     const items = filterQuestionNumbers();
@@ -143,7 +151,7 @@ const QuestionForm2 = () => {
                 className="button-submit"
                 role="button"
                 type="submit"
-                onClick={() => endPoll(token)}
+                onClick={() => endPoll()}
                 aria-label={intl.formatMessage({ id: 'app.buttons.submit' })}
               >
                 <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.submit' })}</p>

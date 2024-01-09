@@ -9,6 +9,15 @@ export const initialState = {
       number: '1',
     },
   ],
+  questionAnswer: {
+    question: 1,
+    option: '1',
+  },
+  subQuestionAnswer: {
+    question: 1,
+    option: '1',
+    sub_question: '1',
+  },
 };
 
 export const questionSlice = createSlice({
@@ -21,9 +30,16 @@ export const questionSlice = createSlice({
     setQuestionNumbers: (state, action) => {
       state.questionNumbers = action.payload;
     },
+    setQuestionAnswer: (state, action) => {
+      state.questionAnswer = action.payload;
+    },
+    setSubQuestionAnswer: (state, action) => {
+      state.subQuestionAnswer = action.payload;
+    },
   },
 });
 
-export const { setQuestionId, setQuestionNumbers } = questionSlice.actions;
+export const { setQuestionId, setQuestionNumbers, setQuestionAnswer, setSubQuestionAnswer } =
+  questionSlice.actions;
 
 export default questionSlice;

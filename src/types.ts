@@ -1,22 +1,22 @@
-export interface SettingsState {
+interface SettingsState {
   localeSelection: string;
 }
 
-export interface User {
+interface User {
   userId: string;
   csrfToken: string;
   profileResult: Result;
 }
 
-export interface LocaleTextObject {
+interface LocaleTextObject {
   [key: string]: string | undefined;
 }
 
-export interface QuestionListProps {
+interface QuestionListProps {
   itemsPerPage: number;
 }
 
-export interface Option {
+interface Option {
   id: number;
   value: string;
   value_fi: string;
@@ -24,7 +24,7 @@ export interface Option {
   value_sv: string;
 }
 
-export interface SubQuestion {
+interface SubQuestion {
   id: number;
   description_fi: string;
   description_en: string;
@@ -32,7 +32,7 @@ export interface SubQuestion {
   options: Option[];
 }
 
-export interface Question {
+interface Question {
   id: number;
   number: string;
   question: string;
@@ -46,26 +46,41 @@ export interface Question {
   sub_questions: SubQuestion[];
 }
 
-export interface QuestionNumber {
+interface QuestionNumber {
   id: number;
   number: string;
 }
 
-export interface ListItemCheckBoxProps {
+interface QuestionAnswer {
+  questionAnswer: {
+    question: number;
+    option: string;
+  };
+}
+
+interface SubQuestionAnswer {
+  subQuestionAnswer: {
+    question: number;
+    option: string;
+    sub_question: string;
+  };
+}
+
+interface ListItemCheckBoxProps {
   question: Question;
 }
 
-export interface ListItemRadioProps {
+interface ListItemRadioProps {
   question: Question;
 }
 
-export interface QuestionIdType {
+interface QuestionIdType {
   questionId: number;
   optionId: number;
   subQuestionId: number;
 }
 
-export interface Result {
+interface Result {
   id: number;
   value: string;
   value_fi: string;
@@ -76,10 +91,29 @@ export interface Result {
   description_sv: string;
 }
 
-export interface GetLocaleTextFunction {
+interface GetLocaleTextFunction {
   (localeTexts: { fi: string; en: string; sv: string }): string;
 }
 
-export interface EmailForm {
+interface EmailForm {
   email: string;
 }
+
+export {
+  SettingsState,
+  User,
+  LocaleTextObject,
+  QuestionListProps,
+  Option,
+  Question,
+  SubQuestion,
+  QuestionNumber,
+  QuestionAnswer,
+  SubQuestionAnswer,
+  ListItemCheckBoxProps,
+  ListItemRadioProps,
+  QuestionIdType,
+  Result,
+  GetLocaleTextFunction,
+  EmailForm,
+};

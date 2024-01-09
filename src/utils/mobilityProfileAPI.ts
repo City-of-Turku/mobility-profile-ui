@@ -1,5 +1,5 @@
 import React from 'react';
-import { Question, QuestionIdType, QuestionNumber, Result } from '../types';
+import { Question, QuestionAnswer, QuestionIdType, QuestionNumber, Result } from '../types';
 
 const apiUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 
@@ -96,7 +96,7 @@ const startPoll = async () => {
   }
 };
 
-const endPoll = async (csrfToken: string) => {
+const logoutUser = async (csrfToken: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -208,25 +208,17 @@ const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrf
   }
 };
 
-const postQuestionAnswer = async (
-  { questionId, optionId, subQuestionId }: QuestionIdType,
-  csrfToken: string,
-) => {
+const postQuestionAnswer = async ({ questionAnswer }: QuestionAnswer, csrfToken: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'X-CSRFToken': csrfToken,
   });
 
-  const bodyObj = {
-    question: questionId,
-    option: optionId,
-    sub_question: subQuestionId,
-  };
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify(bodyObj),
+    body: JSON.stringify(questionAnswer),
   };
 
   try {
@@ -249,7 +241,7 @@ export {
   fetchProfileResults,
   fetchUserResult,
   startPoll,
-  endPoll,
+  logoutUser,
   hasQuestionCondition,
   isQuestionConditionMet,
   isSubQuestionConditionMet,
