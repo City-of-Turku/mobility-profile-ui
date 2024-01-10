@@ -21,7 +21,7 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
   const setObject = () => {
     return {
       question: question.id,
-      option: mainOptions[0],
+      option: Number(mainOptions[0]),
     };
   };
 

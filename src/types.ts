@@ -22,6 +22,7 @@ interface Option {
   value_fi: string;
   value_en: string;
   value_sv: string;
+  sub_question: string;
 }
 
 interface SubQuestion {
@@ -44,6 +45,7 @@ interface Question {
   description_sv: string;
   options: Option[];
   sub_questions: SubQuestion[];
+  sub_question: number;
 }
 
 interface QuestionNumber {

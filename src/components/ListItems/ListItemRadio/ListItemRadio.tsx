@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import { bindActionCreators } from '@reduxjs/toolkit';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import questionSlice from '../../../redux/slices/questionSlice';
 import { ListItemRadioProps, Question } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
@@ -11,11 +14,28 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
 
   const intl = useIntl();
 
+  const dispatch = useAppDispatch();
+  const { setSubQuestionAnswer } = bindActionCreators(questionSlice.actions, dispatch);
+
   const { control } = useForm<Question>();
 
   const getLocaleText = useLocaleText();
 
   const optionsArray = question.sub_questions[0].options;
+
+  const setObject = () => {
+    return {
+      question: question.id,
+      option: Number(subOptions[0]),
+      sub_question: subOptions[1],
+    };
+  };
+
+  useEffect(() => {
+    const answerObj = setObject();
+    setSubQuestionAnswer(answerObj);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subOptions]);
 
   return (
     <div className="table-responsive">
@@ -53,12 +73,14 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
                     <Controller
                       name={'id'}
                       control={control}
-                      defaultValue={1}
                       render={({ field }) => (
                         <input
-                          type="radio"
                           {...field}
-                          onChange={(event) => setSubOptions([...subOptions, event.target.value])}
+                          type="radio"
+                          value={option.id}
+                          onChange={(event) =>
+                            setSubOptions([...subOptions, event.target.value, option.sub_question])
+                          }
                         />
                       )}
                     />
