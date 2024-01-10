@@ -7,7 +7,6 @@ import martenImg from '../../../assets/images/marten.webp';
 import mooseImg from '../../../assets/images/moose.webp';
 import rabbitImg from '../../../assets/images/rabbit.webp';
 import { useAppSelector } from '../../../hooks/reduxHooks';
-// import { logoutUser } from '../../../utils/mobilityProfileAPI';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
@@ -53,10 +52,6 @@ const ResultPage = () => {
         return 'helppo hirvi';
     }
   };
-
-  /* useEffect(() => {
-    logoutUser(token);
-  }, [token]); */
 
   return (
     <section className="container flex-center">
