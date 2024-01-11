@@ -56,22 +56,22 @@ const fetchOneQuestion = async (
   }
 };
 
-const fetchProfileResults = async (setData: React.Dispatch<React.SetStateAction<Result[]>>) => {
-  try {
-    const response = await fetch(`${apiUrl}/result/`);
-    const jsonData = await response.json();
-    setData(jsonData.results);
-  } catch (error) {
-    let message;
-    if (error instanceof Error) message = error.message;
-    else message = String(error);
-    console.warn(message);
-  }
-};
+const fetchUserResult = async (
+  csrfToken: string,
+  setData: React.Dispatch<React.SetStateAction<Result>>,
+) => {
+  const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
+  });
 
-const fetchUserResult = async (setData: React.Dispatch<React.SetStateAction<Result>>) => {
+  const requestOptions: RequestInit = {
+    headers: headers,
+  };
+
   try {
-    const response = await fetch(`${apiUrl}/answer/get_result/`);
+    const response = await fetch(`${apiUrl}/answer/get_result/`, requestOptions);
     const jsonData = await response.json();
     setData(jsonData);
   } catch (error) {
@@ -273,7 +273,6 @@ export {
   fetchQuestions,
   fetchOneQuestion,
   fetchQuestionNumbers,
-  fetchProfileResults,
   fetchUserResult,
   startPoll,
   logoutUser,
