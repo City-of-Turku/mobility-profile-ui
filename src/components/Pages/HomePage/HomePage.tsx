@@ -44,7 +44,7 @@ const HomePage = () => {
   const handleClick = async () => {
     const userValues = await startPoll();
     setUserId(userValues?.id);
-    setCsrfToken(userValues?.csrf_token);
+    setCsrfToken(userValues?.csrftoken);
   };
 
   return (
