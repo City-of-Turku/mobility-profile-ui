@@ -79,7 +79,7 @@ const ResultPage = () => {
             )}
           </p>
         </div>
-        {userResult?.value.length ? (
+        {userResult?.value?.length ? (
           <div className="image-container-md">
             <img src={getProfile(userResult.value)} className="img-fluid" alt="illustration" />
           </div>
