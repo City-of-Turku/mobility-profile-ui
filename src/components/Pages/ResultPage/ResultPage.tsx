@@ -56,8 +56,13 @@ const ResultPage = () => {
   return (
     <section className="container flex-center">
       <div className="text-container">
-        <h5 className="header-h3 mb-2">{intl.formatMessage({ id: 'app.general.summary' })}</h5>
+        <h3 className="header-h3 mb-2">{intl.formatMessage({ id: 'app.general.summary' })}</h3>
       </div>
+      {!userResult || !userResult?.value.length ? (
+        <div>
+          <p className="text-error mb-2">{intl.formatMessage({ id: 'app.result.error' })}</p>
+        </div>
+      ) : null}
       <React.Fragment>
         <div className="text-container mb-2">
           <p className="header-h4">

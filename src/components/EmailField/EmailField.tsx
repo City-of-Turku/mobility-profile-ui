@@ -27,9 +27,6 @@ const EmailField = () => {
 
   return (
     <div className="mb-3">
-      <div className="mb-2">
-        <p className="text-normal">{intl.formatMessage({ id: 'app.text.newsletter' })}</p>
-      </div>
       <div className="flex-center">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-2">

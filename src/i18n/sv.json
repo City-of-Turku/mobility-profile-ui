@@ -22,5 +22,6 @@
   "app.text.newsletter": "Do you want to subscribe to our our newsletter?",
   "page.home.title": "Hur rör du dig?",
   "page.home.subTitle": "Gör Åbos mobilitetsprofiltest.",
-  "page.home.description": "Med den här enkäten får du inte bara reda på din mobilitetsprofil, utan vi ger dig också användbara tips om mobilitetsalternativ som kan vara av intresse för dig."
+  "page.home.description": "Med den här enkäten får du inte bara reda på din mobilitetsprofil, utan vi ger dig också användbara tips om mobilitetsalternativ som kan vara av intresse för dig.",
+  "app.result.error": "There was an error."
 }

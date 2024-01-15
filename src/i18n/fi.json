@@ -22,5 +22,6 @@
   "app.text.newsletter": "Haluatko tilata uutiskirjeen?",
   "page.home.title": "Millainen liikkuja olet?",
   "page.home.subTitle": "Tee Turun liikkumistesti.",
-  "page.home.description": "Tällä kyselyllä et ainoastaan selvitä liikkumisprofiilisi, vaan tarjoamme sinulle myös hyödyllisiä vinkkejä sinua mahdollisesti kiinnostavista liikkumisvaihtoehdoista."
+  "page.home.description": "Tällä kyselyllä et ainoastaan selvitä liikkumisprofiilisi, vaan tarjoamme sinulle myös hyödyllisiä vinkkejä sinua mahdollisesti kiinnostavista liikkumisvaihtoehdoista.",
+  "app.result.error": "Tapahtui virhe."
 }

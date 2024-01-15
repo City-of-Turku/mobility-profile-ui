@@ -21,6 +21,13 @@
   line-height: 1.3rem;
 }
 
+.text-error {
+  @extend .text-root;
+  font-size: 1.2rem;
+  line-height: 1.35rem;
+  color: red;
+}
+
 .header-h1 {
   @extend .header-root;
   font-size: 1.625rem;

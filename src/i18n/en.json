@@ -22,5 +22,6 @@
   "app.text.newsletter": "Do you want to subscribe to our our newsletter?",
   "page.home.title": "How do you move around?",
   "page.home.subTitle": "Take the Turku mobility test.",
-  "page.home.description": "With this survey, you will not only find out your mobility profile, but we will also offer you useful tips about the mobility options that might interest you."
+  "page.home.description": "With this survey, you will not only find out your mobility profile, but we will also offer you useful tips about the mobility options that might interest you.",
+  "app.result.error": "There was an error."
 }
