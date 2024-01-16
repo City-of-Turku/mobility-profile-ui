@@ -97,16 +97,15 @@ interface GetLocaleTextFunction {
   (localeTexts: { fi: string; en: string; sv: string }): string;
 }
 
-interface EmailForm {
+interface EmailField {
   email: string;
+}
+
+interface UserFormTypes {
   postal_code: string;
   optional_postal_code: string;
   is_filled_for_fun: boolean;
   result_can_be_used: boolean;
-}
-
-interface UserInfo {
-  userInfo: EmailForm;
 }
 
 export {
@@ -125,6 +124,6 @@ export {
   QuestionIdType,
   Result,
   GetLocaleTextFunction,
-  EmailForm,
-  UserInfo,
+  EmailField,
+  UserFormTypes,
 };

@@ -10,7 +10,8 @@ import { useAppSelector } from '../../../hooks/reduxHooks';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
-import EmailField from '../../EmailField/EmailField';
+import EmailForm from '../../Forms/EmailForm/EmailForm';
+import UserForm from '../../Forms/UserForm/UserForm';
 
 //TODO finalize logout functionality, texts & styles
 
@@ -90,7 +91,8 @@ const ResultPage = () => {
           </div>
         ) : null}
       </React.Fragment>
-      <EmailField />
+      <EmailForm />
+      <UserForm />
       <HomeButton />
     </section>
   );

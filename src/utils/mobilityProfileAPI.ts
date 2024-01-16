@@ -5,7 +5,7 @@ import {
   QuestionIdType,
   QuestionNumber,
   Result,
-  UserInfo,
+  UserFormTypes,
 } from '../types';
 
 const apiBaseUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
@@ -243,7 +243,7 @@ const postQuestionAnswer = async ({ questionAnswer }: QuestionAnswer, csrfToken:
   }
 };
 
-const postUserInfo = async ({ userInfo }: UserInfo, csrfToken: string) => {
+const postUserInfo = async (data: UserFormTypes, userId: string, csrfToken: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -251,13 +251,44 @@ const postUserInfo = async ({ userInfo }: UserInfo, csrfToken: string) => {
   });
 
   const requestOptions: RequestInit = {
-    method: 'POST',
+    method: 'PUT',
     headers: headers,
-    body: JSON.stringify(userInfo),
+    body: JSON.stringify(data),
   };
 
   try {
-    const response = await fetch(`${apiBaseUrl}/account/profile/save_email/`, requestOptions);
+    const response = await fetch(`${apiBaseUrl}/account/profile/${userId}/`, requestOptions);
+    const jsonData = await response.json();
+    const conditionValue = jsonData;
+    return conditionValue?.condition_met;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const postSubscribeInfo = async (email: string, resultId: number, csrfToken: string) => {
+  const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
+  });
+
+  const emailData = {
+    email: email,
+    result: resultId,
+  };
+
+  const requestOptions: RequestInit = {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(emailData),
+  };
+
+  try {
+    const response = await fetch(`${apiBaseUrl}/account/subscribe/`, requestOptions);
     const jsonData = await response.json();
     const conditionValue = jsonData;
     return conditionValue?.condition_met;
@@ -281,4 +312,5 @@ export {
   isSubQuestionConditionMet,
   postQuestionAnswer,
   postUserInfo,
+  postSubscribeInfo,
 };
