@@ -23,7 +23,6 @@ const ResultPage = () => {
   const { user } = useAppSelector((state) => state);
 
   const userResult = user.profileResult;
-  // const token = user.csrfToken;
 
   const mobilityProfiles = {
     moose: mooseImg,
@@ -60,31 +59,35 @@ const ResultPage = () => {
         <h3 className="header-h3 mb-2">{intl.formatMessage({ id: 'app.general.summary' })}</h3>
       </div>
       {!userResult || !userResult?.value.length ? (
-        <div>
-          <p className="text-error mb-2">{intl.formatMessage({ id: 'app.result.error' })}</p>
+        <div className="mb-3">
+          <p className="text-error">{intl.formatMessage({ id: 'app.result.error' })}</p>
         </div>
       ) : null}
       <React.Fragment>
-        <div className="text-container mb-2">
-          <p className="header-h4">
-            {renderLocaleValue(
-              getLocaleText,
-              userResult.value_fi,
-              userResult.value_en,
-              userResult.value_sv,
-            )}
-          </p>
-        </div>
-        <div className="text-container mb-2">
-          <p className="text-normal">
-            {renderLocaleValue(
-              getLocaleText,
-              userResult.description_fi,
-              userResult.description_en,
-              userResult.description_sv,
-            )}
-          </p>
-        </div>
+        {userResult?.value_fi?.length ? (
+          <div className="text-container mb-2">
+            <p className="header-h4">
+              {renderLocaleValue(
+                getLocaleText,
+                userResult.value_fi,
+                userResult.value_en,
+                userResult.value_sv,
+              )}
+            </p>
+          </div>
+        ) : null}
+        {userResult?.description_fi?.length ? (
+          <div className="text-container mb-2">
+            <p className="text-normal">
+              {renderLocaleValue(
+                getLocaleText,
+                userResult.description_fi,
+                userResult.description_en,
+                userResult.description_sv,
+              )}
+            </p>
+          </div>
+        ) : null}
         {userResult?.value?.length ? (
           <div className="image-container-md">
             <img src={getProfile(userResult.value)} className="img-fluid" alt="illustration" />
