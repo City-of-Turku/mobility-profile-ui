@@ -27,9 +27,10 @@ const QuestionForm2 = () => {
   const dispatch = useAppDispatch();
   const { setProfileResult } = bindActionCreators(userSlice.actions, dispatch);
 
-  const { question } = useAppSelector((state) => state);
+  const { question, user } = useAppSelector((state) => state);
   const questionId = question.questionId;
   const questionNumbersData = question.questionNumbers;
+  const token = user.csrfToken;
 
   const { handleSubmit } = useForm<Question>();
 
@@ -75,7 +76,7 @@ const QuestionForm2 = () => {
   }, [lastItem, questionIndex]);
 
   const endPoll = () => {
-    fetchUserResult(setProfileResult);
+    fetchUserResult(token, setProfileResult);
   };
 
   // TODO update this to post data into endpoint
