@@ -5,6 +5,7 @@ import { useAppSelector } from '../hooks/reduxHooks';
 import LocaleUtility from '../utils/locale';
 import Content from './Content/Content';
 import HomePage from './Pages/HomePage/HomePage';
+import InfoPage from './Pages/InfoPage/InfoPage';
 import Layout from './Pages/Layout/Layout';
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 import ResultPage from './Pages/ResultPage/ResultPage';
@@ -20,6 +21,7 @@ const App = () => {
           <Routes>
             <Route index element={<HomePage />} />
             <Route path="/questions" element={<Content />} />
+            <Route path="/info" element={<InfoPage />} />
             <Route path="/summary" element={<ResultPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

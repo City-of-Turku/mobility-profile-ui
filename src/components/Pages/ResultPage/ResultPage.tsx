@@ -11,7 +11,6 @@ import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
 import EmailForm from '../../Forms/EmailForm/EmailForm';
-import UserForm from '../../Forms/UserForm/UserForm';
 
 //TODO finalize logout functionality, texts & styles
 
@@ -58,7 +57,7 @@ const ResultPage = () => {
       <div className="text-container">
         <h3 className="header-h3 mb-2">{intl.formatMessage({ id: 'app.general.summary' })}</h3>
       </div>
-      {!userResult || !userResult?.value.length ? (
+      {!userResult || !userResult?.value?.length ? (
         <div className="mb-3">
           <p className="text-error">{intl.formatMessage({ id: 'app.result.error' })}</p>
         </div>
@@ -95,7 +94,6 @@ const ResultPage = () => {
         ) : null}
       </React.Fragment>
       <EmailForm />
-      <UserForm />
       <HomeButton />
     </section>
   );

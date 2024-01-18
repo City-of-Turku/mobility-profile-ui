@@ -147,7 +147,7 @@ const QuestionForm2 = () => {
             <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
           </Button>
           {isLastPage && (
-            <Link to="/summary">
+            <Link to="/info">
               <Button
                 className="button-submit"
                 role="button"

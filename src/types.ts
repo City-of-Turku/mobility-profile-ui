@@ -108,6 +108,11 @@ interface UserFormTypes {
   result_can_be_used: boolean;
 }
 
+interface LinkButtonProps {
+  urlValue: string;
+  translationId: string;
+}
+
 export {
   SettingsState,
   User,
@@ -126,4 +131,5 @@ export {
   GetLocaleTextFunction,
   EmailField,
   UserFormTypes,
+  LinkButtonProps,
 };
