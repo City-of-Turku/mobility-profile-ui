@@ -108,9 +108,14 @@ interface UserFormTypes {
   result_can_be_used: boolean;
 }
 
+interface UserFormProps {
+  setAnswerStatus: (a: boolean) => void;
+}
+
 interface LinkButtonProps {
   urlValue: string;
   translationId: string;
+  isActive: boolean;
 }
 
 export {
@@ -131,5 +136,6 @@ export {
   GetLocaleTextFunction,
   EmailField,
   UserFormTypes,
+  UserFormProps,
   LinkButtonProps,
 };

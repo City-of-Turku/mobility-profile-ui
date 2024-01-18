@@ -2,10 +2,10 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
-import { UserFormTypes } from '../../../types';
+import { UserFormProps, UserFormTypes } from '../../../types';
 import { postUserInfo } from '../../../utils/mobilityProfileAPI';
 
-const UserForm = () => {
+const UserForm = ({ setAnswerStatus }: UserFormProps) => {
   const intl = useIntl();
 
   const { user } = useAppSelector((state) => state);
@@ -27,6 +27,7 @@ const UserForm = () => {
 
   const onSubmit: SubmitHandler<UserFormTypes> = (data) => {
     if (userId?.length) {
+      setAnswerStatus(true);
       postUserInfo(data, userId, token);
     }
   };
@@ -50,6 +51,7 @@ const UserForm = () => {
                 aria-invalid={errors.postal_code ? true : false}
                 className="form-control"
               />
+              <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
             </div>
             <div className="mb-2 form-group">
               <label htmlFor="optional_postal_code" className="text-label mb-1">

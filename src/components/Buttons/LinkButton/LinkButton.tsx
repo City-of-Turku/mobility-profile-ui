@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { LinkButtonProps } from '../../../types';
 
-const LinkButton = ({ urlValue, translationId }: LinkButtonProps) => {
+const LinkButton = ({ urlValue, translationId, isActive }: LinkButtonProps) => {
   const intl = useIntl();
   return (
     <div className="button-container">
@@ -12,6 +12,7 @@ const LinkButton = ({ urlValue, translationId }: LinkButtonProps) => {
         <Button
           role="button"
           type="button"
+          disabled={!isActive}
           className="button-primary p-2"
           aria-label={intl.formatMessage({ id: translationId })}
         >
