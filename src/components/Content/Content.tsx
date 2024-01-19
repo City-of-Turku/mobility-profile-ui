@@ -1,10 +1,10 @@
 import React from 'react';
-import QuestionForm2 from '../QuestionForm2/QuestionForm2';
+import QuestionForm from '../QuestionForm/QuestionForm';
 
 const Content = () => {
   return (
     <div className="content-inner">
-      <QuestionForm2 />
+      <QuestionForm />
     </div>
   );
 };

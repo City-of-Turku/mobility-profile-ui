@@ -1,49 +1,93 @@
+import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/reduxHooks';
-import { Question } from '../../types';
-import { endPoll, fetchQuestions } from '../../utils/mobilityProfileAPI';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import userSlice from '../../redux/slices/userSlice';
+import { Question, QuestionNumber } from '../../types';
+import { fetchOneQuestion, fetchUserResult } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
 import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 
-// TODO finalize state handling, form functiomality & adjust styles
+// TODO finalize state handling, form functiomality, add remaining POST requests & adjust styles.
 
 const QuestionForm = () => {
-  const [questionListData, setQuestionListData] = useState<Array<Question>>([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [questionData, setQuestionData] = useState<Question>({} as Question);
+  const [questionIndex, setQuestionIndex] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
 
   const intl = useIntl();
 
   const getLocaleText = useLocaleText();
 
-  const { user } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const { setProfileResult } = bindActionCreators(userSlice.actions, dispatch);
+
+  const { question, user } = useAppSelector((state) => state);
+  const questionId = question.questionId;
+  const questionNumbersData = question.questionNumbers;
   const token = user.csrfToken;
 
   const { handleSubmit } = useForm<Question>();
 
+  /**
+   * Fetch first question
+   */
   useEffect(() => {
-    fetchQuestions(setQuestionListData);
-  }, []);
+    fetchOneQuestion(questionId, setQuestionData);
+  }, [questionId]);
 
-  // TODO update this to post data into endpoint
-  const onSubmit = (data: Question) => alert(JSON.stringify(data));
+  const questionNumbersDataItems = [...questionNumbersData];
 
-  const itemsPerPage = 1;
-  const pageCount = Math.ceil(questionListData.length / itemsPerPage);
+  const sortedQuestionsData = questionNumbersDataItems?.sort((a, b) => {
+    const numA = parseInt(a.number, 10);
+    const numB = parseInt(b.number, 10);
 
-  const handleNext = () => {
-    if (currentPage < pageCount - 1) {
-      setCurrentPage((prevPage) => prevPage + 1);
+    if (!isNaN(numA) && !isNaN(numB)) {
+      return numA - numB;
+    } else {
+      return a.number.localeCompare(b.number);
     }
+  });
+
+  const filterQuestionNumbers = () => {
+    return sortedQuestionsData.reduce((filteredQuestions, item, index) => {
+      if (index === questionIndex) {
+        filteredQuestions.push(item);
+      }
+      return filteredQuestions;
+    }, [] as QuestionNumber[]);
   };
 
-  const handlePrevious = () => {
-    if (currentPage > 0) {
-      setCurrentPage((prevPage) => prevPage - 1);
+  const lastItem = sortedQuestionsData.slice(-1);
+
+  useEffect(() => {
+    const items = filterQuestionNumbers();
+    const questionItemNumber = items[0]?.number;
+    const lastQuestienNumber = lastItem[0]?.number;
+    if (questionItemNumber === lastQuestienNumber) {
+      setIsLastPage(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastItem, questionIndex]);
+
+  const endPoll = () => {
+    fetchUserResult(token, setProfileResult);
+  };
+
+  // TODO update this to post data into endpoint
+  const onSubmit = (data: Question) => console.warn(JSON.stringify(data));
+
+  // TODO Add remaining POST requests (hasCondition, isConditionMet & answer)
+  const handleNext = () => {
+    setQuestionIndex(questionIndex + 1);
+    const items = filterQuestionNumbers();
+    const questionIdValue = items[0]?.id;
+    if (questionIdValue) {
+      fetchOneQuestion(questionIdValue, setQuestionData);
     }
   };
 
@@ -71,53 +115,43 @@ const QuestionForm = () => {
   const renderList = () => {
     return (
       <div className="form-content">
-        {questionListData
-          ?.slice(currentPage * itemsPerPage, currentPage * itemsPerPage + itemsPerPage)
-          .map((question) => (
-            <div key={question.id} className="form-content-inner">
-              <div className="text-container ml-0">
-                {formatQuestion(question.question_fi, question.question_en, question.question_sv)}
-              </div>
-              <div className="form-list-container">
-                <Form.Group>
-                  <ListItemCheckBox question={question} />
-                </Form.Group>
-              </div>
-              {question.sub_questions && (
-                <div className="form-list-container">
-                  <ListItemRadio question={question} />
-                </div>
-              )}
+        <div key={questionData.id} className="form-content-inner">
+          <div className="text-container ml-0">
+            {formatQuestion(
+              questionData.question_fi,
+              questionData.question_en,
+              questionData.question_sv,
+            )}
+          </div>
+          <div className="form-list-container">
+            <Form.Group>
+              <ListItemCheckBox question={questionData} />
+            </Form.Group>
+          </div>
+          {questionData.sub_questions && (
+            <div className="form-list-container">
+              <ListItemRadio question={questionData} />
             </div>
-          ))}
+          )}
+        </div>
         <div className="buttons-container-flex">
           <Button
             className="button-primary"
             role="button"
-            onClick={handlePrevious}
-            disabled={currentPage === 0}
-            aria-disabled={currentPage === 0}
-            aria-label={intl.formatMessage({ id: 'app.buttons.previous' })}
-          >
-            <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.previous' })}</p>
-          </Button>
-          <Button
-            className="button-primary"
-            role="button"
             onClick={handleNext}
-            disabled={currentPage === pageCount - 1}
-            aria-disabled={currentPage === pageCount - 1}
+            disabled={isLastPage}
+            aria-disabled={isLastPage}
             aria-label={intl.formatMessage({ id: 'app.buttons.next' })}
           >
             <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
           </Button>
-          {currentPage === pageCount - 1 && (
-            <Link to="/summary">
+          {isLastPage && (
+            <Link to="/info">
               <Button
                 className="button-submit"
                 role="button"
                 type="submit"
-                onClick={() => endPoll(token)}
+                onClick={() => endPoll()}
                 aria-label={intl.formatMessage({ id: 'app.buttons.submit' })}
               >
                 <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.submit' })}</p>
