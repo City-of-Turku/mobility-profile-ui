@@ -54,18 +54,9 @@ interface QuestionNumber {
 }
 
 interface QuestionAnswer {
-  questionAnswer: {
-    question: number;
-    option: string;
-  };
-}
-
-interface SubQuestionAnswer {
-  subQuestionAnswer: {
-    question: number;
-    option: string;
-    sub_question: string;
-  };
+  question: number;
+  option: number;
+  sub_question?: number;
 }
 
 interface ListItemCheckBoxProps {
@@ -128,7 +119,6 @@ export {
   SubQuestion,
   QuestionNumber,
   QuestionAnswer,
-  SubQuestionAnswer,
   ListItemCheckBoxProps,
   ListItemRadioProps,
   QuestionIdType,

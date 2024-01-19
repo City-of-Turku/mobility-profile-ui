@@ -63,11 +63,12 @@ const fetchUserResult = async (
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
 
   const requestOptions: RequestInit = {
     headers: headers,
+    credentials: 'include',
   };
 
   try {
@@ -109,12 +110,13 @@ const logoutUser = async (csrfToken: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
 
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
+    credentials: 'include',
   };
 
   try {
@@ -131,7 +133,7 @@ const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
   const bodyObj = {
     question: questionId,
@@ -139,6 +141,7 @@ const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
+    credentials: 'include',
     body: JSON.stringify(bodyObj),
   };
 
@@ -146,7 +149,7 @@ const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
     const response = await fetch(`${apiUrl}/question/in_condition/`, requestOptions);
     const jsonData = await response.json();
     const conditionValue = jsonData;
-    return conditionValue?.in_condition;
+    return conditionValue;
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
@@ -159,7 +162,7 @@ const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken:
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
   const bodyObj = {
     question: questionId,
@@ -167,6 +170,7 @@ const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken:
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
+    credentials: 'include',
     body: JSON.stringify(bodyObj),
   };
 
@@ -190,7 +194,7 @@ const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrf
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
   const bodyObj = {
     sub_question: subQuestionId,
@@ -198,6 +202,7 @@ const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrf
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
+    credentials: 'include',
     body: JSON.stringify(bodyObj),
   };
 
@@ -217,17 +222,29 @@ const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrf
   }
 };
 
-const postQuestionAnswer = async ({ questionAnswer }: QuestionAnswer, csrfToken: string) => {
+const postQuestionAnswer = async (questionAnswer: QuestionAnswer, csrfToken: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
+
+  const questionAnswerObj = {
+    question: questionAnswer.question,
+    option: questionAnswer.option,
+  };
+
+  const subQuestionanswerObj = {
+    question: questionAnswer.question,
+    option: questionAnswer.option,
+    sub_question: questionAnswer.sub_question,
+  };
 
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify(questionAnswer),
+    credentials: 'include',
+    body: JSON.stringify(questionAnswer.sub_question ? subQuestionanswerObj : questionAnswerObj),
   };
 
   try {
@@ -247,12 +264,13 @@ const postUserInfo = async (data: UserFormTypes, userId: string, csrfToken: stri
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
 
   const requestOptions: RequestInit = {
     method: 'PUT',
     headers: headers,
+    credentials: 'include',
     body: JSON.stringify(data),
   };
 
@@ -273,7 +291,7 @@ const postSubscribeInfo = async (email: string, resultId: number, csrfToken: str
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRFToken': csrfToken,
+    Authorization: `Token ${csrfToken}`,
   });
 
   const emailData = {
@@ -284,11 +302,12 @@ const postSubscribeInfo = async (email: string, resultId: number, csrfToken: str
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
+    credentials: 'include',
     body: JSON.stringify(emailData),
   };
 
   try {
-    const response = await fetch(`${apiBaseUrl}/account/subscribe/`, requestOptions);
+    const response = await fetch(`${apiBaseUrl}/account/profile/subscribe/`, requestOptions);
     const jsonData = await response.json();
     const conditionValue = jsonData;
     return conditionValue?.condition_met;

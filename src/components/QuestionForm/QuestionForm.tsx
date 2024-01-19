@@ -7,7 +7,12 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import userSlice from '../../redux/slices/userSlice';
 import { Question, QuestionNumber } from '../../types';
-import { fetchOneQuestion, fetchUserResult } from '../../utils/mobilityProfileAPI';
+import {
+  fetchOneQuestion,
+  fetchUserResult,
+  hasQuestionCondition,
+  postQuestionAnswer,
+} from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
 import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
@@ -29,6 +34,8 @@ const QuestionForm = () => {
   const { question, user } = useAppSelector((state) => state);
   const questionId = question.questionId;
   const questionNumbersData = question.questionNumbers;
+  const questionAnswerObj = question.questionAnswer;
+  const subQuestionAnswerObj = question.subQuestionAnswer;
   const token = user.csrfToken;
 
   const { handleSubmit } = useForm<Question>();
@@ -82,11 +89,17 @@ const QuestionForm = () => {
   const onSubmit = (data: Question) => console.warn(JSON.stringify(data));
 
   // TODO Add remaining POST requests (hasCondition, isConditionMet & answer)
-  const handleNext = () => {
+  const handleNext = (questionData: Question) => {
     setQuestionIndex(questionIndex + 1);
     const items = filterQuestionNumbers();
     const questionIdValue = items[0]?.id;
     if (questionIdValue) {
+      if (questionData.sub_questions) {
+        postQuestionAnswer(subQuestionAnswerObj, token);
+      } else {
+        postQuestionAnswer(questionAnswerObj, token);
+      }
+      hasQuestionCondition(questionIdValue, token);
       fetchOneQuestion(questionIdValue, setQuestionData);
     }
   };
@@ -138,7 +151,7 @@ const QuestionForm = () => {
           <Button
             className="button-primary"
             role="button"
-            onClick={handleNext}
+            onClick={() => handleNext(questionData)}
             disabled={isLastPage}
             aria-disabled={isLastPage}
             aria-label={intl.formatMessage({ id: 'app.buttons.next' })}
