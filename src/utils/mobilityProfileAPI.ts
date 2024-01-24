@@ -99,9 +99,17 @@ const startPoll = async () => {
   }
 };
 
-const logoutUser = async () => {
+const logoutUser = async (token: string) => {
+  const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: `Token ${token}`,
+  });
+
   const requestOptions: RequestInit = {
     method: 'POST',
+    headers: headers,
+    credentials: 'include',
   };
 
   try {

@@ -46,7 +46,7 @@ const EmailForm = () => {
               {intl.formatMessage({ id: 'app.form.email.label' })}
             </label>
             <input
-              type="text"
+              type="email"
               placeholder={intl.formatMessage({ id: 'app.form.email.label' })}
               {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
               aria-invalid={errors.email ? true : false}
