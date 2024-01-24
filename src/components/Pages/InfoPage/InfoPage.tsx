@@ -7,7 +7,7 @@ const InfoPage = () => {
 
   return (
     <section className="container flex-center">
-      <UserForm setAnswerStatus={setUserHasAnswered} />
+      <UserForm answerStatus={userHasAnswered} setAnswerStatus={setUserHasAnswered} />
       <LinkButton
         urlValue="summary"
         translationId="app.buttons.link.summary"

@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { EmailField } from '../../../types';
 import { postSubscribeInfo } from '../../../utils/mobilityProfileAPI';
+import ErrorText from '../../Typography/ErrorText/ErrorText';
+import TextBasic from '../../Typography/TextBasic/TextBasic';
 
 const EmailForm = () => {
+  const [hasUserAnswered, setHasUserAnswered] = useState(false);
+  const [isApiError, setIsApiError] = useState(false);
+
   const intl = useIntl();
 
   const { user } = useAppSelector((state) => state);
@@ -25,7 +30,7 @@ const EmailForm = () => {
 
   const onSubmit: SubmitHandler<EmailField> = (data) => {
     if (userId?.length) {
-      postSubscribeInfo(data.email, resultId, token);
+      postSubscribeInfo(data.email, resultId, setHasUserAnswered, setIsApiError, token);
     }
   };
 
@@ -53,9 +58,11 @@ const EmailForm = () => {
               <p className="text-normal">{errors.email.message}</p>
             </div>
           )}
-          <button type="submit" className="input-submit">
+          <button type="submit" disabled={hasUserAnswered} className="input-submit">
             {intl.formatMessage({ id: 'app.input.submit.newsletter' })}
           </button>
+          {hasUserAnswered ? <TextBasic translationId="app.result.newsletter.success" /> : null}
+          {isApiError ? <ErrorText /> : null}
         </form>
       </div>
     </div>

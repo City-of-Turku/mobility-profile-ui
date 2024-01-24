@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { UserFormProps, UserFormTypes } from '../../../types';
 import { postUserInfo } from '../../../utils/mobilityProfileAPI';
+import ErrorText from '../../Typography/ErrorText/ErrorText';
+import TextBasic from '../../Typography/TextBasic/TextBasic';
 
-const UserForm = ({ setAnswerStatus }: UserFormProps) => {
+const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
+  const [isApiError, setIsApiError] = useState(false);
+
   const intl = useIntl();
 
   const { user } = useAppSelector((state) => state);
@@ -27,8 +31,7 @@ const UserForm = ({ setAnswerStatus }: UserFormProps) => {
 
   const onSubmit: SubmitHandler<UserFormTypes> = (data) => {
     if (userId?.length) {
-      setAnswerStatus(true);
-      postUserInfo(data, userId, token);
+      postUserInfo(data, userId, setAnswerStatus, setIsApiError, token);
     }
   };
 
@@ -93,9 +96,11 @@ const UserForm = ({ setAnswerStatus }: UserFormProps) => {
                 <p className="text-normal">{errors.postal_code.message}</p>
               </div>
             )}
-            <button type="submit" className="input-submit">
+            <button type="submit" disabled={answerStatus} className="input-submit">
               {intl.formatMessage({ id: 'app.input.submit.user' })}
             </button>
+            {answerStatus ? <TextBasic translationId="app.result.success" /> : null}
+            {isApiError ? <ErrorText /> : null}
           </div>
         </form>
       </div>

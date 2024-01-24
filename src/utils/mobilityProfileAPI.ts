@@ -253,7 +253,13 @@ const postQuestionAnswer = async (questionAnswer: QuestionAnswer, token: string)
   }
 };
 
-const postUserInfo = async (data: UserFormTypes, userId: string, token: string) => {
+const postUserInfo = async (
+  data: UserFormTypes,
+  userId: string,
+  setAnswerStatus: (a: boolean) => void,
+  setError: (a: boolean) => void,
+  token: string,
+) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -268,19 +274,24 @@ const postUserInfo = async (data: UserFormTypes, userId: string, token: string) 
   };
 
   try {
-    const response = await fetch(`${apiBaseUrl}/account/profile/${userId}/`, requestOptions);
-    const jsonData = await response.json();
-    const conditionValue = jsonData;
-    return conditionValue?.condition_met;
+    await fetch(`${apiBaseUrl}/account/profile/${userId}/`, requestOptions);
+    setAnswerStatus(true);
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
+    setError(true);
     console.warn(message);
   }
 };
 
-const postSubscribeInfo = async (email: string, resultId: number, token: string) => {
+const postSubscribeInfo = async (
+  email: string,
+  resultId: number,
+  setAnswer: (a: boolean) => void,
+  setError: (a: boolean) => void,
+  token: string,
+) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -300,14 +311,13 @@ const postSubscribeInfo = async (email: string, resultId: number, token: string)
   };
 
   try {
-    const response = await fetch(`${apiBaseUrl}/account/profile/subscribe/`, requestOptions);
-    const jsonData = await response.json();
-    const conditionValue = jsonData;
-    return conditionValue?.condition_met;
+    await fetch(`${apiBaseUrl}/account/profile/subscribe/`, requestOptions);
+    setAnswer(true);
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
+    setError(true);
     console.warn(message);
   }
 };

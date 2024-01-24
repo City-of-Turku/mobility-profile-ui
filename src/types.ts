@@ -100,6 +100,7 @@ interface UserFormTypes {
 }
 
 interface UserFormProps {
+  answerStatus: boolean;
   setAnswerStatus: (a: boolean) => void;
 }
 
@@ -107,6 +108,10 @@ interface LinkButtonProps {
   urlValue: string;
   translationId: string;
   isActive: boolean;
+}
+
+interface TextBasicProps {
+  translationId: string;
 }
 
 export {
@@ -128,4 +133,5 @@ export {
   UserFormTypes,
   UserFormProps,
   LinkButtonProps,
+  TextBasicProps,
 };
