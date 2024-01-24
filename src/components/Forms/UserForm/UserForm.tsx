@@ -60,10 +60,11 @@ const UserForm = ({ setAnswerStatus }: UserFormProps) => {
               <input
                 type="text"
                 placeholder={intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
-                {...register('optional_postal_code', { required: false })}
+                {...register('optional_postal_code', { required: true })}
                 aria-invalid={errors.optional_postal_code ? true : false}
                 className="form-control"
               />
+              <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
             </div>
             <div className="mb-3 form-check">
               <input

@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Question,
-  QuestionAnswer,
-  QuestionIdType,
-  QuestionNumber,
-  Result,
-  UserFormTypes,
-} from '../types';
+import { Question, QuestionAnswer, QuestionNumber, Result, UserFormTypes } from '../types';
 
 const apiBaseUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 const apiVersion = process.env.REACT_APP_MOBILITY_PROFILE_API_VERSION;
@@ -57,13 +50,13 @@ const fetchOneQuestion = async (
 };
 
 const fetchUserResult = async (
-  csrfToken: string,
+  token: string,
   setData: React.Dispatch<React.SetStateAction<Result>>,
 ) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
+    Authorization: `Token ${token}`,
   });
 
   const requestOptions: RequestInit = {
@@ -106,17 +99,9 @@ const startPoll = async () => {
   }
 };
 
-const logoutUser = async (csrfToken: string) => {
-  const headers = new Headers({
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
-  });
-
+const logoutUser = async () => {
   const requestOptions: RequestInit = {
     method: 'POST',
-    headers: headers,
-    credentials: 'include',
   };
 
   try {
@@ -129,11 +114,11 @@ const logoutUser = async (csrfToken: string) => {
   }
 };
 
-const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
+const hasQuestionCondition = async (questionId: number, token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
+    Authorization: `Token ${token}`,
   });
   const bodyObj = {
     question: questionId,
@@ -149,7 +134,9 @@ const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
     const response = await fetch(`${apiUrl}/question/in_condition/`, requestOptions);
     const jsonData = await response.json();
     const conditionValue = jsonData;
-    return conditionValue;
+    if (conditionValue.in_condition) {
+      return true;
+    } else return false;
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
@@ -158,11 +145,15 @@ const hasQuestionCondition = async (questionId: number, csrfToken: string) => {
   }
 };
 
-const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken: string) => {
+const isQuestionConditionMet = async (
+  questionId: number,
+  setCondition: (a: boolean) => void,
+  token: string,
+) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
+    Authorization: `Token ${token}`,
   });
   const bodyObj = {
     question: questionId,
@@ -181,7 +172,7 @@ const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken:
     );
     const jsonData = await response.json();
     const conditionValue = jsonData;
-    return conditionValue?.condition_met;
+    setCondition(conditionValue.condition_met);
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
@@ -190,11 +181,11 @@ const isQuestionConditionMet = async ({ questionId }: QuestionIdType, csrfToken:
   }
 };
 
-const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrfToken: string) => {
+const isSubQuestionConditionMet = async (subQuestionId: number, token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
+    Authorization: `Token ${token}`,
   });
   const bodyObj = {
     sub_question: subQuestionId,
@@ -213,7 +204,9 @@ const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrf
     );
     const jsonData = await response.json();
     const conditionValue = jsonData;
-    return conditionValue?.condition_met;
+    if (conditionValue?.condition_met) {
+      return true;
+    } else return false;
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
@@ -222,11 +215,11 @@ const isSubQuestionConditionMet = async ({ subQuestionId }: QuestionIdType, csrf
   }
 };
 
-const postQuestionAnswer = async (questionAnswer: QuestionAnswer, csrfToken: string) => {
+const postQuestionAnswer = async (questionAnswer: QuestionAnswer, token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
+    Authorization: `Token ${token}`,
   });
 
   const questionAnswerObj = {
@@ -260,11 +253,11 @@ const postQuestionAnswer = async (questionAnswer: QuestionAnswer, csrfToken: str
   }
 };
 
-const postUserInfo = async (data: UserFormTypes, userId: string, csrfToken: string) => {
+const postUserInfo = async (data: UserFormTypes, userId: string, token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
+    Authorization: `Token ${token}`,
   });
 
   const requestOptions: RequestInit = {
@@ -287,11 +280,11 @@ const postUserInfo = async (data: UserFormTypes, userId: string, csrfToken: stri
   }
 };
 
-const postSubscribeInfo = async (email: string, resultId: number, csrfToken: string) => {
+const postSubscribeInfo = async (email: string, resultId: number, token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${csrfToken}`,
+    Authorization: `Token ${token}`,
   });
 
   const emailData = {

@@ -6,11 +6,10 @@ import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import userSlice from '../../redux/slices/userSlice';
-import { Question, QuestionNumber } from '../../types';
+import { Question } from '../../types';
 import {
   fetchOneQuestion,
   fetchUserResult,
-  hasQuestionCondition,
   postQuestionAnswer,
 } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
@@ -38,6 +37,8 @@ const QuestionForm = () => {
   const subQuestionAnswerObj = question.subQuestionAnswer;
   const token = user.csrfToken;
 
+  const [currentQuestionId, setCurrentQuestionId] = useState(questionId);
+
   const { handleSubmit } = useForm<Question>();
 
   /**
@@ -60,26 +61,22 @@ const QuestionForm = () => {
     }
   });
 
-  const filterQuestionNumbers = () => {
-    return sortedQuestionsData.reduce((filteredQuestions, item, index) => {
-      if (index === questionIndex) {
-        filteredQuestions.push(item);
-      }
-      return filteredQuestions;
-    }, [] as QuestionNumber[]);
-  };
-
   const lastItem = sortedQuestionsData.slice(-1);
 
   useEffect(() => {
-    const items = filterQuestionNumbers();
-    const questionItemNumber = items[0]?.number;
-    const lastQuestienNumber = lastItem[0]?.number;
-    if (questionItemNumber === lastQuestienNumber) {
+    // const items = filterQuestionNumbers();
+    const questionItemNumber = sortedQuestionsData[questionIndex]?.number;
+    const lastQuestionNumber = lastItem[0]?.number;
+    if (questionItemNumber === lastQuestionNumber) {
       setIsLastPage(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastItem, questionIndex]);
+
+  useEffect(() => {
+    setCurrentQuestionId(sortedQuestionsData[questionIndex]?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questionIndex]);
 
   const endPoll = () => {
     fetchUserResult(token, setProfileResult);
@@ -88,20 +85,16 @@ const QuestionForm = () => {
   // TODO update this to post data into endpoint
   const onSubmit = (data: Question) => console.warn(JSON.stringify(data));
 
-  // TODO Add remaining POST requests (hasCondition, isConditionMet & answer)
+  // TODO Add remaining POST requests (isConditionMet) & add skip question logic
   const handleNext = (questionData: Question) => {
     setQuestionIndex(questionIndex + 1);
-    const items = filterQuestionNumbers();
-    const questionIdValue = items[0]?.id;
-    if (questionIdValue) {
-      if (questionData.sub_questions) {
-        postQuestionAnswer(subQuestionAnswerObj, token);
-      } else {
-        postQuestionAnswer(questionAnswerObj, token);
-      }
-      hasQuestionCondition(questionIdValue, token);
-      fetchOneQuestion(questionIdValue, setQuestionData);
+    if (currentQuestionId) {
+      postQuestionAnswer(
+        questionData.sub_questions ? subQuestionAnswerObj : questionAnswerObj,
+        token,
+      );
     }
+    fetchOneQuestion(currentQuestionId, setQuestionData);
   };
 
   const formatQuestion = (...texts: string[]) => {
