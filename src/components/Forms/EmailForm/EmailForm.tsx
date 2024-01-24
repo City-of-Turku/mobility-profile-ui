@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
@@ -58,9 +59,9 @@ const EmailForm = () => {
               <p className="text-normal">{errors.email.message}</p>
             </div>
           )}
-          <button type="submit" disabled={hasUserAnswered} className="input-submit">
+          <Button type="submit" role="button" disabled={hasUserAnswered} className="input-submit">
             {intl.formatMessage({ id: 'app.input.submit.newsletter' })}
-          </button>
+          </Button>
           {hasUserAnswered ? <TextBasic translationId="app.result.newsletter.success" /> : null}
           {isApiError ? <ErrorText /> : null}
         </form>

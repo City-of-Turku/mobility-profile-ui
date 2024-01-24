@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
@@ -96,9 +97,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <p className="text-normal">{errors.postal_code.message}</p>
               </div>
             )}
-            <button type="submit" disabled={answerStatus} className="input-submit">
+            <Button type="submit" role="button" disabled={answerStatus} className="input-submit">
               {intl.formatMessage({ id: 'app.input.submit.user' })}
-            </button>
+            </Button>
             {answerStatus ? <TextBasic translationId="app.result.success" /> : null}
             {isApiError ? <ErrorText /> : null}
           </div>

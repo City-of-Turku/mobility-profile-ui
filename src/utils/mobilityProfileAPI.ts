@@ -18,6 +18,21 @@ const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Quest
   }
 };
 
+const fetchQuestionsWithConditions = async (
+  setData: React.Dispatch<React.SetStateAction<Question[]>>,
+) => {
+  try {
+    const response = await fetch(`${apiUrl}/question/get_questions_with_conditions/?page_size=20`);
+    const jsonData = await response.json();
+    setData(jsonData.results);
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
 const fetchQuestionNumbers = async (
   setData: React.Dispatch<React.SetStateAction<QuestionNumber[]>>,
 ) => {
@@ -332,6 +347,7 @@ const postSubscribeInfo = async (
 
 export {
   fetchQuestions,
+  fetchQuestionsWithConditions,
   fetchOneQuestion,
   fetchQuestionNumbers,
   fetchUserResult,

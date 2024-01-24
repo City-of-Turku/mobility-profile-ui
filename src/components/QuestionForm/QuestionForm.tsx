@@ -1,7 +1,6 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
@@ -16,7 +15,7 @@ import useLocaleText from '../../utils/useLocaleText';
 import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
 import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 
-// TODO finalize state handling, form functiomality, add remaining POST requests & adjust styles.
+// TODO finalize state handling, functiomality, add remaining POST requests & adjust styles.
 
 const QuestionForm = () => {
   const [questionData, setQuestionData] = useState<Question>({} as Question);
@@ -38,8 +37,6 @@ const QuestionForm = () => {
   const token = user.csrfToken;
 
   const [currentQuestionId, setCurrentQuestionId] = useState(questionId);
-
-  const { handleSubmit } = useForm<Question>();
 
   /**
    * Fetch first question
@@ -64,7 +61,6 @@ const QuestionForm = () => {
   const lastItem = sortedQuestionsData.slice(-1);
 
   useEffect(() => {
-    // const items = filterQuestionNumbers();
     const questionItemNumber = sortedQuestionsData[questionIndex]?.number;
     const lastQuestionNumber = lastItem[0]?.number;
     if (questionItemNumber === lastQuestionNumber) {
@@ -81,9 +77,6 @@ const QuestionForm = () => {
   const endPoll = () => {
     fetchUserResult(token, setProfileResult);
   };
-
-  // TODO update this to post data into endpoint
-  const onSubmit = (data: Question) => console.warn(JSON.stringify(data));
 
   // TODO Add remaining POST requests (isConditionMet) & add skip question logic
   const handleNext = (questionData: Question) => {
@@ -171,7 +164,7 @@ const QuestionForm = () => {
 
   return (
     <div className="form-wrapper">
-      <form onSubmit={handleSubmit(onSubmit)}>{renderList()}</form>
+      <form>{renderList()}</form>
     </div>
   );
 };
