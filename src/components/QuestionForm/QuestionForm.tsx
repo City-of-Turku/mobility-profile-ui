@@ -122,6 +122,10 @@ const QuestionForm = () => {
         </>
       );
     }
+    if (localeText.includes('<<')) {
+      const parts = localeText.split('<<');
+      return <h3 className="header-h3">{parts[0]}</h3>;
+    }
     return <h3 className="header-h3">{localeText}</h3>;
   };
 
