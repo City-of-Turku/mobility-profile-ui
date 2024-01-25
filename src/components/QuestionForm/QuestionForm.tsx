@@ -8,6 +8,7 @@ import userSlice from '../../redux/slices/userSlice';
 import { Question } from '../../types';
 import {
   fetchOneQuestion,
+  fetchQuestions,
   fetchUserResult,
   postQuestionAnswer,
 } from '../../utils/mobilityProfileAPI';
@@ -18,6 +19,7 @@ import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 // TODO finalize state handling, functiomality, add remaining POST requests & adjust styles.
 
 const QuestionForm = () => {
+  const [allQuestionsData, setAllQuestionsData] = useState<Array<Question>>([]);
   const [questionData, setQuestionData] = useState<Question>({} as Question);
   const [questionIndex, setQuestionIndex] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -38,11 +40,20 @@ const QuestionForm = () => {
 
   const [currentQuestionId, setCurrentQuestionId] = useState(questionId);
 
+  useEffect(() => {
+    fetchQuestions(setAllQuestionsData);
+  }, []);
+
+  const findQuestion = (questionIdVal: number) => {
+    return allQuestionsData.find((item) => item.id === questionIdVal);
+  };
+
   /**
    * Fetch first question
    */
   useEffect(() => {
     fetchOneQuestion(questionId, setQuestionData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionId]);
 
   const questionNumbersDataItems = [...questionNumbersData];
@@ -87,7 +98,10 @@ const QuestionForm = () => {
         token,
       );
     }
-    fetchOneQuestion(currentQuestionId, setQuestionData);
+    const getQuestion = findQuestion(currentQuestionId);
+    if (getQuestion) {
+      setQuestionData(getQuestion);
+    }
   };
 
   const formatQuestion = (...texts: string[]) => {

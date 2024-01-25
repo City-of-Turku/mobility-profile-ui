@@ -168,7 +168,7 @@ const hasQuestionCondition = async (questionId: number, token: string) => {
   }
 };
 
-const isQuestionConditionMet = async (
+const fetchQuestionConditionMet = async (
   questionId: number,
   setCondition: (a: boolean) => void,
   token: string,
@@ -204,7 +204,7 @@ const isQuestionConditionMet = async (
   }
 };
 
-const isSubQuestionConditionMet = async (subQuestionId: number, token: string) => {
+const fetchSubQuestionConditionMet = async (subQuestionId: number, token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -354,8 +354,8 @@ export {
   startPoll,
   logoutUser,
   hasQuestionCondition,
-  isQuestionConditionMet,
-  isSubQuestionConditionMet,
+  fetchQuestionConditionMet,
+  fetchSubQuestionConditionMet,
   postQuestionAnswer,
   postUserInfo,
   postSubscribeInfo,
