@@ -17,4 +17,4 @@ EXPOSE 8080
 # Set user to not be root
 USER node
 # The command to run the app
-CMD ["node", "dist/index.tsx"]
+CMD ["node", "dist/bundle.js"]

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development webpack serve",
-    "build": "NODE_ENV=production webpack --mode production --progress --hide-modules",
+    "build": "NODE_ENV=production webpack --mode production --progress",
     "start": "node dist",
     "tscheck": "tsc",
     "test": "jest",
