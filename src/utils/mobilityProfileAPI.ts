@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Question,
-  QuestionAnswer,
-  QuestionNumber,
-  QuestionStates,
-  Result,
-  UserFormTypes,
-} from '../types';
+import { Question, QuestionAnswer, QuestionNumber, Result, UserFormTypes } from '../types';
 
 const apiBaseUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 const apiVersion = process.env.REACT_APP_MOBILITY_PROFILE_API_VERSION;
@@ -71,10 +64,7 @@ const fetchOneQuestion = async (
   }
 };
 
-const fetchQuestionStates = async (
-  token: string,
-  setData: React.Dispatch<React.SetStateAction<QuestionStates>>,
-) => {
+const fetchQuestionStates = async (token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -92,7 +82,8 @@ const fetchQuestionStates = async (
       requestOptions,
     );
     const jsonData = await response.json();
-    setData(jsonData);
+    const values = jsonData;
+    return values;
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
