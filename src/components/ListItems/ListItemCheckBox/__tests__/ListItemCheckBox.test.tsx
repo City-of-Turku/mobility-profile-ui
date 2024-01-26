@@ -19,6 +19,7 @@ const mockData = {
       value_fi: 'testi 1',
       value_en: 'test 1',
       value_sv: 'test 1',
+      sub_question: '1',
     },
   ],
   sub_questions: [
@@ -34,10 +35,12 @@ const mockData = {
           value_fi: 'testi 1',
           value_en: 'test 1',
           value_sv: 'test 1',
+          sub_question: '2',
         },
       ],
     },
   ],
+  sub_question: 5,
 };
 const mockProps = {
   question: mockData,
