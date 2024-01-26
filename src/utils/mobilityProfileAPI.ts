@@ -1,5 +1,12 @@
 import React from 'react';
-import { Question, QuestionAnswer, QuestionNumber, Result, UserFormTypes } from '../types';
+import {
+  Question,
+  QuestionAnswer,
+  QuestionNumber,
+  QuestionStates,
+  Result,
+  UserFormTypes,
+} from '../types';
 
 const apiBaseUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 const apiVersion = process.env.REACT_APP_MOBILITY_PROFILE_API_VERSION;
@@ -54,6 +61,36 @@ const fetchOneQuestion = async (
 ) => {
   try {
     const response = await fetch(`${apiUrl}/question/${questionId}/`);
+    const jsonData = await response.json();
+    setData(jsonData);
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    console.warn(message);
+  }
+};
+
+const fetchQuestionStates = async (
+  token: string,
+  setData: React.Dispatch<React.SetStateAction<QuestionStates>>,
+) => {
+  const headers = new Headers({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: `Token ${token}`,
+  });
+
+  const requestOptions: RequestInit = {
+    headers: headers,
+    credentials: 'include',
+  };
+
+  try {
+    const response = await fetch(
+      `${apiUrl}/question/get_questions_conditions_states/`,
+      requestOptions,
+    );
     const jsonData = await response.json();
     setData(jsonData);
   } catch (error) {
@@ -350,6 +387,7 @@ export {
   fetchQuestionsWithConditions,
   fetchOneQuestion,
   fetchQuestionNumbers,
+  fetchQuestionStates,
   fetchUserResult,
   startPoll,
   logoutUser,

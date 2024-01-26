@@ -19,7 +19,7 @@ In the project directory, you can run:
 
 Runs the app by starting node server using build files.
 
-### `npm build`
+### `npm run build`
 
 Builds the app for production to the `dist` folder.<br>
 

@@ -53,6 +53,11 @@ interface QuestionNumber {
   number: string;
 }
 
+interface QuestionStates {
+  id: number;
+  state: boolean;
+}
+
 interface QuestionAnswer {
   question: number;
   option: number;
@@ -123,6 +128,7 @@ export {
   Question,
   SubQuestion,
   QuestionNumber,
+  QuestionStates,
   QuestionAnswer,
   ListItemCheckBoxProps,
   ListItemRadioProps,
