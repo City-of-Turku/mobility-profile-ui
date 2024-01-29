@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18 as build
 
 # Create app directory
 WORKDIR /app
@@ -12,9 +12,13 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 8080
+FROM nginx:alpine
 
-# Set user to not be root
-USER node
-# The command to run the app
-CMD ["node", "dist/bundle.js"]
+# Copy the built React app to Nginx's web server directory
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80 for the Nginx server
+EXPOSE 80
+
+# Start Nginx when the container runs
+CMD ["nginx", "-g", "daemon off;"]
