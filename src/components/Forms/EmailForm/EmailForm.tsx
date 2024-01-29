@@ -49,7 +49,14 @@ const EmailForm = () => {
             <input
               type="email"
               placeholder={intl.formatMessage({ id: 'app.form.email.label' })}
-              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+              {...register('email', {
+                required: true,
+                maxLength: 50,
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: intl.formatMessage({ id: 'app.form.email.invalid' }),
+                },
+              })}
               aria-invalid={errors.email ? true : false}
               className="form-control"
             />

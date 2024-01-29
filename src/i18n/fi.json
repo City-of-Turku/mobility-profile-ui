@@ -18,6 +18,8 @@
   "app.form.filledForFun.label": "Täytin vain huvikseni",
   "app.form.useResult.label": "Tietoja saa käyttää",
   "app.form.mandatory.field": "Pakollinen kenttä",
+  "app.form.email.invalid": "Kirjoita kelvollinen sähköpostiosoite",
+  "app.form.numeric.field": "Kirjoita kelvollinen postinumero",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",

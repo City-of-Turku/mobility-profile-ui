@@ -51,11 +51,23 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               <input
                 type="text"
                 placeholder={intl.formatMessage({ id: 'app.form.postalCode.label' })}
-                {...register('postal_code', { required: true })}
+                {...register('postal_code', {
+                  required: true,
+                  maxLength: 6,
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: intl.formatMessage({ id: 'app.form.numeric.field' }),
+                  },
+                })}
                 aria-invalid={errors.postal_code ? true : false}
                 className="form-control"
               />
               <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              {errors.postal_code && (
+                <div className="mb-2">
+                  <p className="text-normal">{errors.postal_code.message}</p>
+                </div>
+              )}
             </div>
             <div className="mb-2 form-group">
               <label htmlFor="optional_postal_code" className="text-label mb-1">
@@ -64,11 +76,23 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               <input
                 type="text"
                 placeholder={intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
-                {...register('optional_postal_code', { required: true })}
+                {...register('optional_postal_code', {
+                  required: true,
+                  maxLength: 6,
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: intl.formatMessage({ id: 'app.form.numeric.field' }),
+                  },
+                })}
                 aria-invalid={errors.optional_postal_code ? true : false}
                 className="form-control"
               />
               <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              {errors.optional_postal_code && (
+                <div className="mb-2">
+                  <p className="text-normal">{errors.optional_postal_code.message}</p>
+                </div>
+              )}
             </div>
             <div className="mb-3 form-check">
               <input
@@ -92,11 +116,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 {intl.formatMessage({ id: 'app.form.useResult.label' })}
               </label>
             </div>
-            {errors.postal_code && (
-              <div className="mb-2">
-                <p className="text-normal">{errors.postal_code.message}</p>
-              </div>
-            )}
             <Button type="submit" role="button" disabled={answerStatus} className="input-submit">
               {intl.formatMessage({ id: 'app.input.submit.user' })}
             </Button>

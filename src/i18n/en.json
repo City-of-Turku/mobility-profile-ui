@@ -18,6 +18,8 @@
   "app.form.filledForFun.label": "Filled just for fun",
   "app.form.useResult.label": "Information can be used",
   "app.form.mandatory.field": "Mandatory field",
+  "app.form.email.invalid": "Enter valid email address",
+  "app.form.numeric.field": "Enter valid postalcode",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",
