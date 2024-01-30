@@ -43,6 +43,7 @@ interface Question {
   description_fi: string;
   description_en: string;
   description_sv: string;
+  number_of_options_to_choose?: string;
   options: Option[];
   sub_questions: SubQuestion[];
   sub_question: number;

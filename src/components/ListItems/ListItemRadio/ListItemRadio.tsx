@@ -37,19 +37,18 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subOptions]);
 
+  const commonCellStyle = {
+    fontSize: question.number === '4' ? '0.8rem' : '1rem',
+  };
+
   return (
     <div className="table-responsive">
       <Table bordered striped hover size={question.number === '4' ? 'sm' : 'md'}>
         <thead>
           <tr>
-            <th style={{ fontSize: question.number === '4' ? '0.8rem' : '1rem' }}>
-              {intl.formatMessage({ id: 'app.text.options' })}
-            </th>
+            <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
             {optionsArray.map((item) => (
-              <th
-                key={item.value_fi}
-                style={{ fontSize: question.number === '4' ? '0.8rem' : '1rem' }}
-              >
+              <th key={item.value_fi} style={commonCellStyle}>
                 {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
               </th>
             ))}
@@ -58,7 +57,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
         <tbody>
           {question.sub_questions.map((subQuestion) => (
             <tr key={subQuestion.id}>
-              <td style={{ fontSize: question.number === '4' ? '0.8rem' : '1rem' }}>
+              <td style={commonCellStyle}>
                 {renderLocaleValue(
                   getLocaleText,
                   subQuestion.description_fi,

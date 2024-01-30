@@ -19,6 +19,8 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
 
   const { control } = useForm<Question>();
 
+  const numberOfOptions = question.number_of_options_to_choose;
+
   const getLocaleText = useLocaleText();
 
   const setObject = () => {
@@ -60,7 +62,7 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
                   render={({ field }) => (
                     <input
                       {...field}
-                      type="checkbox"
+                      type={numberOfOptions === '1' ? 'radio' : 'checkbox'}
                       value={option.id}
                       onChange={(event) => createAnswerEvent(event, option)}
                     />
