@@ -31,11 +31,13 @@ const QuestionForm = () => {
   const dispatch = useAppDispatch();
   const { setProfileResult } = bindActionCreators(userSlice.actions, dispatch);
 
-  const { question, user } = useAppSelector((state) => state);
+  const { question, user, settings } = useAppSelector((state) => state);
   const questionId = question.questionId;
   const questionNumbersData = question.questionNumbers;
   const questionAnswerObj = question.questionAnswer;
   const subQuestionAnswerObj = question.subQuestionAnswer;
+  const question3Answer = question.question3Answer;
+  const currentLocale = settings.localeSelection;
   const token = user.csrfToken;
 
   const [currentQuestionId, setCurrentQuestionId] = useState(questionId);
@@ -104,29 +106,48 @@ const QuestionForm = () => {
     }
   };
 
-  const formatQuestion = (...texts: string[]) => {
+  /**
+   * Append answer of question 3 into the question string of question number 4. Otherwise use default format.
+   * @param formatType
+   * @param texts
+   * @returns JSX element
+   */
+  const formatText = (formatType: 'default' | 'withAnswer', ...texts: string[]) => {
     const localeTexts = {
       fi: texts[0],
       en: texts[1],
       sv: texts[2],
     };
-
     const localeText = getLocaleText(localeTexts);
 
-    if (localeText.includes('(')) {
-      const parts = localeText.split(':');
-      return (
-        <>
-          <h3 className="header-h3 mb-3">{`${parts[0]}?`}</h3>
-          <h4 className="header-h4 mb-3">{parts[1]}</h4>
-        </>
-      );
+    if (formatType === 'default') {
+      if (localeText.includes('(')) {
+        const parts = localeText.split(':');
+        return (
+          <>
+            <h3 className="header-h3 mb-3">{`${parts[0]}?`}</h3>
+            <h4 className="header-h4 mb-3">{parts[1]}</h4>
+          </>
+        );
+      }
+      return <h3 className="header-h3">{localeText}</h3>;
     }
-    if (localeText.includes('<<')) {
-      const parts = localeText.split('<<');
-      return <h3 className="header-h3">{parts[0]}</h3>;
+
+    if (formatType === 'withAnswer') {
+      const question3AnswerLocale = getLocaleText(question3Answer);
+
+      if (localeText.includes('<<') || localeText.includes('>>')) {
+        const parts = localeText.split(/<<|>>/g);
+        return (
+          <h3 className="header-h3">
+            {currentLocale === 'en'
+              ? `${parts[0]} (${question3AnswerLocale}) ${parts[2]}`
+              : `${parts[0]} (${question3AnswerLocale})`}
+          </h3>
+        );
+      }
     }
-    return <h3 className="header-h3">{localeText}</h3>;
+    return null;
   };
 
   const renderList = () => {
@@ -134,11 +155,19 @@ const QuestionForm = () => {
       <div className="form-content">
         <div key={questionData.id} className="form-content-inner">
           <div className="text-container ml-0">
-            {formatQuestion(
-              questionData.question_fi,
-              questionData.question_en,
-              questionData.question_sv,
-            )}
+            {questionData.number === '4'
+              ? formatText(
+                  'withAnswer',
+                  questionData.question_fi,
+                  questionData.question_en,
+                  questionData.question_sv,
+                )
+              : formatText(
+                  'default',
+                  questionData.question_fi,
+                  questionData.question_en,
+                  questionData.question_sv,
+                )}
           </div>
           <div className="form-list-container">
             <Form.Group>

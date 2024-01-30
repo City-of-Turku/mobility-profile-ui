@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { ListItemCheckBoxProps, Question } from '../../../types';
+import { ListItemCheckBoxProps, Option, Question } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
@@ -12,7 +12,10 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
   const [mainOptions, setMainOptions] = useState<string[]>([]);
 
   const dispatch = useAppDispatch();
-  const { setQuestionAnswer } = bindActionCreators(questionSlice.actions, dispatch);
+  const { setQuestionAnswer, setQuestion3Answer } = bindActionCreators(
+    questionSlice.actions,
+    dispatch,
+  );
 
   const { control } = useForm<Question>();
 
@@ -31,6 +34,19 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainOptions]);
 
+  const createAnswerEvent = (event: React.ChangeEvent<HTMLInputElement>, option: Option) => {
+    if (question.number === '3') {
+      setMainOptions([...mainOptions, event.target.value]);
+      const values = {
+        fi: option.value_fi,
+        en: option.value_en,
+        sv: option.value_sv,
+      };
+      setQuestion3Answer(values);
+    }
+    setMainOptions([...mainOptions, event.target.value]);
+  };
+
   return (
     <div className="table-responsive">
       <Table bordered striped hover>
@@ -46,7 +62,7 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
                       {...field}
                       type="checkbox"
                       value={option.id}
-                      onChange={(event) => setMainOptions([...mainOptions, event.target.value])}
+                      onChange={(event) => createAnswerEvent(event, option)}
                     />
                   )}
                 />
