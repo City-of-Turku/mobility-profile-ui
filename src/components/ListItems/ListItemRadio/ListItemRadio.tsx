@@ -1,11 +1,10 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { Controller, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { ListItemRadioProps, Question } from '../../../types';
+import { ListItemRadioProps } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
@@ -16,8 +15,6 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
 
   const dispatch = useAppDispatch();
   const { setSubQuestionAnswer } = bindActionCreators(questionSlice.actions, dispatch);
-
-  const { control } = useForm<Question>();
 
   const getLocaleText = useLocaleText();
 
@@ -69,19 +66,13 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
                 .filter((option) => option.value !== 'None')
                 .map((option) => (
                   <td key={option.id} className="center-input">
-                    <Controller
-                      name={'id'}
-                      control={control}
-                      render={({ field }) => (
-                        <input
-                          {...field}
-                          type="radio"
-                          value={option.id}
-                          onChange={(event) =>
-                            setSubOptions([...subOptions, event.target.value, option.sub_question])
-                          }
-                        />
-                      )}
+                    <input
+                      name={`row-${subQuestion.id}`}
+                      type="radio"
+                      value={option.id}
+                      onChange={(event) =>
+                        setSubOptions([...subOptions, event.target.value, option.sub_question])
+                      }
                     />
                   </td>
                 ))}
