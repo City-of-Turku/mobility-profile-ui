@@ -1,10 +1,9 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { ListItemCheckBoxProps, Option, Question } from '../../../types';
+import { ListItemCheckBoxProps, Option } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
@@ -16,8 +15,6 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
     questionSlice.actions,
     dispatch,
   );
-
-  const { control } = useForm<Question>();
 
   const numberOfOptions = question.number_of_options_to_choose;
 
@@ -56,17 +53,11 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
           {question?.options?.map((option) => (
             <tr key={option.id}>
               <td className="center-input checkbox">
-                <Controller
+                <input
                   name={'id'}
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      {...field}
-                      type={numberOfOptions === '1' ? 'radio' : 'checkbox'}
-                      value={option.id}
-                      onChange={(event) => createAnswerEvent(event, option)}
-                    />
-                  )}
+                  type={numberOfOptions === '1' ? 'radio' : 'checkbox'}
+                  value={option.id}
+                  onChange={(event) => createAnswerEvent(event, option)}
                 />
               </td>
               <td>
