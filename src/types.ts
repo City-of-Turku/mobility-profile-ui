@@ -57,7 +57,7 @@ interface QuestionNumber {
 interface QuestionAnswer {
   question: number;
   option: number;
-  sub_question?: number;
+  sub_question?: string | number;
 }
 
 interface ListItemCheckBoxProps {

@@ -9,15 +9,19 @@ export const initialState = {
       number: '1',
     },
   ],
-  questionAnswer: {
-    question: 1,
-    option: 1,
-  },
-  subQuestionAnswer: {
-    question: 1,
-    option: 1,
-    sub_question: 1,
-  },
+  questionAnswer: [
+    {
+      question: 1,
+      option: 1,
+    },
+  ],
+  subQuestionAnswer: [
+    {
+      question: 1,
+      option: 1,
+      sub_question: 1,
+    },
+  ],
   question3Answer: {
     fi: '',
     en: '',

@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { ListItemCheckBoxProps, Option } from '../../../types';
+import { ListItemCheckBoxProps, Option, QuestionAnswer } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
 const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
-  const [mainOptions, setMainOptions] = useState<string[]>([]);
+  const [mainOptions, setMainOptions] = useState<QuestionAnswer[]>([]);
 
   const dispatch = useAppDispatch();
   const { setQuestionAnswer, setQuestion3Answer } = bindActionCreators(
@@ -20,22 +20,20 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
 
   const getLocaleText = useLocaleText();
 
-  const setObject = () => {
-    return {
-      question: question.id,
-      option: Number(mainOptions[0]),
-    };
-  };
-
   useEffect(() => {
-    const answerObj = setObject();
-    setQuestionAnswer(answerObj);
+    setQuestionAnswer(mainOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainOptions]);
 
   const createAnswerEvent = (event: React.ChangeEvent<HTMLInputElement>, option: Option) => {
+    setMainOptions((prevMainOptions) => [
+      ...prevMainOptions,
+      {
+        question: question.id,
+        option: Number(event.target.value),
+      },
+    ]);
     if (question.number === '3') {
-      setMainOptions([...mainOptions, event.target.value]);
       const values = {
         fi: option.value_fi,
         en: option.value_en,
@@ -43,7 +41,6 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
       };
       setQuestion3Answer(values);
     }
-    setMainOptions([...mainOptions, event.target.value]);
   };
 
   return (

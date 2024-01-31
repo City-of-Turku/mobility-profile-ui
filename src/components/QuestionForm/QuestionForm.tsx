@@ -16,7 +16,7 @@ import useLocaleText from '../../utils/useLocaleText';
 import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
 import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
 
-// TODO finalize state handling, functiomality, add remaining POST requests & adjust styles.
+// TODO finalize functionality, add remaining POST requests & adjust styles.
 
 const QuestionForm = () => {
   const [allQuestionsData, setAllQuestionsData] = useState<Array<Question>>([]);
@@ -34,8 +34,8 @@ const QuestionForm = () => {
   const { question, user, settings } = useAppSelector((state) => state);
   const questionId = question.questionId;
   const questionNumbersData = question.questionNumbers;
-  const questionAnswerObj = question.questionAnswer;
-  const subQuestionAnswerObj = question.subQuestionAnswer;
+  const questionAnswerArray = question.questionAnswer;
+  const subQuestionAnswerArray = question.subQuestionAnswer;
   const question3Answer = question.question3Answer;
   const currentLocale = settings.localeSelection;
   const token = user.csrfToken;
@@ -91,14 +91,22 @@ const QuestionForm = () => {
     fetchUserResult(token, setProfileResult);
   };
 
-  // TODO Add remaining POST requests (isConditionMet) & add skip question logic
-  const handleNext = (questionData: Question) => {
+  const postAllAnswers = () => {
+    if (questionData.sub_questions) {
+      subQuestionAnswerArray.forEach((item) => {
+        postQuestionAnswer(item, token);
+      });
+    }
+    questionAnswerArray.forEach((item) => {
+      postQuestionAnswer(item, token);
+    });
+  };
+
+  // TODO Add skip question logic
+  const handleNext = () => {
     setQuestionIndex(questionIndex + 1);
     if (currentQuestionId) {
-      postQuestionAnswer(
-        questionData.sub_questions ? subQuestionAnswerObj : questionAnswerObj,
-        token,
-      );
+      postAllAnswers();
     }
     const getQuestion = findQuestion(currentQuestionId);
     if (getQuestion) {
@@ -184,7 +192,7 @@ const QuestionForm = () => {
           <Button
             className="button-primary"
             role="button"
-            onClick={() => handleNext(questionData)}
+            onClick={() => handleNext()}
             disabled={isLastPage}
             aria-disabled={isLastPage}
             aria-label={intl.formatMessage({ id: 'app.buttons.next' })}

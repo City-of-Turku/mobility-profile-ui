@@ -4,12 +4,12 @@ import { Table } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { ListItemRadioProps } from '../../../types';
+import { ListItemRadioProps, Option, QuestionAnswer } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
 const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
-  const [subOptions, setSubOptions] = useState<string[]>([]);
+  const [subOptions, setSubOptions] = useState<QuestionAnswer[]>([]);
 
   const intl = useIntl();
 
@@ -20,19 +20,21 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
 
   const optionsArray = question.sub_questions[0].options;
 
-  const setObject = () => {
-    return {
-      question: question.id,
-      option: Number(subOptions[0]),
-      sub_question: subOptions[1],
-    };
-  };
-
   useEffect(() => {
-    const answerObj = setObject();
-    setSubQuestionAnswer(answerObj);
+    setSubQuestionAnswer(subOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subOptions]);
+
+  const createAnswerEvent = (event: React.ChangeEvent<HTMLInputElement>, option: Option) => {
+    setSubOptions((prevSubOptions) => [
+      ...prevSubOptions,
+      {
+        question: question.id,
+        option: Number(event.target.value),
+        sub_question: option.sub_question,
+      },
+    ]);
+  };
 
   const commonCellStyle = {
     fontSize: question.number === '4' ? '0.8rem' : '1rem',
@@ -70,9 +72,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
                       name={`row-${subQuestion.id}`}
                       type="radio"
                       value={option.id}
-                      onChange={(event) =>
-                        setSubOptions([...subOptions, event.target.value, option.sub_question])
-                      }
+                      onChange={(event) => createAnswerEvent(event, option)}
                     />
                   </td>
                 ))}
