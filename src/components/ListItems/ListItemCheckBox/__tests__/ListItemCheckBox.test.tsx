@@ -51,4 +51,18 @@ describe('<ListItemCheckBox />', () => {
     const { container } = renderWithProviders(<ListItemCheckBox question={mockProps.question} />);
     expect(container).toBeTruthy();
   });
+
+  it('does show text correctly', () => {
+    const { container } = renderWithProviders(<ListItemCheckBox question={mockProps.question} />);
+
+    const label = container.querySelectorAll('label');
+    expect(label[0].textContent).toContain(mockProps.question.options[0].value_fi);
+  });
+
+  it('does contain input', () => {
+    const { container } = renderWithProviders(<ListItemCheckBox question={mockProps.question} />);
+
+    const input = container.querySelectorAll('input');
+    expect(input[0]).toBeInTheDocument();
+  });
 });

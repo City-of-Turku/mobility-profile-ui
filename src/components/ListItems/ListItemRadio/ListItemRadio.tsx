@@ -48,7 +48,9 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
             <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
             {optionsArray.map((item) => (
               <th key={item.value_fi} style={commonCellStyle}>
-                {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
+                <label>
+                  {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
+                </label>
               </th>
             ))}
           </tr>
@@ -57,12 +59,14 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
           {question.sub_questions.map((subQuestion) => (
             <tr key={subQuestion.id}>
               <td style={commonCellStyle}>
-                {renderLocaleValue(
-                  getLocaleText,
-                  subQuestion.description_fi,
-                  subQuestion.description_en,
-                  subQuestion.description_sv,
-                )}
+                <label>
+                  {renderLocaleValue(
+                    getLocaleText,
+                    subQuestion.description_fi,
+                    subQuestion.description_en,
+                    subQuestion.description_sv,
+                  )}
+                </label>
               </td>
               {subQuestion.options
                 .filter((option) => option.value !== 'None')

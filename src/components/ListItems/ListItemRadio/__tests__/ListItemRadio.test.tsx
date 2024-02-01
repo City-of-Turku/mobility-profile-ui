@@ -9,9 +9,9 @@ const mockData = {
   question_fi: 'Test question',
   question_en: 'Test question',
   question_sv: 'Test question',
-  description_fi: 'Test description',
-  description_en: 'Testi description',
-  description_sv: 'Testi description',
+  description_fi: 'Testi description',
+  description_en: 'Test description',
+  description_sv: 'Test description',
   options: [
     {
       id: 4,
@@ -25,9 +25,9 @@ const mockData = {
   sub_questions: [
     {
       id: 10,
-      description_fi: 'Testi description',
-      description_en: 'Testi description',
-      description_sv: 'Testi description',
+      description_fi: 'Testi sub description',
+      description_en: 'Test sub description',
+      description_sv: 'Test sub description',
       options: [
         {
           id: 4,
@@ -50,5 +50,20 @@ describe('<ListItemRadio />', () => {
   test('renders the ListItemRadio component', () => {
     const { container } = renderWithProviders(<ListItemRadio question={mockProps.question} />);
     expect(container).toBeTruthy();
+  });
+
+  it('does show text correctly', () => {
+    const { container } = renderWithProviders(<ListItemRadio question={mockProps.question} />);
+
+    const label = container.querySelectorAll('label');
+    expect(label[0].textContent).toContain(mockProps.question.options[0].value_fi);
+    expect(label[1].textContent).toContain(mockProps.question.sub_questions[0].description_fi);
+  });
+
+  it('does contain input', () => {
+    const { container } = renderWithProviders(<ListItemRadio question={mockProps.question} />);
+
+    const input = container.querySelectorAll('input');
+    expect(input[0]).toBeInTheDocument();
   });
 });
