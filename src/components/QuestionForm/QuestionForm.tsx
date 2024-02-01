@@ -115,6 +115,34 @@ const QuestionForm = () => {
   };
 
   /**
+   * Format transport types before appending them into sentence.
+   * Default value would look out of place when part of the sentence.
+   * @param str string
+   * @returns string
+   */
+  const formatTransportType = (str: string) => {
+    const lower = str.toLowerCase();
+    switch (lower) {
+      case 'autolla':
+        return intl.formatMessage({ id: 'app.transport.car' });
+      case 'mopolla tai skootterilla':
+        return intl.formatMessage({ id: 'app.transport.motorbike' });
+      case 'linja-autolla':
+        return intl.formatMessage({ id: 'app.transport.bus' });
+      case 'jalkaisin':
+        return intl.formatMessage({ id: 'app.transport.walk' });
+      case 'junalla':
+        return intl.formatMessage({ id: 'app.transport.train' });
+      case 'polkupyörällä tai sähköpyörällä':
+        return intl.formatMessage({ id: 'app.transport.bicycle' });
+      case 'sähköpotkulaudalla tai muulla vastaavalla':
+        return intl.formatMessage({ id: 'app.transport.scooter' });
+      default:
+        return null;
+    }
+  };
+
+  /**
    * Append answer of question 3 into the question string of question number 4. Otherwise use default format.
    * @param formatType
    * @param texts
@@ -142,15 +170,13 @@ const QuestionForm = () => {
     }
 
     if (formatType === 'withAnswer') {
-      const question3AnswerLocale = getLocaleText(question3Answer);
-
       if (localeText.includes('<<') || localeText.includes('>>')) {
         const parts = localeText.split(/<<|>>/g);
         return (
           <h3 className="header-h3">
             {currentLocale === 'en'
-              ? `${parts[0]} (${question3AnswerLocale}) ${parts[2]}`
-              : `${parts[0]} (${question3AnswerLocale})`}
+              ? `${parts[0]} ${formatTransportType(question3Answer.fi)} ${parts[2]}`
+              : `${parts[0]} ${formatTransportType(question3Answer.fi)}`}
           </h3>
         );
       }

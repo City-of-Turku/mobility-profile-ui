@@ -32,5 +32,12 @@
   "page.home.description": "Med den här enkäten får du inte bara reda på din mobilitetsprofil, utan vi ger dig också användbara tips om mobilitetsalternativ som kan vara av intresse för dig.",
   "app.result.error": "Det uppstod ett fel.",
   "app.result.success": "Tack för ditt svar.",
-  "app.result.newsletter.success": "Du har prenumererat på nyhetsbrevet."
+  "app.result.newsletter.success": "Du har prenumererat på nyhetsbrevet.",
+  "app.transport.car": "bil",
+  "app.transport.motorbike": "moped eller skoter",
+  "app.transport.bicycle": "cykel eller e-cykel",
+  "app.transport.bus": "buss",
+  "app.transport.train": "tåg",
+  "app.transport.walk": "gående",
+  "app.transport.scooter": "e-skoter eller liknande"
 }

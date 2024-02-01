@@ -32,5 +32,12 @@
   "page.home.description": "With this survey, you will not only find out your mobility profile, but we will also offer you useful tips about the mobility options that might interest you.",
   "app.result.error": "There was an error.",
   "app.result.success": "Thank you for your answer.",
-  "app.result.newsletter.success": "You have subscribed to our newsletter."
+  "app.result.newsletter.success": "You have subscribed to our newsletter.",
+  "app.transport.car": "car",
+  "app.transport.motorbike": "moped or scooter",
+  "app.transport.bicycle": "bicycle or e-bicycle",
+  "app.transport.bus": "bus",
+  "app.transport.train": "train",
+  "app.transport.walk": "walk",
+  "app.transport.scooter": "e-scooter or similar"
 }

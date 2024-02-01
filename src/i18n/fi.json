@@ -32,5 +32,12 @@
   "page.home.description": "Tällä kyselyllä et ainoastaan selvitä liikkumisprofiilisi, vaan tarjoamme sinulle myös hyödyllisiä vinkkejä sinua mahdollisesti kiinnostavista liikkumisvaihtoehdoista.",
   "app.result.error": "Tapahtui virhe.",
   "app.result.success": "Kiitos vastauksestasi.",
-  "app.result.newsletter.success": "Olet tilannut uutiskirjeen."
+  "app.result.newsletter.success": "Olet tilannut uutiskirjeen.",
+  "app.transport.car": "auto",
+  "app.transport.motorbike": "mopo tai skootteri",
+  "app.transport.bicycle": "polkupyörä tai sähköpyörä",
+  "app.transport.bus": "linja-auto",
+  "app.transport.train": "juna",
+  "app.transport.walk": "kävely",
+  "app.transport.scooter": "sähköpotkulauta tai muu vastaava"
 }
