@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
-import { UserFormProps, UserFormTypes } from '../../../types';
-import { postUserInfo } from '../../../utils/mobilityProfileAPI';
+import { PostalCode, UserFormProps, UserFormTypes } from '../../../types';
+import { fetchPostalCodes, postUserInfo } from '../../../utils/mobilityProfileAPI';
 import ErrorText from '../../Typography/ErrorText/ErrorText';
 import TextBasic from '../../Typography/TextBasic/TextBasic';
 
 const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const [isApiError, setIsApiError] = useState(false);
+  const [postalCodeData, setPostalCodeData] = useState<PostalCode[]>([]);
+  const [serviceMapApiError, setServiceMapApiError] = useState(false);
 
   const intl = useIntl();
 
   const { user } = useAppSelector((state) => state);
   const userId = user?.userId;
   const token = user?.csrfToken;
+
+  useEffect(() => {
+    fetchPostalCodes(setPostalCodeData, setServiceMapApiError);
+  }, []);
 
   const {
     register,
@@ -45,24 +51,34 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
           </div>
           <div className="container-sm">
             <div className="mb-2 form-group">
-              <label htmlFor="postal_code" className="text-label mb-1">
-                {intl.formatMessage({ id: 'app.form.postalCode.label' })}
-              </label>
-              <input
-                type="text"
-                placeholder={intl.formatMessage({ id: 'app.form.postalCode.label' })}
-                {...register('postal_code', {
-                  required: true,
-                  maxLength: 6,
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: intl.formatMessage({ id: 'app.form.numeric.field' }),
-                  },
-                })}
-                aria-invalid={errors.postal_code ? true : false}
-                className="form-control"
-              />
-              <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              {serviceMapApiError && (
+                <div className="mb-2">
+                  <p className="text-error">
+                    {intl.formatMessage({ id: 'app.postalcodes.error' })}
+                  </p>
+                </div>
+              )}
+              <div>
+                <label htmlFor="postal_code" className="text-label mb-1">
+                  {intl.formatMessage({ id: 'app.form.postalCode.label' })}
+                </label>
+              </div>
+              <div>
+                <select
+                  {...register('postal_code', { required: true })}
+                  aria-invalid={errors.postal_code ? true : false}
+                  className="select-field"
+                >
+                  {postalCodeData.map((item) => (
+                    <option key={item.id} value={item.name.fi}>
+                      {item.name.fi}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              </div>
               {errors.postal_code && (
                 <div className="mb-2">
                   <p className="text-normal">{errors.postal_code.message}</p>
@@ -70,24 +86,27 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               )}
             </div>
             <div className="mb-2 form-group">
-              <label htmlFor="optional_postal_code" className="text-label mb-1">
-                {intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
-              </label>
-              <input
-                type="text"
-                placeholder={intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
-                {...register('optional_postal_code', {
-                  required: true,
-                  maxLength: 6,
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: intl.formatMessage({ id: 'app.form.numeric.field' }),
-                  },
-                })}
-                aria-invalid={errors.optional_postal_code ? true : false}
-                className="form-control"
-              />
-              <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              <div>
+                <label htmlFor="optional_postal_code" className="text-label mb-1">
+                  {intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
+                </label>
+              </div>
+              <div>
+                <select
+                  {...register('optional_postal_code', { required: true })}
+                  aria-invalid={errors.optional_postal_code ? true : false}
+                  className="select-field"
+                >
+                  {postalCodeData.map((item) => (
+                    <option key={item.id} value={item.name.fi}>
+                      {item.name.fi}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              </div>
               {errors.optional_postal_code && (
                 <div className="mb-2">
                   <p className="text-normal">{errors.optional_postal_code.message}</p>

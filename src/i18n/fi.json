@@ -31,6 +31,7 @@
   "page.home.subTitle": "Tee Turun liikkumistesti.",
   "page.home.description": "Tällä kyselyllä et ainoastaan selvitä liikkumisprofiilisi, vaan tarjoamme sinulle myös hyödyllisiä vinkkejä sinua mahdollisesti kiinnostavista liikkumisvaihtoehdoista.",
   "app.result.error": "Tapahtui virhe.",
+  "app.postalcodes.error": "Postinumeroita ei voitu hakea.",
   "app.result.success": "Kiitos vastauksestasi.",
   "app.result.newsletter.success": "Olet tilannut uutiskirjeen.",
   "app.transport.car": "auto",

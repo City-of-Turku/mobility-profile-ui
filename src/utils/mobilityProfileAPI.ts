@@ -1,9 +1,18 @@
 import React from 'react';
-import { Question, QuestionAnswer, QuestionNumber, Result, UserFormTypes } from '../types';
+import {
+  PostalCode,
+  Question,
+  QuestionAnswer,
+  QuestionNumber,
+  Result,
+  UserFormTypes,
+} from '../types';
 
 const apiBaseUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 const apiVersion = process.env.REACT_APP_MOBILITY_PROFILE_API_VERSION;
 const apiUrl = `${apiBaseUrl}${apiVersion}`;
+
+const serviceMapAPI = process.env.REACT_APP_SERVICEMAP_API;
 
 const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
   try {
@@ -373,6 +382,25 @@ const postSubscribeInfo = async (
   }
 };
 
+const fetchPostalCodes = async (
+  setData: React.Dispatch<React.SetStateAction<PostalCode[]>>,
+  setError: (a: boolean) => void,
+) => {
+  try {
+    const response = await fetch(
+      `${serviceMapAPI}/administrative_division/?type=postcode_area&page=1&page_size=100`,
+    );
+    const jsonData = await response.json();
+    setData(jsonData.results);
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    setError(true);
+    console.warn(message);
+  }
+};
+
 export {
   fetchQuestions,
   fetchQuestionsWithConditions,
@@ -388,4 +416,5 @@ export {
   postQuestionAnswer,
   postUserInfo,
   postSubscribeInfo,
+  fetchPostalCodes,
 };

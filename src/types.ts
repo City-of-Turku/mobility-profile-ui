@@ -115,6 +115,15 @@ interface TextBasicProps {
   translationId: string;
 }
 
+interface PostalCode {
+  id: number;
+  name: {
+    fi: string;
+    sv: string;
+    en: string;
+  };
+}
+
 export {
   SettingsState,
   User,
@@ -135,4 +144,5 @@ export {
   UserFormProps,
   LinkButtonProps,
   TextBasicProps,
+  PostalCode,
 };
