@@ -20,6 +20,7 @@
   "app.form.mandatory.field": "Mandatory field",
   "app.form.email.invalid": "Enter valid email address",
   "app.form.numeric.field": "Enter valid postalcode",
+  "app.form.info.question": "Why did I took the test?",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",

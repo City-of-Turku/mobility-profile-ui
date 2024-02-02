@@ -113,6 +113,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 </div>
               )}
             </div>
+            <div className="mb-2">
+              <p className="text-normal">{intl.formatMessage({ id: 'app.form.info.question' })}</p>
+            </div>
             <div className="mb-3 form-check">
               <input
                 type="checkbox"
