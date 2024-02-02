@@ -23,6 +23,14 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     fetchPostalCodes(setPostalCodeData, setServiceMapApiError);
   }, []);
 
+  const renderOptions = () => {
+    return postalCodeData?.map((item) => (
+      <option key={item.id} value={item.name.fi}>
+        {item.name.fi}
+      </option>
+    ));
+  };
+
   const {
     register,
     handleSubmit,
@@ -69,11 +77,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   aria-invalid={errors.postal_code ? true : false}
                   className="select-field"
                 >
-                  {postalCodeData.map((item) => (
-                    <option key={item.id} value={item.name.fi}>
-                      {item.name.fi}
-                    </option>
-                  ))}
+                  {renderOptions()}
                 </select>
               </div>
               <div>
@@ -97,11 +101,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   aria-invalid={errors.optional_postal_code ? true : false}
                   className="select-field"
                 >
-                  {postalCodeData.map((item) => (
-                    <option key={item.id} value={item.name.fi}>
-                      {item.name.fi}
-                    </option>
-                  ))}
+                  {renderOptions()}
                 </select>
               </div>
               <div>
