@@ -25,8 +25,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
 
   const renderOptions = () => {
     return postalCodeData?.map((item) => (
-      <option key={item.id} value={item.name.fi}>
-        {item.name.fi}
+      <option key={item?.id} value={item?.name?.fi}>
+        {item?.name?.fi}
       </option>
     ));
   };
@@ -86,7 +86,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               </div>
               <div>
                 <select
-                  {...register('postal_code', { required: true })}
+                  {...register('postal_code', { required: !serviceMapApiError ? true : false })}
                   aria-invalid={errors.postal_code ? true : false}
                   className="select-field"
                 >
@@ -110,7 +110,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               </div>
               <div>
                 <select
-                  {...register('optional_postal_code', { required: true })}
+                  {...register('optional_postal_code', {
+                    required: !serviceMapApiError ? true : false,
+                  })}
                   aria-invalid={errors.optional_postal_code ? true : false}
                   className="select-field"
                 >
