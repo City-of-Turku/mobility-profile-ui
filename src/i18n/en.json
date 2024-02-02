@@ -15,6 +15,7 @@
   "app.form.email.label": "Email address",
   "app.form.postalCode.label": "Postalcode of the home address",
   "app.form.optionalPostalCode.label": "Postalcode of the work address",
+  "app.form.yearOfBirth.label": "Year of birth",
   "app.form.filledForFun.label": "Filled just for fun",
   "app.form.useResult.label": "Information can be used",
   "app.form.mandatory.field": "Mandatory field",

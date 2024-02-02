@@ -15,6 +15,7 @@
   "app.form.email.label": "Sähköpostiosoite",
   "app.form.postalCode.label": "Kodin postinumero",
   "app.form.optionalPostalCode.label": "Työpaikan postinumero",
+  "app.form.yearOfBirth.label": "Syntymävuosi",
   "app.form.filledForFun.label": "Täytin vain huvikseni",
   "app.form.useResult.label": "Tietoja saa käyttää",
   "app.form.mandatory.field": "Pakollinen kenttä",

@@ -15,6 +15,7 @@
   "app.form.email.label": "E-postadress",
   "app.form.postalCode.label": "Din postnummer",
   "app.form.optionalPostalCode.label": "Postnummer för arbetsplatsen",
+  "app.form.yearOfBirth.label": "Födelseår",
   "app.form.filledForFun.label": "Fylld bara för skojs skull",
   "app.form.useResult.label": "Information kan användas",
   "app.form.mandatory.field": "Obligatoriskt fält",

@@ -31,6 +31,18 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     ));
   };
 
+  const currentYear = new Date().getFullYear();
+  const startYear = currentYear - 90;
+  const years = Array.from(new Array(90), (val, index) => index + startYear).reverse();
+
+  const renderYears = () => {
+    return years?.map((item) => (
+      <option key={item} value={item}>
+        {item}
+      </option>
+    ));
+  };
+
   const {
     register,
     handleSubmit,
@@ -39,6 +51,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     defaultValues: {
       postal_code: '',
       optional_postal_code: '',
+      year_of_birth: 1,
       is_filled_for_fun: true,
       result_can_be_used: true,
     },
@@ -102,6 +115,30 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   className="select-field"
                 >
                   {renderOptions()}
+                </select>
+              </div>
+              <div>
+                <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              </div>
+              {errors.optional_postal_code && (
+                <div className="mb-2">
+                  <p className="text-normal">{errors.optional_postal_code.message}</p>
+                </div>
+              )}
+            </div>
+            <div className="mb-2 form-group">
+              <div>
+                <label htmlFor="year_of_birth" className="text-label mb-1">
+                  {intl.formatMessage({ id: 'app.form.yearOfBirth.label' })}
+                </label>
+              </div>
+              <div>
+                <select
+                  {...register('year_of_birth', { required: true })}
+                  aria-invalid={errors.year_of_birth ? true : false}
+                  className="select-field"
+                >
+                  {renderYears()}
                 </select>
               </div>
               <div>
