@@ -177,7 +177,13 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 {intl.formatMessage({ id: 'app.form.useResult.label' })}
               </label>
             </div>
-            <Button type="submit" role="button" disabled={answerStatus} className="input-submit">
+            <Button
+              type="submit"
+              role="button"
+              disabled={answerStatus}
+              aria-disabled={answerStatus}
+              className="input-submit"
+            >
               {intl.formatMessage({ id: 'app.input.submit.user' })}
             </Button>
             {answerStatus ? <TextBasic translationId="app.result.success" /> : null}

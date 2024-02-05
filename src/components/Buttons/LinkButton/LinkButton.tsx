@@ -13,6 +13,7 @@ const LinkButton = ({ urlValue, translationId, isActive }: LinkButtonProps) => {
           role="button"
           type="button"
           disabled={!isActive}
+          aria-disabled={!isActive}
           className="button-primary p-2"
           aria-label={intl.formatMessage({ id: translationId })}
         >

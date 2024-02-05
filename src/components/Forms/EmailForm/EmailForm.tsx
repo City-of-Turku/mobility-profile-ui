@@ -66,7 +66,13 @@ const EmailForm = () => {
               <p className="text-normal">{errors.email.message}</p>
             </div>
           )}
-          <Button type="submit" role="button" disabled={hasUserAnswered} className="input-submit">
+          <Button
+            type="submit"
+            role="button"
+            disabled={hasUserAnswered}
+            aria-disabled={hasUserAnswered}
+            className="input-submit"
+          >
             {intl.formatMessage({ id: 'app.input.submit.newsletter' })}
           </Button>
           {hasUserAnswered ? <TextBasic translationId="app.result.newsletter.success" /> : null}
