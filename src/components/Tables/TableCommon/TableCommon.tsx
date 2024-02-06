@@ -3,11 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { ListItemCheckBoxProps, Option, QuestionAnswer } from '../../../types';
+import { Option, QuestionAnswer, TableCommonProps } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
-const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
+/**
+ * Component that renders table for questions without sub questions.
+ * Is used by most of the questions.
+ */
+
+const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   const [mainOptions, setMainOptions] = useState<QuestionAnswer[]>([]);
 
   const dispatch = useAppDispatch();
@@ -75,4 +80,4 @@ const ListItemCheckBox: React.FC<ListItemCheckBoxProps> = ({ question }) => {
   );
 };
 
-export default ListItemCheckBox;
+export default TableCommon;

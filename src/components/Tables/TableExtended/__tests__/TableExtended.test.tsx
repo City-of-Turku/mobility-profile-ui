@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderWithProviders } from '../../../../testUtils/testUtils';
-import ListItemRadio from '../ListItemRadio';
+import TableExtended from '../TableExtended';
 
 const mockData = {
   id: 5,
@@ -46,17 +46,17 @@ const mockProps = {
   questionData: mockData,
 };
 
-describe('<ListItemRadio />', () => {
-  test('renders the ListItemRadio component', () => {
+describe('<TableExtended />', () => {
+  test('renders the TableExtended component', () => {
     const { container } = renderWithProviders(
-      <ListItemRadio questionData={mockProps.questionData} />,
+      <TableExtended questionData={mockProps.questionData} />,
     );
     expect(container).toBeTruthy();
   });
 
   it('does show text correctly', () => {
     const { container } = renderWithProviders(
-      <ListItemRadio questionData={mockProps.questionData} />,
+      <TableExtended questionData={mockProps.questionData} />,
     );
 
     const label = container.querySelectorAll('label');
@@ -66,7 +66,7 @@ describe('<ListItemRadio />', () => {
 
   it('does contain input', () => {
     const { container } = renderWithProviders(
-      <ListItemRadio questionData={mockProps.questionData} />,
+      <TableExtended questionData={mockProps.questionData} />,
     );
 
     const input = container.querySelectorAll('input');

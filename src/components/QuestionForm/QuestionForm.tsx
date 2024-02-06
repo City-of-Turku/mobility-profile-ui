@@ -13,8 +13,8 @@ import {
   postQuestionAnswer,
 } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
-import ListItemCheckBox from '../ListItems/ListItemCheckBox/ListItemCheckBox';
-import ListItemRadio from '../ListItems/ListItemRadio/ListItemRadio';
+import TableCommon from '../Tables/TableCommon/TableCommon';
+import TableExtended from '../Tables/TableExtended/TableExtended';
 
 // TODO finalize functionality, add remaining POST requests & adjust styles.
 
@@ -205,12 +205,12 @@ const QuestionForm = () => {
           </div>
           <div className="form-list-container">
             <Form.Group>
-              <ListItemCheckBox question={questionData} />
+              <TableCommon question={questionData} />
             </Form.Group>
           </div>
           {questionData.sub_questions && (
             <div className="form-list-container">
-              <ListItemRadio questionData={questionData} />
+              <TableExtended questionData={questionData} />
             </div>
           )}
         </div>

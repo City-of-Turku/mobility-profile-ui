@@ -60,11 +60,11 @@ interface QuestionAnswer {
   sub_question?: string | number;
 }
 
-interface ListItemCheckBoxProps {
+interface TableCommonProps {
   question: Question;
 }
 
-interface ListItemRadioProps {
+interface TableExtendedProps {
   questionData: Question;
 }
 
@@ -134,8 +134,8 @@ export {
   SubQuestion,
   QuestionNumber,
   QuestionAnswer,
-  ListItemCheckBoxProps,
-  ListItemRadioProps,
+  TableCommonProps,
+  TableExtendedProps,
   QuestionIdType,
   Result,
   GetLocaleTextFunction,

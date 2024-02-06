@@ -4,11 +4,16 @@ import { Table } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { ListItemRadioProps, Option, QuestionAnswer } from '../../../types';
+import { Option, QuestionAnswer, TableExtendedProps } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
-const ListItemRadio: React.FC<ListItemRadioProps> = ({ questionData }) => {
+/**
+ * Component that renders table for questions with sub questions.
+ * Is used by two questions.
+ */
+
+const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const [subOptions, setSubOptions] = useState<QuestionAnswer[]>([]);
 
   const intl = useIntl();
@@ -122,4 +127,4 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ questionData }) => {
   );
 };
 
-export default ListItemRadio;
+export default TableExtended;
