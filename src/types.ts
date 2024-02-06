@@ -65,7 +65,7 @@ interface ListItemCheckBoxProps {
 }
 
 interface ListItemRadioProps {
-  question: Question;
+  questionData: Question;
 }
 
 interface QuestionIdType {

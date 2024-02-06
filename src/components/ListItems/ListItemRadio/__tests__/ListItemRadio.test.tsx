@@ -43,25 +43,31 @@ const mockData = {
   sub_question: 3,
 };
 const mockProps = {
-  question: mockData,
+  questionData: mockData,
 };
 
 describe('<ListItemRadio />', () => {
   test('renders the ListItemRadio component', () => {
-    const { container } = renderWithProviders(<ListItemRadio question={mockProps.question} />);
+    const { container } = renderWithProviders(
+      <ListItemRadio questionData={mockProps.questionData} />,
+    );
     expect(container).toBeTruthy();
   });
 
   it('does show text correctly', () => {
-    const { container } = renderWithProviders(<ListItemRadio question={mockProps.question} />);
+    const { container } = renderWithProviders(
+      <ListItemRadio questionData={mockProps.questionData} />,
+    );
 
     const label = container.querySelectorAll('label');
-    expect(label[0].textContent).toContain(mockProps.question.options[0].value_fi);
-    expect(label[1].textContent).toContain(mockProps.question.sub_questions[0].description_fi);
+    expect(label[0].textContent).toContain(mockProps.questionData.options[0].value_fi);
+    expect(label[1].textContent).toContain(mockProps.questionData.sub_questions[0].description_fi);
   });
 
   it('does contain input', () => {
-    const { container } = renderWithProviders(<ListItemRadio question={mockProps.question} />);
+    const { container } = renderWithProviders(
+      <ListItemRadio questionData={mockProps.questionData} />,
+    );
 
     const input = container.querySelectorAll('input');
     expect(input[0]).toBeInTheDocument();

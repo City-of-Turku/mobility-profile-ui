@@ -210,7 +210,7 @@ const QuestionForm = () => {
           </div>
           {questionData.sub_questions && (
             <div className="form-list-container">
-              <ListItemRadio question={questionData} />
+              <ListItemRadio questionData={questionData} />
             </div>
           )}
         </div>

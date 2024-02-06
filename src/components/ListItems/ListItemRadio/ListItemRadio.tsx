@@ -2,13 +2,13 @@ import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
-import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
 import { ListItemRadioProps, Option, QuestionAnswer } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
-const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
+const ListItemRadio: React.FC<ListItemRadioProps> = ({ questionData }) => {
   const [subOptions, setSubOptions] = useState<QuestionAnswer[]>([]);
 
   const intl = useIntl();
@@ -16,9 +16,43 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
   const dispatch = useAppDispatch();
   const { setSubQuestionAnswer } = bindActionCreators(questionSlice.actions, dispatch);
 
+  const { question } = useAppSelector((state) => state);
+  const question3Answer = question.question3Answer.fi;
+
   const getLocaleText = useLocaleText();
 
-  const optionsArray = question.sub_questions[0].options;
+  const isQuestionFour = questionData.number === '4';
+
+  const getTransportType = (str: string) => {
+    const lower = str.toLowerCase();
+    switch (lower) {
+      case 'autolla':
+        return 'Auto';
+      case 'mopolla tai skootterilla':
+        return 'Mopo tai skootteri';
+      case 'linja-autolla':
+        return 'Joukkoliikenne (juna, linja-auto)';
+      case 'jalkaisin':
+        return 'Kävellen';
+      case 'junalla':
+        return 'Joukkoliikenne (juna, linja-auto)';
+      case 'polkupyörällä tai sähköpyörällä':
+        return 'Polkupyörä tai sähköpyörä tms';
+      case 'sähköpotkulaudalla tai muulla vastaavalla':
+        return 'Muu';
+      default:
+        return null;
+    }
+  };
+
+  const getSubQuestionsIndex = () => {
+    const transportType = getTransportType(question3Answer);
+    return questionData.sub_questions.findIndex((item) => item.description_fi === transportType);
+  };
+
+  const optionsArray = isQuestionFour
+    ? questionData.sub_questions[getSubQuestionsIndex()].options
+    : questionData.sub_questions[0].options;
 
   useEffect(() => {
     setSubQuestionAnswer(subOptions);
@@ -29,7 +63,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
     setSubOptions((prevSubOptions) => [
       ...prevSubOptions,
       {
-        question: question.id,
+        question: questionData.id,
         option: Number(event.target.value),
         sub_question: option.sub_question,
       },
@@ -37,12 +71,12 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
   };
 
   const commonCellStyle = {
-    fontSize: question.number === '4' ? '0.8rem' : '1rem',
+    fontSize: isQuestionFour ? '0.8rem' : '1rem',
   };
 
   return (
     <div className="table-responsive">
-      <Table bordered striped hover size={question.number === '4' ? 'sm' : 'md'}>
+      <Table bordered striped hover size={isQuestionFour ? 'sm' : 'md'}>
         <thead>
           <tr>
             <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
@@ -56,7 +90,7 @@ const ListItemRadio: React.FC<ListItemRadioProps> = ({ question }) => {
           </tr>
         </thead>
         <tbody>
-          {question.sub_questions.map((subQuestion) => (
+          {questionData?.sub_questions?.map((subQuestion) => (
             <tr key={subQuestion.id}>
               <td style={commonCellStyle}>
                 <label>
