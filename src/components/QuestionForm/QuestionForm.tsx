@@ -215,16 +215,16 @@ const QuestionForm = () => {
           )}
         </div>
         <div className="buttons-container-flex">
-          <Button
-            className="button-primary"
-            role="button"
-            onClick={() => handleNext()}
-            disabled={isLastPage}
-            aria-disabled={isLastPage}
-            aria-label={intl.formatMessage({ id: 'app.buttons.next' })}
-          >
-            <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
-          </Button>
+          {!isLastPage && (
+            <Button
+              className="button-primary"
+              role="button"
+              onClick={() => handleNext()}
+              aria-label={intl.formatMessage({ id: 'app.buttons.next' })}
+            >
+              <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
+            </Button>
+          )}
           {isLastPage && (
             <Link to="/info">
               <Button

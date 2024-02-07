@@ -49,9 +49,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      year_of_birth: 1,
       postal_code: '',
       optional_postal_code: '',
-      year_of_birth: 1,
       is_filled_for_fun: true,
       result_can_be_used: true,
     },
@@ -65,20 +65,39 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
 
   return (
     <div className="mb-3">
-      <div className="flex-center">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="container-md mb-2">
-            <p className="text-normal">{intl.formatMessage({ id: 'app.form.user.title' })}</p>
+      <div>
+        {serviceMapApiError && (
+          <div className="mb-2">
+            <p className="text-error">{intl.formatMessage({ id: 'app.postalcodes.error' })}</p>
           </div>
-          <div className="container-sm">
-            <div className="mb-2 form-group">
-              {serviceMapApiError && (
+        )}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="container flex-center">
+            <div className="mb-2 form-group container-sm">
+              <div>
+                <label htmlFor="year_of_birth" className="text-label mb-1">
+                  {intl.formatMessage({ id: 'app.form.yearOfBirth.label' })}
+                </label>
+              </div>
+              <div>
+                <select
+                  {...register('year_of_birth', { required: true })}
+                  aria-invalid={errors.year_of_birth ? true : false}
+                  className="select-field"
+                >
+                  {renderYears()}
+                </select>
+              </div>
+              <div>
+                <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              </div>
+              {errors.year_of_birth && (
                 <div className="mb-2">
-                  <p className="text-error">
-                    {intl.formatMessage({ id: 'app.postalcodes.error' })}
-                  </p>
+                  <p className="text-normal">{errors.year_of_birth.message}</p>
                 </div>
               )}
+            </div>
+            <div className="mb-2 form-group container-sm">
               <div>
                 <label htmlFor="postal_code" className="text-label mb-1">
                   {intl.formatMessage({ id: 'app.form.postalCode.label' })}
@@ -102,7 +121,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 </div>
               )}
             </div>
-            <div className="mb-2 form-group">
+            <div className="mb-2 form-group container-sm">
               <div>
                 <label htmlFor="optional_postal_code" className="text-label mb-1">
                   {intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
@@ -128,34 +147,10 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 </div>
               )}
             </div>
-            <div className="mb-2 form-group">
-              <div>
-                <label htmlFor="year_of_birth" className="text-label mb-1">
-                  {intl.formatMessage({ id: 'app.form.yearOfBirth.label' })}
-                </label>
-              </div>
-              <div>
-                <select
-                  {...register('year_of_birth', { required: true })}
-                  aria-invalid={errors.year_of_birth ? true : false}
-                  className="select-field"
-                >
-                  {renderYears()}
-                </select>
-              </div>
-              <div>
-                <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
-              </div>
-              {errors.optional_postal_code && (
-                <div className="mb-2">
-                  <p className="text-normal">{errors.optional_postal_code.message}</p>
-                </div>
-              )}
-            </div>
-            <div className="mb-2">
+            <div className="mb-2 container-sm">
               <p className="text-normal">{intl.formatMessage({ id: 'app.form.info.question' })}</p>
             </div>
-            <div className="mb-3 form-check">
+            <div className="mb-3 form-check container-sm">
               <input
                 type="checkbox"
                 {...register('is_filled_for_fun', { required: false })}
@@ -166,7 +161,12 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 {intl.formatMessage({ id: 'app.form.filledForFun.label' })}
               </label>
             </div>
-            <div className="mb-3 form-check">
+            <div className="mb-2 container-sm">
+              <p className="text-normal">
+                {intl.formatMessage({ id: 'app.form.user.confirmation' })}
+              </p>
+            </div>
+            <div className="mb-3 form-check container-sm">
               <input
                 type="checkbox"
                 {...register('result_can_be_used', { required: false })}
@@ -177,16 +177,18 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 {intl.formatMessage({ id: 'app.form.useResult.label' })}
               </label>
             </div>
-            <Button
-              type="submit"
-              role="button"
-              disabled={answerStatus}
-              aria-disabled={answerStatus}
-              className="input-submit"
-            >
-              {intl.formatMessage({ id: 'app.input.submit.user' })}
-            </Button>
-            {answerStatus ? <TextBasic translationId="app.result.success" /> : null}
+            <div className="mb-2 container-sm">
+              <Button
+                type="submit"
+                role="button"
+                disabled={answerStatus}
+                aria-disabled={answerStatus}
+                className="input-submit"
+              >
+                {intl.formatMessage({ id: 'app.input.submit.user' })}
+              </Button>
+              {answerStatus ? <TextBasic translationId="app.result.success" /> : null}
+            </div>
             {isApiError ? <ErrorText /> : null}
           </div>
         </form>
