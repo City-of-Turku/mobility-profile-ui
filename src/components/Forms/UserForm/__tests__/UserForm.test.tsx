@@ -19,12 +19,13 @@ describe('<UserForm />', () => {
 
     const label = container.querySelectorAll('label');
     const p = container.querySelectorAll('p');
-    expect(p[0].textContent).toContain(finnishTranslations['app.form.user.title']);
-    expect(label[0].textContent).toContain(finnishTranslations['app.form.postalCode.label']);
-    expect(label[1].textContent).toContain(
+    expect(p[1].textContent).toContain(finnishTranslations['app.form.info.question']);
+    expect(p[2].textContent).toContain(finnishTranslations['app.form.user.confirmation']);
+    expect(label[0].textContent).toContain(finnishTranslations['app.form.yearOfBirth.label']);
+    expect(label[1].textContent).toContain(finnishTranslations['app.form.postalCode.label']);
+    expect(label[2].textContent).toContain(
       finnishTranslations['app.form.optionalPostalCode.label'],
     );
-    expect(label[2].textContent).toContain(finnishTranslations['app.form.yearOfBirth.label']);
     expect(label[3].textContent).toContain(finnishTranslations['app.form.filledForFun.label']);
     expect(label[4].textContent).toContain(finnishTranslations['app.form.useResult.label']);
     expect(label).toHaveLength(5);
