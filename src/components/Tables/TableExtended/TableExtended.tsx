@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
-import { Option, QuestionAnswer, TableExtendedProps } from '../../../types';
+import { Option, QuestionAnswer, SubQuestion, TableExtendedProps } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 
@@ -59,6 +59,20 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     ? questionData.sub_questions[getSubQuestionsIndex()].options
     : questionData.sub_questions[0].options;
 
+  const filterSubQuestions = (data: SubQuestion[], question3Answer: string): SubQuestion[] => {
+    return data.reduce((acc, curr) => {
+      const transportType = getTransportType(question3Answer);
+      if (curr.description_fi === transportType) {
+        acc.push(curr);
+      }
+      return acc;
+    }, [] as SubQuestion[]);
+  };
+
+  const subQuestionsArray = isQuestionFour
+    ? filterSubQuestions(questionData.sub_questions, question3Answer)
+    : questionData.sub_questions;
+
   useEffect(() => {
     setSubQuestionAnswer(subOptions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,24 +109,24 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
           </tr>
         </thead>
         <tbody>
-          {questionData?.sub_questions?.map((subQuestion) => (
-            <tr key={subQuestion.id}>
+          {subQuestionsArray.map((item) => (
+            <tr key={item.id}>
               <td style={commonCellStyle}>
                 <label>
                   {renderLocaleValue(
                     getLocaleText,
-                    subQuestion.description_fi,
-                    subQuestion.description_en,
-                    subQuestion.description_sv,
+                    item.description_fi,
+                    item.description_en,
+                    item.description_sv,
                   )}
                 </label>
               </td>
-              {subQuestion.options
+              {item.options
                 .filter((option) => option.value !== 'None')
                 .map((option) => (
                   <td key={option.id} className="center-input">
                     <input
-                      name={`row-${subQuestion.id}`}
+                      name={`row-${item.id}`}
                       type="radio"
                       value={option.id}
                       onChange={(event) => createAnswerEvent(event, option)}
