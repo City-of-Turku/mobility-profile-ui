@@ -51,7 +51,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     defaultValues: {
       year_of_birth: 1,
       postal_code: '',
-      optional_postal_code: '',
+      optional_postal_code: null,
       is_filled_for_fun: true,
       result_can_be_used: true,
     },
@@ -88,7 +88,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {renderYears()}
                 </select>
               </div>
-              <div>
+              <div className="mb-2">
                 <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
               </div>
               {errors.year_of_birth && (
@@ -112,7 +112,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {renderOptions()}
                 </select>
               </div>
-              <div>
+              <div className="mb-2">
                 <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
               </div>
               {errors.postal_code && (
@@ -130,16 +130,13 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               <div>
                 <select
                   {...register('optional_postal_code', {
-                    required: !serviceMapApiError ? true : false,
+                    required: false,
                   })}
                   aria-invalid={errors.optional_postal_code ? true : false}
                   className="select-field"
                 >
                   {renderOptions()}
                 </select>
-              </div>
-              <div>
-                <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
               </div>
               {errors.optional_postal_code && (
                 <div className="mb-2">
