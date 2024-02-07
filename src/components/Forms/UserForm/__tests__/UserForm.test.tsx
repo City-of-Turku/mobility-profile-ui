@@ -19,6 +19,7 @@ describe('<UserForm />', () => {
 
     const label = container.querySelectorAll('label');
     const p = container.querySelectorAll('p');
+    const small = container.querySelectorAll('small');
     expect(p[1].textContent).toContain(finnishTranslations['app.form.info.question']);
     expect(p[2].textContent).toContain(finnishTranslations['app.form.user.confirmation']);
     expect(label[0].textContent).toContain(finnishTranslations['app.form.yearOfBirth.label']);
@@ -28,7 +29,11 @@ describe('<UserForm />', () => {
     );
     expect(label[3].textContent).toContain(finnishTranslations['app.form.filledForFun.label']);
     expect(label[4].textContent).toContain(finnishTranslations['app.form.useResult.label']);
+    expect(small[0].textContent).toContain(finnishTranslations['app.form.mandatory.field']);
+    expect(small[1].textContent).toContain(finnishTranslations['app.form.mandatory.field']);
+    expect(small[2].textContent).toContain(finnishTranslations['app.form.optional.field']);
     expect(label).toHaveLength(5);
+    expect(small).toHaveLength(3);
   });
 
   it('does contain inputs', () => {

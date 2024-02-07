@@ -138,6 +138,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {renderOptions()}
                 </select>
               </div>
+              <div className="mb-2">
+                <small>{intl.formatMessage({ id: 'app.form.optional.field' })}</small>
+              </div>
               {errors.optional_postal_code && (
                 <div className="mb-2">
                   <p className="text-normal">{errors.optional_postal_code.message}</p>

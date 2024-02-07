@@ -19,6 +19,7 @@
   "app.form.filledForFun.label": "Just for fun",
   "app.form.useResult.label": "Information can be used",
   "app.form.mandatory.field": "Mandatory field",
+  "app.form.optional.field": "In case you don't work or study, you can skip this question",
   "app.form.email.invalid": "Enter valid email address",
   "app.form.numeric.field": "Enter valid postalcode",
   "app.form.info.question": "Why did I do the test?",

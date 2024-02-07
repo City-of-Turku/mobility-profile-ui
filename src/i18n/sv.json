@@ -19,6 +19,7 @@
   "app.form.filledForFun.label": "Bara för skojs skull",
   "app.form.useResult.label": "Information kan användas",
   "app.form.mandatory.field": "Obligatoriskt fält",
+  "app.form.optional.field": "Hoppa över frågan om du inte studerar eller arbetar",
   "app.form.email.invalid": "Skriv in en giltig e-postadress",
   "app.form.numeric.field": "Skriv in en giltig postnummer",
   "app.form.info.question": "Varför gjorde jag testet?",

@@ -19,6 +19,7 @@
   "app.form.filledForFun.label": "Täytin vain huvikseni",
   "app.form.useResult.label": "Tietoja saa käyttää",
   "app.form.mandatory.field": "Pakollinen kenttä",
+  "app.form.optional.field": "Ohita kysymys, jos et opiskele tai käy töissä",
   "app.form.email.invalid": "Kirjoita kelvollinen sähköpostiosoite",
   "app.form.numeric.field": "Kirjoita kelvollinen postinumero",
   "app.form.info.question": "Miksi tein testin?",
