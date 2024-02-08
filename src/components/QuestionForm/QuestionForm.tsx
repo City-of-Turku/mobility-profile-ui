@@ -158,7 +158,7 @@ const QuestionForm = () => {
 
     if (formatType === 'default') {
       if (localeText.includes('(')) {
-        const parts = localeText.split(':');
+        const parts = localeText.split('(');
         return (
           <>
             <h3 className="header-h3 mb-3">{`${parts[0]}?`}</h3>

@@ -54,7 +54,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
         <tbody>
           {question?.options?.map((option) => (
             <tr key={option.id}>
-              <td className="center-input checkbox">
+              <td className="center-input input-w50">
                 <input
                   name={'id'}
                   type={numberOfOptions === '1' ? 'radio' : 'checkbox'}

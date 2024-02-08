@@ -108,6 +108,10 @@ body {
   vertical-align: middle !important;
 }
 
+.input-w50 {
+  width: 50px;
+}
+
 .select-field {
   width: 40%;
   text-align: center;
@@ -141,10 +145,6 @@ body {
   padding: 0.25rem 0.5rem;
   border: none;
   border-radius: 5px;
-}
-
-.checkbox {
-  width: 50px;
 }
 
 .footer {

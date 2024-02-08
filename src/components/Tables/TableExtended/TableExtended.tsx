@@ -56,8 +56,8 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   const optionsArray = isQuestionFour
-    ? questionData.sub_questions[getSubQuestionsIndex()].options
-    : questionData.sub_questions[0].options;
+    ? questionData?.sub_questions[getSubQuestionsIndex()]?.options
+    : questionData?.sub_questions[0]?.options;
 
   const filterSubQuestions = (data: SubQuestion[], question3Answer: string): SubQuestion[] => {
     return data.reduce((acc, curr) => {
@@ -93,49 +93,105 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     fontSize: isQuestionFour ? '0.8rem' : '1rem',
   };
 
+  /**
+   * Medium sized table with only few options that are rendered horizontally.
+   * Suitable for question 1.
+   * @returns JSX element
+   */
+  const tableHorizontal = () => (
+    <>
+      <thead>
+        <tr>
+          <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
+          {optionsArray.map((item) => (
+            <th key={item.value_fi} style={commonCellStyle}>
+              <label>
+                {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
+              </label>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {subQuestionsArray.map((item) => (
+          <tr key={item.id}>
+            <td style={commonCellStyle}>
+              <label>
+                {renderLocaleValue(
+                  getLocaleText,
+                  item.description_fi,
+                  item.description_en,
+                  item.description_sv,
+                )}
+              </label>
+            </td>
+            {item.options
+              .filter((option) => option.value !== 'None')
+              .map((option) => (
+                <td key={option.id} className="center-input">
+                  <input
+                    name={`row-${item.id}`}
+                    type="radio"
+                    value={option.id}
+                    onChange={(event) => createAnswerEvent(event, option)}
+                  />
+                </td>
+              ))}
+          </tr>
+        ))}
+      </tbody>
+    </>
+  );
+
+  /**
+   * Table with several options that needs to be vertical, otherwise it will be too wide for smaller & medium sized screens.
+   * Suitable for question 4.
+   * @returns JSX element
+   */
+  const tableVertical = () => (
+    <>
+      <tbody>
+        {subQuestionsArray.map((item) => (
+          <React.Fragment key={item.id}>
+            {item.options.map((option) => (
+              <tr key={option.id}>
+                <td className="center-input input-w50">
+                  <input
+                    name={`row-${item.id}`}
+                    type="radio"
+                    value={option.id}
+                    onChange={(event) => createAnswerEvent(event, option)}
+                  />
+                </td>
+                <td>
+                  <label>
+                    {renderLocaleValue(
+                      getLocaleText,
+                      option.value_fi,
+                      option.value_en,
+                      option.value_sv,
+                    )}
+                  </label>
+                </td>
+              </tr>
+            ))}
+          </React.Fragment>
+        ))}
+      </tbody>
+    </>
+  );
+
+  const renderTable = () => {
+    if (isQuestionFour) {
+      return tableVertical();
+    }
+    return tableHorizontal();
+  };
+
   return (
     <div className="table-responsive">
-      <Table bordered striped hover size={isQuestionFour ? 'sm' : 'md'}>
-        <thead>
-          <tr>
-            <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
-            {optionsArray.map((item) => (
-              <th key={item.value_fi} style={commonCellStyle}>
-                <label>
-                  {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
-                </label>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {subQuestionsArray.map((item) => (
-            <tr key={item.id}>
-              <td style={commonCellStyle}>
-                <label>
-                  {renderLocaleValue(
-                    getLocaleText,
-                    item.description_fi,
-                    item.description_en,
-                    item.description_sv,
-                  )}
-                </label>
-              </td>
-              {item.options
-                .filter((option) => option.value !== 'None')
-                .map((option) => (
-                  <td key={option.id} className="center-input">
-                    <input
-                      name={`row-${item.id}`}
-                      type="radio"
-                      value={option.id}
-                      onChange={(event) => createAnswerEvent(event, option)}
-                    />
-                  </td>
-                ))}
-            </tr>
-          ))}
-        </tbody>
+      <Table bordered striped hover>
+        {renderTable()}
       </Table>
     </div>
   );
