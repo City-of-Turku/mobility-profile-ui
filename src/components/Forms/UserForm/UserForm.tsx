@@ -88,7 +88,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {renderYears()}
                 </select>
               </div>
-              <div className="mb-2">
+              <div className="mb-1">
                 <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
               </div>
               {errors.year_of_birth && (
@@ -112,7 +112,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {renderOptions()}
                 </select>
               </div>
-              <div className="mb-2">
+              <div className="mb-1">
                 <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
               </div>
               {errors.postal_code && (
@@ -138,7 +138,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {renderOptions()}
                 </select>
               </div>
-              <div className="mb-2">
+              <div className="mb-1">
                 <small>{intl.formatMessage({ id: 'app.form.optional.field' })}</small>
               </div>
               {errors.optional_postal_code && (

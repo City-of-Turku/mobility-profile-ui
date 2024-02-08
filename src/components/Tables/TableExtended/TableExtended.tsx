@@ -32,19 +32,19 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     const lower = str.toLowerCase();
     switch (lower) {
       case 'autolla':
-        return 'Auto';
+        return 'auto';
       case 'mopolla tai skootterilla':
-        return 'Mopo tai skootteri';
+        return 'mopo tai skootteri';
       case 'linja-autolla':
-        return 'Joukkoliikenne (juna, linja-auto)';
+        return 'joukkoliikenne (juna, linja-auto)';
       case 'jalkaisin':
-        return 'Kävellen';
+        return 'kävellen';
       case 'junalla':
-        return 'Joukkoliikenne (juna, linja-auto)';
+        return 'joukkoliikenne (juna, linja-auto)';
       case 'polkupyörällä tai sähköpyörällä':
-        return 'Polkupyörä tai sähköpyörä tms';
+        return 'polkupyörä tai sähköpyörä tms';
       case 'sähköpotkulaudalla tai muulla vastaavalla':
-        return 'Muu';
+        return 'muu';
       default:
         return null;
     }
