@@ -161,8 +161,8 @@ const QuestionForm = () => {
         const parts = localeText.split('(');
         return (
           <>
-            <h3 className="header-h3 mb-3">{`${parts[0]}?`}</h3>
-            <h4 className="header-h4 mb-3">{parts[1]}</h4>
+            <h3 className="header-h3 mb-3">{`${parts[0]}`}</h3>
+            <h4 className="header-h4 mb-3">{parts[1].replace(')', '')}</h4>
           </>
         );
       }
