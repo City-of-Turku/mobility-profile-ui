@@ -22,18 +22,20 @@ describe('<UserForm />', () => {
     const small = container.querySelectorAll('small');
     expect(p[1].textContent).toContain(finnishTranslations['app.form.info.question']);
     expect(p[2].textContent).toContain(finnishTranslations['app.form.user.confirmation']);
-    expect(label[0].textContent).toContain(finnishTranslations['app.form.yearOfBirth.label']);
-    expect(label[1].textContent).toContain(finnishTranslations['app.form.postalCode.label']);
-    expect(label[2].textContent).toContain(
+    expect(label[0].textContent).toContain(finnishTranslations['app.form.gender.label']);
+    expect(label[1].textContent).toContain(finnishTranslations['app.form.yearOfBirth.label']);
+    expect(label[2].textContent).toContain(finnishTranslations['app.form.postalCode.label']);
+    expect(label[3].textContent).toContain(
       finnishTranslations['app.form.optionalPostalCode.label'],
     );
-    expect(label[3].textContent).toContain(finnishTranslations['app.form.filledForFun.label']);
-    expect(label[4].textContent).toContain(finnishTranslations['app.form.useResult.label']);
+    expect(label[4].textContent).toContain(finnishTranslations['app.form.filledForFun.label']);
+    expect(label[5].textContent).toContain(finnishTranslations['app.form.useResult.label']);
     expect(small[0].textContent).toContain(finnishTranslations['app.form.mandatory.field']);
     expect(small[1].textContent).toContain(finnishTranslations['app.form.mandatory.field']);
-    expect(small[2].textContent).toContain(finnishTranslations['app.form.optional.field']);
-    expect(label).toHaveLength(5);
-    expect(small).toHaveLength(3);
+    expect(small[2].textContent).toContain(finnishTranslations['app.form.mandatory.field']);
+    expect(small[3].textContent).toContain(finnishTranslations['app.form.optional.field']);
+    expect(label).toHaveLength(6);
+    expect(small).toHaveLength(4);
   });
 
   it('does contain inputs', () => {
@@ -44,7 +46,7 @@ describe('<UserForm />', () => {
     expect(inputs[0]).toBeInTheDocument();
     expect(inputs).toHaveLength(2);
     expect(select[0]).toBeInTheDocument();
-    expect(select).toHaveLength(3);
+    expect(select).toHaveLength(4);
   });
 
   it('does contain button', () => {

@@ -51,12 +51,36 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     ));
   };
 
+  const genderOptions = [
+    {
+      text: 'app.form.gender.male',
+      value: 'M',
+    },
+    {
+      text: 'app.form.gender.female',
+      value: 'F',
+    },
+    {
+      text: 'app.form.gender.other',
+      value: 'X',
+    },
+  ];
+
+  const renderGenderOptions = () => {
+    return genderOptions.map((item) => (
+      <option key={item.value} value={item.value}>
+        {intl.formatMessage({ id: item.text })}
+      </option>
+    ));
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
+      gender: null,
       year_of_birth: 1,
       postal_code: '',
       optional_postal_code: null,
@@ -75,12 +99,38 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     <div className="mb-3">
       <div>
         {serviceMapApiError && (
-          <div className="mb-2">
+          <div className="container mb-2">
             <p className="text-error">{intl.formatMessage({ id: 'app.postalcodes.error' })}</p>
           </div>
         )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container flex-center">
+            <div className="mb-2 form-group container-sm">
+              <div>
+                <label htmlFor="year_of_birth" className="text-label mb-1">
+                  {intl.formatMessage({ id: 'app.form.gender.label' })}
+                </label>
+              </div>
+              <div>
+                <select
+                  {...register('gender', { required: true })}
+                  role="listbox"
+                  aria-required="true"
+                  aria-invalid={errors.gender ? true : false}
+                  className="select-field"
+                >
+                  {renderGenderOptions()}
+                </select>
+              </div>
+              <div className="mb-1">
+                <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+              </div>
+              {errors.gender && (
+                <div className="mb-2">
+                  <p className="text-normal">{errors.gender.message}</p>
+                </div>
+              )}
+            </div>
             <div className="mb-2 form-group container-sm">
               <div>
                 <label htmlFor="year_of_birth" className="text-label mb-1">

@@ -94,6 +94,7 @@ interface EmailField {
 }
 
 interface UserFormTypes {
+  gender: string | null;
   year_of_birth: number;
   postal_code: string;
   optional_postal_code: string | null;
