@@ -23,6 +23,8 @@
   "app.form.email.invalid": "Enter valid email address",
   "app.form.numeric.field": "Enter valid postalcode",
   "app.form.info.question": "Why did I do the test?",
+  "app.form.helperText.year": "Year",
+  "app.form.helperText.postCode": "Post code",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",

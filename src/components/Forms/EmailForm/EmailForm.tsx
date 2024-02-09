@@ -57,6 +57,7 @@ const EmailForm = () => {
                   message: intl.formatMessage({ id: 'app.form.email.invalid' }),
                 },
               })}
+              aria-required="true"
               aria-invalid={errors.email ? true : false}
               className="form-control"
             />

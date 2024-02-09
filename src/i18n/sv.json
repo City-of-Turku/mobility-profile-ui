@@ -23,6 +23,8 @@
   "app.form.email.invalid": "Skriv in en giltig e-postadress",
   "app.form.numeric.field": "Skriv in en giltig postnummer",
   "app.form.info.question": "Varför gjorde jag testet?",
+  "app.form.helperText.year": "År",
+  "app.form.helperText.postCode": "Postnummer",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",

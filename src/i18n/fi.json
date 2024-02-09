@@ -23,6 +23,8 @@
   "app.form.email.invalid": "Kirjoita kelvollinen sähköpostiosoite",
   "app.form.numeric.field": "Kirjoita kelvollinen postinumero",
   "app.form.info.question": "Miksi tein testin?",
+  "app.form.helperText.year": "Vuosi",
+  "app.form.helperText.postCode": "Postinumero",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",

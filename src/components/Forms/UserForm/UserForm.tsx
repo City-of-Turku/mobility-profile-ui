@@ -25,7 +25,11 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
 
   const renderOptions = () => {
     return postalCodeData?.map((item) => (
-      <option key={item?.id} value={item?.name?.fi}>
+      <option
+        key={item?.id}
+        value={item?.name?.fi}
+        aria-label={`${intl.formatMessage({ id: 'app.form.helperText.postCode' })} ${item.name.fi}`}
+      >
         {item?.name?.fi}
       </option>
     ));
@@ -37,7 +41,11 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
 
   const renderYears = () => {
     return years?.map((item) => (
-      <option key={item} value={item}>
+      <option
+        key={item}
+        value={item}
+        aria-label={`${intl.formatMessage({ id: 'app.form.helperText.year' })} ${item}`}
+      >
         {item}
       </option>
     ));
@@ -82,6 +90,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               <div>
                 <select
                   {...register('year_of_birth', { required: true })}
+                  role="listbox"
+                  aria-required="true"
                   aria-invalid={errors.year_of_birth ? true : false}
                   className="select-field"
                 >
@@ -106,6 +116,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               <div>
                 <select
                   {...register('postal_code', { required: !serviceMapApiError ? true : false })}
+                  role="listbox"
+                  aria-required={!serviceMapApiError ? 'true' : 'false'}
                   aria-invalid={errors.postal_code ? true : false}
                   className="select-field"
                 >
@@ -132,6 +144,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {...register('optional_postal_code', {
                     required: false,
                   })}
+                  role="listbox"
+                  aria-required="false"
                   aria-invalid={errors.optional_postal_code ? true : false}
                   className="select-field"
                 >
@@ -154,6 +168,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               <input
                 type="checkbox"
                 {...register('is_filled_for_fun', { required: false })}
+                aria-required="false"
                 aria-invalid={errors.is_filled_for_fun ? true : false}
                 className="form-check-input"
               />
@@ -170,6 +185,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               <input
                 type="checkbox"
                 {...register('result_can_be_used', { required: false })}
+                aria-required="false"
                 aria-invalid={errors.result_can_be_used ? true : false}
                 className="form-check-input"
               />
