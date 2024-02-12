@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  PostalCode,
-  Question,
-  QuestionAnswer,
-  QuestionNumber,
-  Result,
-  UserFormTypes,
-} from '../types';
+import { PostalCode, Question, QuestionAnswer, Result, UserFormTypes } from '../types';
 
 const apiBaseUrl = process.env.REACT_APP_MOBILITY_PROFILE_API;
 const apiVersion = process.env.REACT_APP_MOBILITY_PROFILE_API_VERSION;
@@ -32,21 +25,6 @@ const fetchQuestionsWithConditions = async (
 ) => {
   try {
     const response = await fetch(`${apiUrl}/question/get_questions_with_conditions/?page_size=20`);
-    const jsonData = await response.json();
-    setData(jsonData.results);
-  } catch (error) {
-    let message;
-    if (error instanceof Error) message = error.message;
-    else message = String(error);
-    console.warn(message);
-  }
-};
-
-const fetchQuestionNumbers = async (
-  setData: React.Dispatch<React.SetStateAction<QuestionNumber[]>>,
-) => {
-  try {
-    const response = await fetch(`${apiUrl}/question/get_question_numbers/?page_size=30`);
     const jsonData = await response.json();
     setData(jsonData.results);
   } catch (error) {
@@ -405,7 +383,6 @@ export {
   fetchQuestions,
   fetchQuestionsWithConditions,
   fetchOneQuestion,
-  fetchQuestionNumbers,
   fetchQuestionStates,
   fetchUserResult,
   startPoll,

@@ -3,10 +3,20 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
   questionId: 1,
-  questionNumbers: [
+  allQuestions: [
     {
       id: 1,
       number: '1',
+      question: '',
+      question_fi: '',
+      question_en: '',
+      question_sv: '',
+      description_fi: '',
+      description_en: '',
+      description_sv: '',
+      options: [],
+      sub_questions: [],
+      sub_question: 0,
     },
   ],
   questionAnswer: [
@@ -36,8 +46,8 @@ export const questionSlice = createSlice({
     setQuestionId: (state, action: PayloadAction<number>) => {
       state.questionId = action.payload;
     },
-    setQuestionNumbers: (state, action) => {
-      state.questionNumbers = action.payload;
+    setAllQuestions: (state, action) => {
+      state.allQuestions = action.payload;
     },
     setQuestionAnswer: (state, action) => {
       state.questionAnswer = action.payload;
@@ -53,7 +63,7 @@ export const questionSlice = createSlice({
 
 export const {
   setQuestionId,
-  setQuestionNumbers,
+  setAllQuestions,
   setQuestionAnswer,
   setSubQuestionAnswer,
   setQuestion3Answer,

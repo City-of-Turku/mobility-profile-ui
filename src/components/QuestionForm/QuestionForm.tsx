@@ -8,7 +8,6 @@ import userSlice from '../../redux/slices/userSlice';
 import { Question } from '../../types';
 import {
   fetchOneQuestion,
-  fetchQuestions,
   fetchUserResult,
   postQuestionAnswer,
 } from '../../utils/mobilityProfileAPI';
@@ -19,7 +18,6 @@ import TableExtended from '../Tables/TableExtended/TableExtended';
 // TODO finalize functionality, add remaining POST requests & adjust styles.
 
 const QuestionForm = () => {
-  const [allQuestionsData, setAllQuestionsData] = useState<Array<Question>>([]);
   const [questionData, setQuestionData] = useState<Question>({} as Question);
   const [questionIndex, setQuestionIndex] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -33,7 +31,7 @@ const QuestionForm = () => {
 
   const { question, user, settings } = useAppSelector((state) => state);
   const questionId = question.questionId;
-  const questionNumbersData = question.questionNumbers;
+  const allQuestionsData = question.allQuestions;
   const questionAnswerArray = question.questionAnswer;
   const subQuestionAnswerArray = question.subQuestionAnswer;
   const question3Answer = question.question3Answer;
@@ -41,10 +39,6 @@ const QuestionForm = () => {
   const token = user.csrfToken;
 
   const [currentQuestionId, setCurrentQuestionId] = useState(questionId);
-
-  useEffect(() => {
-    fetchQuestions(setAllQuestionsData);
-  }, []);
 
   const findQuestion = (questionIdVal: number) => {
     return allQuestionsData.find((item) => item.id === questionIdVal);
@@ -58,9 +52,9 @@ const QuestionForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionId]);
 
-  const questionNumbersDataItems = [...questionNumbersData];
+  const questionsDataItems = [...allQuestionsData];
 
-  const sortedQuestionsData = questionNumbersDataItems?.sort((a, b) => {
+  const sortedQuestionsData = questionsDataItems?.sort((a, b) => {
     const numA = parseInt(a.number, 10);
     const numB = parseInt(b.number, 10);
 

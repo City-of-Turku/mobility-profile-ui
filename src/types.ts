@@ -49,11 +49,6 @@ interface Question {
   sub_question: number;
 }
 
-interface QuestionNumber {
-  id: number;
-  number: string;
-}
-
 interface QuestionAnswer {
   question: number;
   option: number;
@@ -134,7 +129,6 @@ export {
   Option,
   Question,
   SubQuestion,
-  QuestionNumber,
   QuestionAnswer,
   TableCommonProps,
   TableExtendedProps,

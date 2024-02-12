@@ -7,35 +7,29 @@ import bgImage from '../../../assets/images/mobility-profile-up.webp';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
 import userSlice from '../../../redux/slices/userSlice';
-import { QuestionNumber } from '../../../types';
-import { fetchQuestionNumbers, startPoll } from '../../../utils/mobilityProfileAPI';
+import { Question } from '../../../types';
+import { fetchQuestions, startPoll } from '../../../utils/mobilityProfileAPI';
 
 const HomePage = () => {
-  // const [questionNumbersData, setQuestionNumbersData] = useState<Array<QuestionNumber>>([]);
-
   const dispatch = useAppDispatch();
   const { setUserId, setCsrfToken } = bindActionCreators(userSlice.actions, dispatch);
-  const { setQuestionId, setQuestionNumbers } = bindActionCreators(questionSlice.actions, dispatch);
+  const { setQuestionId, setAllQuestions } = bindActionCreators(questionSlice.actions, dispatch);
 
   const { question } = useAppSelector((state) => state);
-  const questionNumbersData = question.questionNumbers;
+  const allQuestionsData = question.allQuestions;
 
   const intl = useIntl();
 
-  /*  useEffect(() => {
-    fetchQuestionNumbers(setQuestionNumbersData);
-  }, []); */
-
   useEffect(() => {
-    fetchQuestionNumbers(setQuestionNumbers);
+    fetchQuestions(setAllQuestions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getObjectWithLowestId = (data: QuestionNumber[]): QuestionNumber => {
+  const getObjectWithLowestId = (data: Question[]): Question => {
     return data?.reduce((min, curr) => (min.id < curr.id ? min : curr), data[0]);
   };
 
-  const firstQuestion = getObjectWithLowestId(questionNumbersData);
+  const firstQuestion = getObjectWithLowestId(allQuestionsData);
 
   useEffect(() => {
     setQuestionId(firstQuestion?.id);
