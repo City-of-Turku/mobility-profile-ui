@@ -14,6 +14,7 @@ import { renderLocaleValue } from '../../../utils/utils';
 
 const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   const [mainOptions, setMainOptions] = useState<QuestionAnswer[]>([]);
+  const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
 
   const dispatch = useAppDispatch();
   const { setQuestionAnswer, setQuestion3Answer } = bindActionCreators(
@@ -68,6 +69,16 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
     }
   };
 
+  useEffect(() => {
+    if (limitSelections) {
+      const selectedOptionIds = mainOptions.map((mainOption) => mainOption.option);
+      const newDisabledOptions = question?.options
+        ?.map((option) => option.id)
+        .filter((optionId) => !selectedOptionIds.includes(optionId));
+      setDisabledOptions(newDisabledOptions);
+    }
+  }, [mainOptions, question, limitSelections]);
+
   return (
     <div className="table-responsive">
       {limitSelections ? (
@@ -93,6 +104,16 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                   value={option.id}
                   checked={mainOptions.some((mainOption) => mainOption.option === option.id)}
                   onChange={(event) => createAnswerEvent(event, option)}
+                  aria-disabled={
+                    limitSelections &&
+                    mainOptions.length >= 3 &&
+                    disabledOptions.includes(option.id)
+                  }
+                  disabled={
+                    limitSelections &&
+                    mainOptions.length >= 3 &&
+                    disabledOptions.includes(option.id)
+                  }
                 />
               </td>
               <td>
