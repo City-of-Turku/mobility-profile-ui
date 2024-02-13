@@ -226,11 +226,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 {intl.formatMessage({ id: 'app.form.filledForFun.label' })}
               </label>
             </div>
-            <div className="mb-2 container-sm">
-              <p className="text-normal">
-                {intl.formatMessage({ id: 'app.form.user.confirmation' })}
-              </p>
-            </div>
             <div className="mb-3 form-check container-sm">
               <input
                 type="checkbox"
@@ -240,7 +235,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 className="form-check-input"
               />
               <label htmlFor="result_can_be_used" className="text-label">
-                {intl.formatMessage({ id: 'app.form.useResult.label' })}
+                {intl.formatMessage({ id: 'app.form.user.confirmation.label' })}
               </label>
             </div>
             <div className="mb-2 container-sm">
