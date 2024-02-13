@@ -21,8 +21,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const dispatch = useAppDispatch();
   const { setSubQuestionAnswer } = bindActionCreators(questionSlice.actions, dispatch);
 
-  const { question } = useAppSelector((state) => state);
-  const question3Answer = question.question3Answer.fi;
+  const { question3Answer } = useAppSelector((state) => state.question);
 
   const getLocaleText = useLocaleText();
 
@@ -51,7 +50,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   const getSubQuestionsIndex = () => {
-    const transportType = getTransportType(question3Answer);
+    const transportType = getTransportType(question3Answer.fi);
     return questionData.sub_questions.findIndex((item) => item.description_fi === transportType);
   };
 
@@ -70,7 +69,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   const subQuestionsArray = isQuestionFour
-    ? filterSubQuestions(questionData.sub_questions, question3Answer)
+    ? filterSubQuestions(questionData.sub_questions, question3Answer.fi)
     : questionData.sub_questions;
 
   useEffect(() => {

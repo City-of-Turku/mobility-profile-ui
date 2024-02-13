@@ -15,8 +15,7 @@ const HomePage = () => {
   const { setUserId, setCsrfToken } = bindActionCreators(userSlice.actions, dispatch);
   const { setQuestionId, setAllQuestions } = bindActionCreators(questionSlice.actions, dispatch);
 
-  const { question } = useAppSelector((state) => state);
-  const allQuestionsData = question.allQuestions;
+  const { allQuestions } = useAppSelector((state) => state.question);
 
   const intl = useIntl();
 
@@ -29,7 +28,7 @@ const HomePage = () => {
     return data?.reduce((min, curr) => (min.id < curr.id ? min : curr), data[0]);
   };
 
-  const firstQuestion = getObjectWithLowestId(allQuestionsData);
+  const firstQuestion = getObjectWithLowestId(allQuestions);
 
   useEffect(() => {
     setQuestionId(firstQuestion?.id);

@@ -18,9 +18,11 @@ export const getLocaleString = (locale: string, obj: LocaleTextObject): string =
 };
 
 const useLocaleText = () => {
-  const { settings } = useAppSelector((state) => state);
-  const locale = settings.localeSelection;
-  return useCallback((obj: LocaleTextObject) => getLocaleString(locale, obj), [locale]);
+  const { localeSelection } = useAppSelector((state) => state.settings);
+  return useCallback(
+    (obj: LocaleTextObject) => getLocaleString(localeSelection, obj),
+    [localeSelection],
+  );
 };
 
 export default useLocaleText;

@@ -29,19 +29,15 @@ const QuestionForm = () => {
   const dispatch = useAppDispatch();
   const { setProfileResult } = bindActionCreators(userSlice.actions, dispatch);
 
-  const { question, user, settings } = useAppSelector((state) => state);
-  const questionId = question.questionId;
-  const allQuestionsData = question.allQuestions;
-  const questionAnswerArray = question.questionAnswer;
-  const subQuestionAnswerArray = question.subQuestionAnswer;
-  const question3Answer = question.question3Answer;
-  const currentLocale = settings.localeSelection;
-  const token = user.csrfToken;
+  const { questionId, allQuestions, questionAnswer, subQuestionAnswer, question3Answer } =
+    useAppSelector((state) => state.question);
+  const { localeSelection } = useAppSelector((state) => state.settings);
+  const { csrfToken } = useAppSelector((state) => state.user);
 
   const [currentQuestionId, setCurrentQuestionId] = useState(questionId);
 
   const findQuestion = (questionIdVal: number) => {
-    return allQuestionsData.find((item) => item.id === questionIdVal);
+    return allQuestions.find((item) => item.id === questionIdVal);
   };
 
   /**
@@ -52,7 +48,7 @@ const QuestionForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionId]);
 
-  const questionsDataItems = [...allQuestionsData];
+  const questionsDataItems = [...allQuestions];
 
   const sortedQuestionsData = questionsDataItems?.sort((a, b) => {
     const numA = parseInt(a.number, 10);
@@ -82,23 +78,23 @@ const QuestionForm = () => {
   }, [questionIndex]);
 
   const endPoll = () => {
-    fetchUserResult(token, setProfileResult);
+    fetchUserResult(csrfToken, setProfileResult);
   };
 
   const postAllAnswers = () => {
     if (questionData.sub_questions) {
-      subQuestionAnswerArray.forEach((item) => {
-        postQuestionAnswer(item, token);
+      subQuestionAnswer.forEach((item) => {
+        postQuestionAnswer(item, csrfToken);
       });
     }
-    questionAnswerArray.forEach((item) => {
-      postQuestionAnswer(item, token);
+    questionAnswer.forEach((item) => {
+      postQuestionAnswer(item, csrfToken);
     });
   };
 
   // TODO Add skip question logic
   const handleNext = () => {
-    setQuestionIndex((previousState) => previousState + 1);
+    setQuestionIndex((prevIndex) => prevIndex + 1);
     if (currentQuestionId) {
       postAllAnswers();
     }
@@ -168,7 +164,7 @@ const QuestionForm = () => {
         const parts = localeText.split(/<<|>>/g);
         return (
           <h3 className="header-h3">
-            {currentLocale === 'en'
+            {localeSelection === 'en'
               ? `${parts[0]} ${formatTransportType(question3Answer.fi)} ${parts[2]}`
               : `${parts[0]} ${formatTransportType(question3Answer.fi)}`}
           </h3>

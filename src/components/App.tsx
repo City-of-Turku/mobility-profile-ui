@@ -11,9 +11,9 @@ import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 import ResultPage from './Pages/ResultPage/ResultPage';
 
 const App = () => {
-  const { settings } = useAppSelector((state) => state);
-  const locale = settings.localeSelection;
-  const intlData = LocaleUtility.intlData(locale);
+  const { localeSelection } = useAppSelector((state) => state.settings);
+  const intlData = LocaleUtility.intlData(localeSelection);
+
   return (
     <IntlProvider {...intlData}>
       <BrowserRouter>
