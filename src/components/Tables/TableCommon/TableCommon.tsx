@@ -22,6 +22,8 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   );
 
   const numberOfOptions = question.number_of_options_to_choose;
+  // This applies only to 1 question
+  const limitSelections = question.number_of_options_to_choose === '3';
 
   const getLocaleText = useLocaleText();
 
@@ -31,13 +33,31 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   }, [mainOptions]);
 
   const createAnswerEvent = (event: React.ChangeEvent<HTMLInputElement>, option: Option) => {
-    setMainOptions((prevMainOptions) => [
-      ...prevMainOptions,
-      {
-        question: question.id,
-        option: Number(event.target.value),
-      },
-    ]);
+    const selectedOptionId = Number(event.target.value);
+    const isSelected = mainOptions.some((mainOption) => mainOption.option === selectedOptionId);
+
+    if (isSelected) {
+      setMainOptions((prevMainOptions) =>
+        prevMainOptions.filter((mainOption) => mainOption.option !== selectedOptionId),
+      );
+    } else if (limitSelections && mainOptions.length < 3) {
+      setMainOptions((prevMainOptions) => [
+        ...prevMainOptions,
+        {
+          question: question.id,
+          option: selectedOptionId,
+        },
+      ]);
+    } else {
+      setMainOptions((prevMainOptions) => [
+        ...prevMainOptions,
+        {
+          question: question.id,
+          option: Number(event.target.value),
+        },
+      ]);
+    }
+
     if (question.number === '3') {
       const values = {
         fi: option.value_fi,
@@ -50,6 +70,18 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
 
   return (
     <div className="table-responsive">
+      {limitSelections ? (
+        <div className="mb-2">
+          <p className="text-normal">
+            {renderLocaleValue(
+              getLocaleText,
+              question.description_fi,
+              question.description_en,
+              question.description_sv,
+            )}
+          </p>
+        </div>
+      ) : null}
       <Table bordered striped hover>
         <tbody>
           {question?.options?.map((option) => (
@@ -59,6 +91,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                   name={'id'}
                   type={numberOfOptions === '1' ? 'radio' : 'checkbox'}
                   value={option.id}
+                  checked={mainOptions.some((mainOption) => mainOption.option === option.id)}
                   onChange={(event) => createAnswerEvent(event, option)}
                 />
               </td>

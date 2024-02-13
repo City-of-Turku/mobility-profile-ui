@@ -98,7 +98,7 @@ const QuestionForm = () => {
 
   // TODO Add skip question logic
   const handleNext = () => {
-    setQuestionIndex(questionIndex + 1);
+    setQuestionIndex((previousState) => previousState + 1);
     if (currentQuestionId) {
       postAllAnswers();
     }
