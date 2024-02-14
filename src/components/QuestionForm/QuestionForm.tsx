@@ -33,6 +33,11 @@ const QuestionForm = () => {
 
   const [currentQuestionId, setCurrentQuestionId] = useState(firstQuestion.id);
 
+  /**
+   * Find question object
+   * @param questionIdVal
+   * @returns object
+   */
   const findQuestion = (questionIdVal: number) => {
     return allQuestions.find((item) => item.id === questionIdVal);
   };
@@ -65,10 +70,15 @@ const QuestionForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionIndex]);
 
+  /** Function that fetches poll result */
   const endPoll = () => {
     fetchUserResult(csrfToken, setProfileResult);
   };
 
+  /**
+   * Post answers into API.
+   * Map the array containing answers and POST each into API endpoint.
+   */
   const postAllAnswers = () => {
     if (questionData.sub_questions) {
       subQuestionAnswer.forEach((item) => {

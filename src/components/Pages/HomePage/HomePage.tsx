@@ -23,10 +23,10 @@ const HomePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* const getObjectWithLowestId = (data: Question[]): Question => {
-    return data?.reduce((min, curr) => (min.id < curr.id ? min : curr), data[0]);
-  }; */
-
+  /**
+   * Find object of the first question
+   * @returns object
+   */
   const getFirsQuestion = () => {
     return allQuestions.find((item) => item.number === '1');
   };
