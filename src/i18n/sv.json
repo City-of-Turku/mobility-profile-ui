@@ -48,5 +48,6 @@
   "app.transport.bus": "buss",
   "app.transport.train": "tåg",
   "app.transport.walk": "gående",
-  "app.transport.scooter": "e-skoter eller liknande"
+  "app.transport.scooter": "e-skoter eller liknande",
+  "app.questions.api.error": "Ett fel uppstod. Frågor kan inte visas."
 }

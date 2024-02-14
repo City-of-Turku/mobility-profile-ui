@@ -12,14 +12,17 @@ import { fetchQuestions, startPoll } from '../../../utils/mobilityProfileAPI';
 const HomePage = () => {
   const dispatch = useAppDispatch();
   const { setUserId, setCsrfToken } = bindActionCreators(userSlice.actions, dispatch);
-  const { setFirstQuestion, setAllQuestions } = bindActionCreators(questionSlice.actions, dispatch);
+  const { setFirstQuestion, setAllQuestions, setQuestionApiError } = bindActionCreators(
+    questionSlice.actions,
+    dispatch,
+  );
 
   const { allQuestions } = useAppSelector((state) => state.question);
 
   const intl = useIntl();
 
   useEffect(() => {
-    fetchQuestions(setAllQuestions);
+    fetchQuestions(setAllQuestions, setQuestionApiError);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -71,10 +71,10 @@ interface QuestionIdType {
 
 interface Result {
   id: number;
-  value: string;
-  value_fi: string;
-  value_en: string;
-  value_sv: string;
+  topic: string;
+  topic_fi: string;
+  topic_en: string;
+  topic_sv: string;
   description_fi: string;
   description_en: string;
   description_sv: string;

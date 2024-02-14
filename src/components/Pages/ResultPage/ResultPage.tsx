@@ -35,20 +35,20 @@ const ResultPage = () => {
   const getProfile = (type: string) => {
     const typeLower = type.toLowerCase();
     switch (typeLower) {
-      case 'helppo hirvi':
+      case 'autoilija':
         return mobilityProfiles.moose;
-      case 'kokeileva kauris':
+      case 'maas-matkustaja':
         return mobilityProfiles.deer;
-      case 'käytännöllinen kettu':
+      case 'tavan mukaan kulkeva':
         return mobilityProfiles.fox;
-      case 'joustava jänis':
+      case 'kävelijä-pyöräilijä':
         return mobilityProfiles.rabbit;
-      case 'määrätietoinen metso':
+      case 'valveutunut matkustaja':
         return mobilityProfiles.capercaillie;
-      case 'nokkela näätä':
+      case 'joukkoliikenteen käyttäjä':
         return mobilityProfiles.marten;
       default:
-        return 'helppo hirvi';
+        return 'autoilija';
     }
   };
 
@@ -57,20 +57,20 @@ const ResultPage = () => {
       <div className="text-container">
         <h3 className="header-h3 mb-2">{intl.formatMessage({ id: 'app.general.summary' })}</h3>
       </div>
-      {!userResult || !userResult?.value?.length ? (
+      {!userResult || !userResult?.topic?.length ? (
         <div className="mb-3">
           <p className="text-error">{intl.formatMessage({ id: 'app.result.error' })}</p>
         </div>
       ) : null}
       <React.Fragment>
-        {userResult?.value_fi?.length ? (
+        {userResult?.topic_fi?.length ? (
           <div className="text-container mb-2">
             <p className="header-h4">
               {renderLocaleValue(
                 getLocaleText,
-                userResult.value_fi,
-                userResult.value_en,
-                userResult.value_sv,
+                userResult.topic_fi,
+                userResult.topic_en,
+                userResult.topic_sv,
               )}
             </p>
           </div>
@@ -87,9 +87,9 @@ const ResultPage = () => {
             </p>
           </div>
         ) : null}
-        {userResult?.value?.length ? (
+        {userResult?.topic?.length ? (
           <div className="image-container-md">
-            <img src={getProfile(userResult.value)} className="img-fluid" alt="illustration" />
+            <img src={getProfile(userResult.topic)} className="img-fluid" alt="illustration" />
           </div>
         ) : null}
       </React.Fragment>

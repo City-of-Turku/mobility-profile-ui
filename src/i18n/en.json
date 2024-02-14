@@ -48,5 +48,6 @@
   "app.transport.bus": "bus",
   "app.transport.train": "train",
   "app.transport.walk": "walk",
-  "app.transport.scooter": "e-scooter or similar"
+  "app.transport.scooter": "e-scooter or similar",
+  "app.questions.api.error": "An error occurred. Questions can't be displayed."
 }

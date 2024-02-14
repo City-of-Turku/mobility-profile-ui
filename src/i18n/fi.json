@@ -48,5 +48,6 @@
   "app.transport.bus": "linja-auto",
   "app.transport.train": "juna",
   "app.transport.walk": "kävely",
-  "app.transport.scooter": "sähköpotkulauta tai muu vastaava"
+  "app.transport.scooter": "sähköpotkulauta tai muu vastaava",
+  "app.questions.api.error": "Tapahtui virhe. Kysymyksiä ei voida näyttää."
 }

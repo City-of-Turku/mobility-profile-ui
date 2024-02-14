@@ -26,8 +26,14 @@ const QuestionForm = () => {
   const dispatch = useAppDispatch();
   const { setProfileResult } = bindActionCreators(userSlice.actions, dispatch);
 
-  const { firstQuestion, allQuestions, questionAnswer, subQuestionAnswer, question3Answer } =
-    useAppSelector((state) => state.question);
+  const {
+    firstQuestion,
+    allQuestions,
+    questionAnswer,
+    subQuestionAnswer,
+    question3Answer,
+    questionApiError,
+  } = useAppSelector((state) => state.question);
   const { localeSelection } = useAppSelector((state) => state.settings);
   const { csrfToken } = useAppSelector((state) => state.user);
 
@@ -233,7 +239,13 @@ const QuestionForm = () => {
 
   return (
     <div className="form-wrapper">
-      <form>{renderList()}</form>
+      {!questionApiError ? (
+        <form>{renderList()}</form>
+      ) : (
+        <div className="container">
+          <p className="text-error">{intl.formatMessage({ id: 'app.questions.api.error' })}</p>
+        </div>
+      )}
     </div>
   );
 };

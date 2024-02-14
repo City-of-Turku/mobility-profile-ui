@@ -7,12 +7,16 @@ const apiUrl = `${apiBaseUrl}${apiVersion}`;
 
 const serviceMapAPI = process.env.REACT_APP_SERVICEMAP_API;
 
-const fetchQuestions = async (setData: React.Dispatch<React.SetStateAction<Question[]>>) => {
+const fetchQuestions = async (
+  setData: React.Dispatch<React.SetStateAction<Question[]>>,
+  setError: (a: boolean) => void,
+) => {
   try {
     const response = await fetch(`${apiUrl}/question/?page_size=25`);
     const jsonData = await response.json();
     setData(jsonData.results);
   } catch (error) {
+    setError(true);
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
