@@ -7,13 +7,12 @@ import bgImage from '../../../assets/images/mobility-profile-up.webp';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
 import userSlice from '../../../redux/slices/userSlice';
-import { Question } from '../../../types';
 import { fetchQuestions, startPoll } from '../../../utils/mobilityProfileAPI';
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
   const { setUserId, setCsrfToken } = bindActionCreators(userSlice.actions, dispatch);
-  const { setQuestionId, setAllQuestions } = bindActionCreators(questionSlice.actions, dispatch);
+  const { setFirstQuestion, setAllQuestions } = bindActionCreators(questionSlice.actions, dispatch);
 
   const { allQuestions } = useAppSelector((state) => state.question);
 
@@ -24,15 +23,21 @@ const HomePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getObjectWithLowestId = (data: Question[]): Question => {
+  /* const getObjectWithLowestId = (data: Question[]): Question => {
     return data?.reduce((min, curr) => (min.id < curr.id ? min : curr), data[0]);
+  }; */
+
+  const getFirsQuestion = () => {
+    return allQuestions.find((item) => item.number === '1');
   };
 
-  const firstQuestion = getObjectWithLowestId(allQuestions);
+  const firstQuestion = getFirsQuestion();
 
   useEffect(() => {
-    setQuestionId(firstQuestion?.id);
-  }, [firstQuestion, setQuestionId]);
+    if (firstQuestion) {
+      setFirstQuestion(firstQuestion);
+    }
+  }, [firstQuestion, setFirstQuestion]);
 
   const handleClick = async () => {
     const userValues = await startPoll();

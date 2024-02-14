@@ -6,11 +6,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import userSlice from '../../redux/slices/userSlice';
 import { Question } from '../../types';
-import {
-  fetchOneQuestion,
-  fetchUserResult,
-  postQuestionAnswer,
-} from '../../utils/mobilityProfileAPI';
+import { fetchUserResult, postQuestionAnswer } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import TableCommon from '../Tables/TableCommon/TableCommon';
 import TableExtended from '../Tables/TableExtended/TableExtended';
@@ -29,12 +25,12 @@ const QuestionForm = () => {
   const dispatch = useAppDispatch();
   const { setProfileResult } = bindActionCreators(userSlice.actions, dispatch);
 
-  const { questionId, allQuestions, questionAnswer, subQuestionAnswer, question3Answer } =
+  const { firstQuestion, allQuestions, questionAnswer, subQuestionAnswer, question3Answer } =
     useAppSelector((state) => state.question);
   const { localeSelection } = useAppSelector((state) => state.settings);
   const { csrfToken } = useAppSelector((state) => state.user);
 
-  const [currentQuestionId, setCurrentQuestionId] = useState(questionId);
+  const [currentQuestionId, setCurrentQuestionId] = useState(firstQuestion.id);
 
   const findQuestion = (questionIdVal: number) => {
     return allQuestions.find((item) => item.id === questionIdVal);
@@ -44,9 +40,10 @@ const QuestionForm = () => {
    * Fetch first question
    */
   useEffect(() => {
-    fetchOneQuestion(questionId, setQuestionData);
+    setQuestionData(firstQuestion);
+    //fetchOneQuestion(questionId, setQuestionData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questionId]);
+  }, [firstQuestion]);
 
   const questionsDataItems = [...allQuestions];
 

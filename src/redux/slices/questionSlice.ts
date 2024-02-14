@@ -1,8 +1,20 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
-  questionId: 1,
+  firstQuestion: {
+    id: 1,
+    number: '1',
+    question: '',
+    question_fi: '',
+    question_en: '',
+    question_sv: '',
+    description_fi: '',
+    description_en: '',
+    description_sv: '',
+    options: [],
+    sub_questions: [],
+    sub_question: 0,
+  },
   allQuestions: [
     {
       id: 1,
@@ -43,8 +55,8 @@ export const questionSlice = createSlice({
   name: 'question',
   initialState,
   reducers: {
-    setQuestionId: (state, action: PayloadAction<number>) => {
-      state.questionId = action.payload;
+    setFirstQuestion: (state, action) => {
+      state.firstQuestion = action.payload;
     },
     setAllQuestions: (state, action) => {
       state.allQuestions = action.payload;
@@ -62,7 +74,7 @@ export const questionSlice = createSlice({
 });
 
 export const {
-  setQuestionId,
+  setFirstQuestion,
   setAllQuestions,
   setQuestionAnswer,
   setSubQuestionAnswer,
