@@ -13,9 +13,10 @@ const HomeButton = () => {
   const token = user.csrfToken;
 
   const endPoll = () => {
-    if (token.length) {
+    if (token?.length) {
       logoutUser(token);
     }
+    return;
   };
 
   return (

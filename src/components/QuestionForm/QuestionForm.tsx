@@ -9,6 +9,7 @@ import { Question } from '../../types';
 import { fetchUserResult, postQuestionAnswer } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import { sortQuestionsData } from '../../utils/utils';
+import HomeButton from '../Buttons/HomeButton/HomeButton';
 import TableCommon from '../Tables/TableCommon/TableCommon';
 import TableExtended from '../Tables/TableExtended/TableExtended';
 
@@ -237,15 +238,18 @@ const QuestionForm = () => {
     );
   };
 
+  const errorView = () => (
+    <div className="container">
+      <p className="text-error">{intl.formatMessage({ id: 'app.questions.api.error' })}</p>
+      <div className="mt-3 center-text">
+        <HomeButton />
+      </div>
+    </div>
+  );
+
   return (
     <div className="form-wrapper">
-      {!questionApiError ? (
-        <form>{renderList()}</form>
-      ) : (
-        <div className="container">
-          <p className="text-error">{intl.formatMessage({ id: 'app.questions.api.error' })}</p>
-        </div>
-      )}
+      {!questionApiError ? <form>{renderList()}</form> : errorView()}
     </div>
   );
 };
