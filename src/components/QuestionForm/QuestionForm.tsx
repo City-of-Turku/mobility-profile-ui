@@ -8,10 +8,11 @@ import userSlice from '../../redux/slices/userSlice';
 import { Question } from '../../types';
 import { fetchUserResult, postQuestionAnswer } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
+import { sortQuestionsData } from '../../utils/utils';
 import TableCommon from '../Tables/TableCommon/TableCommon';
 import TableExtended from '../Tables/TableExtended/TableExtended';
 
-// TODO finalize functionality, add remaining POST requests & adjust styles.
+// TODO Add skip question functionality
 
 const QuestionForm = () => {
   const [questionData, setQuestionData] = useState<Question>({} as Question);
@@ -37,26 +38,16 @@ const QuestionForm = () => {
   };
 
   /**
-   * Fetch first question
+   * Set first question
    */
   useEffect(() => {
     setQuestionData(firstQuestion);
-    //fetchOneQuestion(questionId, setQuestionData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstQuestion]);
 
   const questionsDataItems = [...allQuestions];
 
-  const sortedQuestionsData = questionsDataItems?.sort((a, b) => {
-    const numA = parseInt(a.number, 10);
-    const numB = parseInt(b.number, 10);
-
-    if (!isNaN(numA) && !isNaN(numB)) {
-      return numA - numB;
-    } else {
-      return a.number.localeCompare(b.number);
-    }
-  });
+  const sortedQuestionsData = sortQuestionsData(questionsDataItems);
 
   const lastItem = sortedQuestionsData.slice(-1);
 
