@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
 import userSlice from '../../../redux/slices/userSlice';
 import { fetchQuestions, startPoll } from '../../../utils/mobilityProfileAPI';
+import { sortQuestionsData } from '../../../utils/utils';
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,16 @@ const HomePage = () => {
     fetchQuestions(setAllQuestions, setQuestionApiError);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const allQuestionsItems = [...allQuestions];
+  const sortedQuestions = sortQuestionsData(allQuestionsItems);
+
+  useEffect(() => {
+    if (sortedQuestions?.length) {
+      setAllQuestions(sortedQuestions);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortedQuestions.length]);
 
   /**
    * Find object of the first question

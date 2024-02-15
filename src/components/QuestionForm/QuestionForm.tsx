@@ -8,7 +8,6 @@ import userSlice from '../../redux/slices/userSlice';
 import { Question } from '../../types';
 import { fetchUserResult, postQuestionAnswer } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
-import { sortQuestionsData } from '../../utils/utils';
 import HomeButton from '../Buttons/HomeButton/HomeButton';
 import TableCommon from '../Tables/TableCommon/TableCommon';
 import TableExtended from '../Tables/TableExtended/TableExtended';
@@ -38,17 +37,6 @@ const QuestionForm = () => {
   const { localeSelection } = useAppSelector((state) => state.settings);
   const { csrfToken } = useAppSelector((state) => state.user);
 
-  const [currentQuestionId, setCurrentQuestionId] = useState(firstQuestion.id);
-
-  /**
-   * Find question object
-   * @param questionIdVal
-   * @returns object
-   */
-  const findQuestion = (questionIdVal: number) => {
-    return allQuestions.find((item) => item.id === questionIdVal);
-  };
-
   /**
    * Set first question
    */
@@ -57,25 +45,16 @@ const QuestionForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstQuestion]);
 
-  const questionsDataItems = [...allQuestions];
-
-  const sortedQuestionsData = sortQuestionsData(questionsDataItems);
-
-  const lastItem = sortedQuestionsData.slice(-1);
+  const lastItem = allQuestions.slice(-1)[0];
 
   useEffect(() => {
-    const questionItemNumber = sortedQuestionsData[questionIndex]?.number;
-    const lastQuestionNumber = lastItem[0]?.number;
+    const questionItemNumber = allQuestions[questionIndex]?.number;
+    const lastQuestionNumber = lastItem?.number;
     if (questionItemNumber === lastQuestionNumber) {
       setIsLastPage(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastItem, questionIndex]);
-
-  useEffect(() => {
-    setCurrentQuestionId(sortedQuestionsData[questionIndex]?.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questionIndex]);
 
   /** Function that fetches poll result */
   const endPoll = () => {
@@ -100,13 +79,8 @@ const QuestionForm = () => {
   // TODO Add skip question logic
   const handleNext = () => {
     setQuestionIndex((prevIndex) => prevIndex + 1);
-    if (currentQuestionId) {
-      postAllAnswers();
-    }
-    const getQuestion = findQuestion(currentQuestionId);
-    if (getQuestion) {
-      setQuestionData(getQuestion);
-    }
+    postAllAnswers();
+    setQuestionData(allQuestions[questionIndex]);
   };
 
   /**
