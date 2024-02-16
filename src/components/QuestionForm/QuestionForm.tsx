@@ -18,6 +18,7 @@ const QuestionForm = () => {
   const [questionData, setQuestionData] = useState<Question>({} as Question);
   const [questionIndex, setQuestionIndex] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const intl = useIntl();
 
@@ -44,6 +45,12 @@ const QuestionForm = () => {
     setQuestionData(firstQuestion);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstQuestion]);
+
+  useEffect(() => {
+    if (!firstQuestion.question.length) {
+      setIsError(true);
+    }
+  }, [firstQuestion.question]);
 
   const lastItem = allQuestions?.slice(-1)[0];
 
@@ -223,7 +230,7 @@ const QuestionForm = () => {
 
   return (
     <div className="form-wrapper">
-      {!questionApiError ? <form>{renderList()}</form> : errorView()}
+      {questionApiError || isError ? errorView() : <form>{renderList()}</form>}
     </div>
   );
 };
