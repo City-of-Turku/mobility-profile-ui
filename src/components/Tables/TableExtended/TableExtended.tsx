@@ -102,7 +102,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
       <thead>
         <tr>
           <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
-          {optionsArray.map((item) => (
+          {optionsArray?.map((item) => (
             <th key={item.value_fi} style={commonCellStyle}>
               <label>
                 {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
@@ -112,7 +112,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
         </tr>
       </thead>
       <tbody>
-        {subQuestionsArray.map((item) => (
+        {subQuestionsArray?.map((item) => (
           <tr key={item.id}>
             <td style={commonCellStyle}>
               <label>
@@ -152,7 +152,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
       <tbody>
         {subQuestionsArray.map((item) => (
           <React.Fragment key={item.id}>
-            {item.options.map((option) => (
+            {item?.options?.map((option) => (
               <tr key={option.id}>
                 <td className="center-input input-w50">
                   <input

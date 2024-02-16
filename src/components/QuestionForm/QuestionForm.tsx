@@ -45,10 +45,10 @@ const QuestionForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstQuestion]);
 
-  const lastItem = allQuestions.slice(-1)[0];
+  const lastItem = allQuestions?.slice(-1)[0];
 
   useEffect(() => {
-    const questionItemNumber = allQuestions[questionIndex]?.number;
+    const questionItemNumber = allQuestions?.[questionIndex]?.number;
     const lastQuestionNumber = lastItem?.number;
     if (questionItemNumber === lastQuestionNumber) {
       setIsLastPage(true);

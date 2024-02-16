@@ -27,7 +27,7 @@ const HomePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const allQuestionsItems = [...allQuestions];
+  const allQuestionsItems = allQuestions?.length ? [...allQuestions] : [];
   const sortedQuestions = sortQuestionsData(allQuestionsItems);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const HomePage = () => {
    * @returns object
    */
   const getFirsQuestion = () => {
-    return allQuestions.find((item) => item.number === '1');
+    return allQuestions?.find((item) => item.number === '1');
   };
 
   const firstQuestion = getFirsQuestion();
