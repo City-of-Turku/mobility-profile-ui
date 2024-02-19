@@ -55,13 +55,12 @@ const QuestionForm = () => {
   const lastItem = allQuestions?.slice(-1)[0];
 
   useEffect(() => {
-    const questionItemNumber = allQuestions?.[questionIndex]?.number;
+    const questionItemNumber = questionData?.number;
     const lastQuestionNumber = lastItem?.number;
     if (questionItemNumber === lastQuestionNumber) {
       setIsLastPage(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastItem, questionIndex]);
+  }, [lastItem, questionData.number]);
 
   /** Function that fetches poll result */
   const endPoll = () => {
