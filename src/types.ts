@@ -1,3 +1,9 @@
+import { ReactElement } from 'react';
+
+type ReactChild = ReactElement;
+
+type ReactNode = ReactChild | boolean | null | undefined;
+
 interface SettingsState {
   localeSelection: string;
 }
@@ -112,6 +118,11 @@ interface TextBasicProps {
   translationId: string;
 }
 
+interface ErrorComponentProps {
+  translationId: string;
+  children?: ReactNode;
+}
+
 interface PostalCode {
   id: number;
   name: {
@@ -140,5 +151,6 @@ export {
   UserFormProps,
   LinkButtonProps,
   TextBasicProps,
+  ErrorComponentProps,
   PostalCode,
 };

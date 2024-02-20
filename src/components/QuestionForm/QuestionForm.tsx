@@ -14,6 +14,7 @@ import {
 } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import HomeButton from '../Buttons/HomeButton/HomeButton';
+import ErrorComponent from '../Errors/ErrorComponent/ErrorComponent';
 import TableCommon from '../Tables/TableCommon/TableCommon';
 import TableExtended from '../Tables/TableExtended/TableExtended';
 
@@ -135,7 +136,7 @@ const QuestionForm = () => {
         }
       }),
     );
-    filterMultipleQuestions(removableQuestions);
+    await filterMultipleQuestions(removableQuestions);
   };
 
   // TODO Improve skip question logic
@@ -148,7 +149,7 @@ const QuestionForm = () => {
     if (nextQuestion && Object.keys(nextQuestion).length) {
       // Check if question has condition
       if (questionData.number === '1') {
-        checkMultipleConditions();
+        await checkMultipleConditions();
         setQuestionData(findNextQuestion(questionIndex));
       } else {
         setQuestionData(nextQuestion);
@@ -285,18 +286,15 @@ const QuestionForm = () => {
     );
   };
 
-  const errorView = () => (
-    <div className="container">
-      <p className="text-error">{intl.formatMessage({ id: 'app.questions.api.error' })}</p>
-      <div className="mt-3 center-text">
-        <HomeButton />
-      </div>
-    </div>
-  );
-
   return (
     <div className="form-wrapper">
-      {questionApiError || isError ? errorView() : <form>{renderList()}</form>}
+      {questionApiError || isError ? (
+        <ErrorComponent translationId="app.questions.api.error">
+          <HomeButton />
+        </ErrorComponent>
+      ) : (
+        <form>{renderList()}</form>
+      )}
     </div>
   );
 };
