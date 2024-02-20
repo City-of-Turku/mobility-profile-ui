@@ -187,11 +187,7 @@ const hasQuestionCondition = async (questionId: number, token: string) => {
   }
 };
 
-const fetchQuestionConditionMet = async (
-  questionId: number,
-  setCondition: (a: boolean) => void,
-  token: string,
-) => {
+const fetchQuestionConditionMet = async (questionId: number, token: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -214,7 +210,7 @@ const fetchQuestionConditionMet = async (
     );
     const jsonData = await response.json();
     const conditionValue = jsonData;
-    setCondition(conditionValue.condition_met);
+    return conditionValue;
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;

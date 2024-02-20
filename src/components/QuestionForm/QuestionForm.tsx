@@ -6,16 +6,22 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import userSlice from '../../redux/slices/userSlice';
 import { Question } from '../../types';
-import { fetchUserResult, postQuestionAnswer } from '../../utils/mobilityProfileAPI';
+import {
+  fetchQuestionConditionMet,
+  fetchQuestionsWithConditions,
+  fetchUserResult,
+  postQuestionAnswer,
+} from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
 import HomeButton from '../Buttons/HomeButton/HomeButton';
 import TableCommon from '../Tables/TableCommon/TableCommon';
 import TableExtended from '../Tables/TableExtended/TableExtended';
 
-// TODO Add skip question functionality
+// TODO Improve skip question functionality (include single questions).
 
 const QuestionForm = () => {
   const [questionData, setQuestionData] = useState<Question>({} as Question);
+  const [conditionalQuestions, setConditionalQuestions] = useState<Question[]>([]);
   const [questionIndex, setQuestionIndex] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -38,6 +44,8 @@ const QuestionForm = () => {
   const { localeSelection } = useAppSelector((state) => state.settings);
   const { csrfToken } = useAppSelector((state) => state.user);
 
+  const [filteredQuestions, setFilteredQuestions] = useState(allQuestions);
+
   /**
    * Set first question
    */
@@ -45,6 +53,10 @@ const QuestionForm = () => {
     setQuestionData(firstQuestion);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstQuestion]);
+
+  useEffect(() => {
+    fetchQuestionsWithConditions(setConditionalQuestions);
+  }, []);
 
   useEffect(() => {
     if (!firstQuestion.question.length) {
@@ -55,7 +67,7 @@ const QuestionForm = () => {
   const lastItem = allQuestions?.slice(-1)[0];
 
   useEffect(() => {
-    const questionItemNumber = questionData?.number;
+    const questionItemNumber = questionData.number;
     const lastQuestionNumber = lastItem?.number;
     if (questionItemNumber === lastQuestionNumber) {
       setIsLastPage(true);
@@ -82,11 +94,66 @@ const QuestionForm = () => {
     });
   };
 
-  // TODO Add skip question logic
-  const handleNext = () => {
+  /* const isNextConditional = (idVal: number) => {
+    return conditionalQuestions.some((item) => item.id === idVal);
+  }; */
+
+  const findNextQuestion = (indexVal: number) => {
+    return filteredQuestions[indexVal];
+  };
+
+  /**
+   * Create array of those of questions that are conditional and related to the question 1.
+   * @returns array of objects
+   */
+  const createSetOfQuestions = () => {
+    const questions = ['1a', '1b1', '1b2', '1b3', '1c', '1d'];
+    return conditionalQuestions.filter((item) => questions.includes(item.number));
+  };
+
+  /**
+   * Filter multiple questions in one function
+   */
+  const filterMultipleQuestions = async (arrayOfIds: number[] | undefined) => {
+    const filtered = allQuestions.filter((item) => !arrayOfIds?.includes(item.id));
+    setFilteredQuestions(filtered);
+  };
+
+  /**
+   * Make a multiple requests into endpoint.
+   * If returned object contains false value, save question id into an array.
+   * Filter false values from the all questions array.
+   */
+  const checkMultipleConditions = async () => {
+    const questionsSet = createSetOfQuestions();
+    const removableQuestions: number[] = [];
+    await Promise.all(
+      questionsSet.map(async (item) => {
+        const condition = await fetchQuestionConditionMet(item.id, csrfToken);
+        if (condition.condition_met === false) {
+          removableQuestions.push(item.id);
+        }
+      }),
+    );
+    filterMultipleQuestions(removableQuestions);
+  };
+
+  // TODO Improve skip question logic
+  const handleNext = async () => {
     setQuestionIndex((prevIndex) => prevIndex + 1);
     postAllAnswers();
-    setQuestionData(allQuestions[questionIndex]);
+    // Get next question object
+    const nextQuestion = findNextQuestion(questionIndex);
+    // Check that next question object is valid
+    if (nextQuestion && Object.keys(nextQuestion).length) {
+      // Check if question has condition
+      if (questionData.number === '1') {
+        checkMultipleConditions();
+        setQuestionData(findNextQuestion(questionIndex));
+      } else {
+        setQuestionData(nextQuestion);
+      }
+    }
   };
 
   /**
