@@ -24,6 +24,7 @@ const QuestionForm = () => {
   const [questionData, setQuestionData] = useState<Question>({} as Question);
   const [conditionalQuestions, setConditionalQuestions] = useState<Question[]>([]);
   const [questionIndex, setQuestionIndex] = useState(1);
+  const [userHasAnswered, setUserHasAnswered] = useState('');
   const [isLastPage, setIsLastPage] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -93,6 +94,7 @@ const QuestionForm = () => {
     questionAnswer.forEach((item) => {
       postQuestionAnswer(item, csrfToken);
     });
+    setUserHasAnswered(questionData.number);
   };
 
   /* const isNextConditional = (idVal: number) => {
@@ -101,6 +103,15 @@ const QuestionForm = () => {
 
   const findNextQuestion = (indexVal: number) => {
     return filteredQuestions[indexVal];
+  };
+
+  /**
+   * Find question by number value
+   * @param questionNum
+   * @returns object
+   */
+  const findQuestionByNumber = (questionNum: string) => {
+    return filteredQuestions.find((item) => item.number === questionNum);
   };
 
   /**
@@ -139,6 +150,45 @@ const QuestionForm = () => {
     await filterMultipleQuestions(removableQuestions);
   };
 
+  /**
+   * Filter one question
+   * @param idValue
+   */
+  const filterQuestion = async (idValue: number) => {
+    const filteredCopy = [...filteredQuestions];
+    const filtered = filteredCopy.filter((item) => item.id !== idValue);
+    setFilteredQuestions(filtered);
+  };
+
+  /**
+   * Check condition status of a single question
+   * @param userAnswer
+   * @param nextQuestionNum
+   */
+  const checkSingleQuestion = async (userAnswer: string, nextQuestionNum: string) => {
+    if (userHasAnswered === userAnswer) {
+      const next = findQuestionByNumber(nextQuestionNum);
+      if (next) {
+        const condition = await fetchQuestionConditionMet(next.id, csrfToken);
+        if (condition.condition_met === false) {
+          filterQuestion(next.id);
+          setQuestionData(findNextQuestion(questionIndex));
+        }
+        setQuestionData(findNextQuestion(questionIndex));
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkSingleQuestion('4', '5');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userHasAnswered, questionIndex]);
+
+  useEffect(() => {
+    checkSingleQuestion('7', '8');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userHasAnswered, questionIndex]);
+
   // TODO Improve skip question logic
   const handleNext = async () => {
     setQuestionIndex((prevIndex) => prevIndex + 1);
@@ -147,11 +197,11 @@ const QuestionForm = () => {
     const nextQuestion = findNextQuestion(questionIndex);
     // Check that next question object is valid
     if (nextQuestion && Object.keys(nextQuestion).length) {
-      // Check if question has condition
+      // Check if we are in first question
       if (questionData.number === '1') {
         await checkMultipleConditions();
         setQuestionData(findNextQuestion(questionIndex));
-      } else {
+      } else if (questionData.number !== '4' && questionData.number !== '7') {
         setQuestionData(nextQuestion);
       }
     }
