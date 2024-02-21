@@ -280,9 +280,9 @@ const postQuestionAnswer = async (questionAnswer: QuestionAnswer, token: string)
 
   try {
     const response = await fetch(`${apiUrl}/answer/`, requestOptions);
-    const jsonData = await response.json();
-    const conditionValue = jsonData;
-    return conditionValue?.condition_met;
+    if (response.ok) {
+      return response.status;
+    }
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
