@@ -173,8 +173,9 @@ const QuestionForm = () => {
         if (condition.condition_met === false) {
           filterQuestion(next.id);
           setQuestionData(findNextQuestion(questionIndex));
+        } else {
+          setQuestionData(findNextQuestion(questionIndex));
         }
-        setQuestionData(findNextQuestion(questionIndex));
       }
     }
   };
