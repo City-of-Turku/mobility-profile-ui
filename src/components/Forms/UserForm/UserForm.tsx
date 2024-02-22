@@ -249,7 +249,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {intl.formatMessage({ id: 'app.form.user.confirmation.label' })}
                 </label>
               </div>
-              <div className="mb-2 container-sm">
+              <div className="mb-2 container-sm center-text">
                 <Button
                   type="submit"
                   role="button"

@@ -19,6 +19,8 @@ const EmailForm = () => {
   const userId = user?.userId;
   const token = user?.csrfToken;
 
+  const registerLink = 'https://rekisteri.turku.fi/Saabe_data';
+
   const {
     register,
     handleSubmit,
@@ -38,11 +40,21 @@ const EmailForm = () => {
   return (
     <div className="mb-3">
       <div className="flex-center">
+        <div className="mb-2">
+          <p className="text-normal">{intl.formatMessage({ id: 'app.text.newsletter' })}</p>
+        </div>
+        <div>
+          <a href={registerLink} target="_blank" rel="noopener noreferrer">
+            <p className="text-link">{intl.formatMessage({ id: 'app.text.newsletter.link' })}</p>
+          </a>
+        </div>
+        <div className="mb-2">
+          <p className="text-normal">
+            {intl.formatMessage({ id: 'app.text.newsletter.description' })}
+          </p>
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-2">
-            <p className="text-normal">{intl.formatMessage({ id: 'app.text.newsletter' })}</p>
-          </div>
-          <div className="mb-2 form-group">
+          <div className="mb-2 form-group center-text">
             <label htmlFor="email" className="text-label mb-1">
               {intl.formatMessage({ id: 'app.form.email.label' })}
             </label>
@@ -67,15 +79,17 @@ const EmailForm = () => {
               <p className="text-normal">{errors.email.message}</p>
             </div>
           )}
-          <Button
-            type="submit"
-            role="button"
-            disabled={hasUserAnswered}
-            aria-disabled={hasUserAnswered}
-            className="input-submit"
-          >
-            {intl.formatMessage({ id: 'app.input.submit.newsletter' })}
-          </Button>
+          <div className="mb-2 center-text">
+            <Button
+              type="submit"
+              role="button"
+              disabled={hasUserAnswered}
+              aria-disabled={hasUserAnswered}
+              className="input-submit"
+            >
+              {intl.formatMessage({ id: 'app.input.submit.newsletter' })}
+            </Button>
+          </div>
           {hasUserAnswered ? <TextBasic translationId="app.result.newsletter.success" /> : null}
           {isApiError ? <ErrorText /> : null}
         </form>
