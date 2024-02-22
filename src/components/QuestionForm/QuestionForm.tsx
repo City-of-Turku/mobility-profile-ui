@@ -174,7 +174,7 @@ const QuestionForm = () => {
           filterQuestion(next.id);
           setQuestionData(findNextQuestion(questionIndex));
         } else {
-          setQuestionData(findNextQuestion(questionIndex));
+          setQuestionData(next);
         }
       }
     }
