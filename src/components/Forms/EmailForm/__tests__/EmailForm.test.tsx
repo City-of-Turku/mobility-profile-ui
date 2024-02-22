@@ -15,9 +15,11 @@ describe('<EmailForm />', () => {
     const label = container.querySelectorAll('label');
     const p = container.querySelectorAll('p');
     expect(p[0].textContent).toContain(finnishTranslations['app.text.newsletter']);
+    expect(p[1].textContent).toContain(finnishTranslations['app.text.newsletter.link']);
+    expect(p[2].textContent).toContain(finnishTranslations['app.text.newsletter.description']);
     expect(label[0].textContent).toContain(finnishTranslations['app.form.email.label']);
     expect(label).toHaveLength(1);
-    expect(p).toHaveLength(1);
+    expect(p).toHaveLength(3);
   });
 
   it('does contain inputs', () => {
@@ -26,6 +28,14 @@ describe('<EmailForm />', () => {
     const inputs = container.querySelectorAll('input');
     expect(inputs[0]).toBeInTheDocument();
     expect(inputs).toHaveLength(1);
+  });
+
+  it('does contain link', () => {
+    const { container } = renderWithProviders(<EmailForm />);
+
+    const links = container.querySelectorAll('a');
+    expect(links[0]).toBeInTheDocument();
+    expect(links).toHaveLength(1);
   });
 
   it('does contain button', () => {
