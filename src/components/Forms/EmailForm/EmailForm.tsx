@@ -89,8 +89,8 @@ const EmailForm = () => {
             >
               {intl.formatMessage({ id: 'app.input.submit.newsletter' })}
             </Button>
+            {hasUserAnswered ? <TextBasic translationId="app.result.newsletter.success" /> : null}
           </div>
-          {hasUserAnswered ? <TextBasic translationId="app.result.newsletter.success" /> : null}
           {isApiError ? <ErrorText /> : null}
         </form>
       </div>

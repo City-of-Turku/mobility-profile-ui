@@ -114,7 +114,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
         {!isError ? (
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="container flex-center">
-              <div className="mb-2 form-group container-sm">
+              <div className="mb-2 form-group container-sm center-text">
                 <div>
                   <label htmlFor="year_of_birth" className="text-label mb-1">
                     {intl.formatMessage({ id: 'app.form.gender.label' })}
@@ -140,7 +140,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   </div>
                 )}
               </div>
-              <div className="mb-2 form-group container-sm">
+              <div className="mb-2 form-group container-sm center-text">
                 <div>
                   <label htmlFor="year_of_birth" className="text-label mb-1">
                     {intl.formatMessage({ id: 'app.form.yearOfBirth.label' })}
@@ -166,7 +166,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   </div>
                 )}
               </div>
-              <div className="mb-2 form-group container-sm">
+              <div className="mb-2 form-group container-sm center-text">
                 <div>
                   <label htmlFor="postal_code" className="text-label mb-1">
                     {intl.formatMessage({ id: 'app.form.postalCode.label' })}
@@ -192,7 +192,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   </div>
                 )}
               </div>
-              <div className="mb-2 form-group container-sm">
+              <div className="mb-2 form-group container-sm center-text">
                 <div>
                   <label htmlFor="optional_postal_code" className="text-label mb-1">
                     {intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
@@ -220,12 +220,12 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   </div>
                 )}
               </div>
-              <div className="mb-2 container-sm">
+              <div className="mb-2 container-sm center-text">
                 <p className="text-normal">
                   {intl.formatMessage({ id: 'app.form.info.question' })}
                 </p>
               </div>
-              <div className="mb-3 form-check container-sm">
+              <div className="mb-3 form-check container-sm center-text">
                 <input
                   type="checkbox"
                   {...register('is_filled_for_fun', { required: false })}
@@ -237,7 +237,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {intl.formatMessage({ id: 'app.form.filledForFun.label' })}
                 </label>
               </div>
-              <div className="mb-3 form-check container-sm">
+              <div className="mb-3 form-check container-sm center-text">
                 <input
                   type="checkbox"
                   {...register('result_can_be_used', { required: false })}
