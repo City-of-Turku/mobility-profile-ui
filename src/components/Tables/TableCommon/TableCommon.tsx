@@ -17,7 +17,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
 
   const dispatch = useAppDispatch();
-  const { setQuestionAnswer, setQuestion3Answer } = bindActionCreators(
+  const { setQuestionAnswer, setQuestion3Answer, setQuestion7Answer } = bindActionCreators(
     questionSlice.actions,
     dispatch,
   );
@@ -66,6 +66,9 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
         sv: option.value_sv,
       };
       setQuestion3Answer(values);
+    }
+    if (question.number === '7') {
+      setQuestion7Answer(option.value);
     }
   };
 

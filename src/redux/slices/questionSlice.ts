@@ -49,6 +49,7 @@ export const initialState = {
     en: '',
     sv: '',
   },
+  question7Answer: '',
   questionApiError: false,
 };
 
@@ -71,6 +72,9 @@ export const questionSlice = createSlice({
     setQuestion3Answer: (state, action) => {
       state.question3Answer = action.payload;
     },
+    setQuestion7Answer: (state, action) => {
+      state.question7Answer = action.payload;
+    },
     setQuestionApiError: (state, action) => {
       state.questionApiError = action.payload;
     },
@@ -83,6 +87,7 @@ export const {
   setQuestionAnswer,
   setSubQuestionAnswer,
   setQuestion3Answer,
+  setQuestion7Answer,
   setQuestionApiError,
 } = questionSlice.actions;
 

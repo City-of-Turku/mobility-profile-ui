@@ -41,6 +41,7 @@ const QuestionForm = () => {
     questionAnswer,
     subQuestionAnswer,
     question3Answer,
+    question7Answer,
     questionApiError,
   } = useAppSelector((state) => state.question);
   const { localeSelection } = useAppSelector((state) => state.settings);
@@ -96,10 +97,6 @@ const QuestionForm = () => {
     });
     setUserHasAnswered(questionData.number);
   };
-
-  /* const isNextConditional = (idVal: number) => {
-    return conditionalQuestions.some((item) => item.id === idVal);
-  }; */
 
   const findNextQuestion = (indexVal: number) => {
     return filteredQuestions[indexVal];
@@ -180,13 +177,28 @@ const QuestionForm = () => {
     }
   };
 
+  const checkSingleQuestionLocally = async (nextQuestionNum: string) => {
+    const conditionMet = question7Answer === 'Kyllä.';
+    if (userHasAnswered === '7') {
+      const next = findQuestionByNumber(nextQuestionNum);
+      if (next) {
+        if (conditionMet) {
+          filterQuestion(next.id);
+          setQuestionData(findNextQuestion(questionIndex));
+        } else {
+          setQuestionData(next);
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     checkSingleQuestion('4', '5');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userHasAnswered, questionIndex]);
 
   useEffect(() => {
-    checkSingleQuestion('7', '8');
+    checkSingleQuestionLocally('8');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userHasAnswered, questionIndex]);
 
