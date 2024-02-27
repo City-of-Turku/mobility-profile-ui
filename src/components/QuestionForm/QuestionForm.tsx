@@ -116,7 +116,7 @@ const QuestionForm = () => {
    * @returns array of objects
    */
   const createSetOfQuestions = () => {
-    const questions = ['1a', '1b1', '1b2', '1b3', '1c', '1d'];
+    const questions = ['1a', '1b1', '1b2', '1b3', '1c', '1d', '9'];
     return conditionalQuestions.filter((item) => questions.includes(item.number));
   };
 
