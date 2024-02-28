@@ -19,13 +19,21 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const intl = useIntl();
 
   const dispatch = useAppDispatch();
-  const { setSubQuestionAnswer } = bindActionCreators(questionSlice.actions, dispatch);
+  const { setSubQuestionAnswer, setOtherValue, resetOtherValue } = bindActionCreators(
+    questionSlice.actions,
+    dispatch,
+  );
 
-  const { question3Answer } = useAppSelector((state) => state.question);
+  const { question3Answer, otherValue } = useAppSelector((state) => state.question);
 
   const getLocaleText = useLocaleText();
 
   const isQuestionFour = questionData.number === '4';
+
+  useEffect(() => {
+    resetOtherValue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getTransportType = (str: string) => {
     const lower = str.toLowerCase();
@@ -84,6 +92,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
         question: questionData.id,
         option: Number(event.target.value),
         sub_question: option.sub_question,
+        other: option.is_other,
       },
     ]);
   };
@@ -162,16 +171,35 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                     onChange={(event) => createAnswerEvent(event, option)}
                   />
                 </td>
-                <td>
-                  <label>
-                    {renderLocaleValue(
-                      getLocaleText,
-                      option.value_fi,
-                      option.value_en,
-                      option.value_sv,
-                    )}
-                  </label>
-                </td>
+                {option.is_other ? (
+                  <td>
+                    <input
+                      name={`row-${item.id}`}
+                      type="text"
+                      value={otherValue}
+                      className="input-text"
+                      maxLength={100}
+                      onChange={(event) => setOtherValue(event.target.value)}
+                      placeholder={renderLocaleValue(
+                        getLocaleText,
+                        option.value_fi,
+                        option.value_en,
+                        option.value_sv,
+                      )}
+                    />
+                  </td>
+                ) : (
+                  <td>
+                    <label>
+                      {renderLocaleValue(
+                        getLocaleText,
+                        option.value_fi,
+                        option.value_en,
+                        option.value_sv,
+                      )}
+                    </label>
+                  </td>
+                )}
               </tr>
             ))}
           </React.Fragment>

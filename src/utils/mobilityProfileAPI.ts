@@ -279,11 +279,20 @@ const postQuestionAnswer = async (
 
   const questionAnswerObj = isOther ? questionAnswerExtended : questionAnswerDefault;
 
-  const subQuestionanswerObj = {
+  const subQuestionAnswerDefault = {
     question: questionAnswer.question,
     option: questionAnswer.option,
     sub_question: questionAnswer.sub_question,
   };
+
+  const subQuestionAnswerExtended = {
+    question: questionAnswer.question,
+    option: questionAnswer.option,
+    sub_question: questionAnswer.sub_question,
+    other: otherValue,
+  };
+
+  const subQuestionanswerObj = isOther ? subQuestionAnswerExtended : subQuestionAnswerDefault;
 
   const requestOptions: RequestInit = {
     method: 'POST',
