@@ -1,7 +1,7 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
 import { Option, QuestionAnswer, TableCommonProps } from '../../../types';
 import useLocaleText from '../../../utils/useLocaleText';
@@ -17,16 +17,26 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
 
   const dispatch = useAppDispatch();
-  const { setQuestionAnswer, setQuestion3Answer, setQuestion7Answer } = bindActionCreators(
-    questionSlice.actions,
-    dispatch,
-  );
+  const {
+    setQuestionAnswer,
+    setQuestion3Answer,
+    setQuestion7Answer,
+    setOtherValue,
+    resetOtherValue,
+  } = bindActionCreators(questionSlice.actions, dispatch);
+
+  const { otherValue } = useAppSelector((state) => state.question);
 
   const numberOfOptions = question.number_of_options_to_choose;
   // This applies only to 1 question
   const limitSelections = question.number_of_options_to_choose === '3';
 
   const getLocaleText = useLocaleText();
+
+  useEffect(() => {
+    resetOtherValue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setQuestionAnswer(mainOptions);
@@ -47,6 +57,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
         {
           question: question.id,
           option: selectedOptionId,
+          other: option.is_other,
         },
       ]);
     } else {
@@ -55,6 +66,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
         {
           question: question.id,
           option: Number(event.target.value),
+          other: option.is_other,
         },
       ]);
     }
@@ -119,16 +131,35 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                   }
                 />
               </td>
-              <td>
-                <label>
-                  {renderLocaleValue(
-                    getLocaleText,
-                    option.value_fi,
-                    option.value_en,
-                    option.value_sv,
-                  )}
-                </label>
-              </td>
+              {option.is_other ? (
+                <td>
+                  <input
+                    name={'id'}
+                    type="text"
+                    value={otherValue}
+                    className="input-text"
+                    maxLength={100}
+                    onChange={(event) => setOtherValue(event.target.value)}
+                    placeholder={renderLocaleValue(
+                      getLocaleText,
+                      option.value_fi,
+                      option.value_en,
+                      option.value_sv,
+                    )}
+                  />
+                </td>
+              ) : (
+                <td>
+                  <label>
+                    {renderLocaleValue(
+                      getLocaleText,
+                      option.value_fi,
+                      option.value_en,
+                      option.value_sv,
+                    )}
+                  </label>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

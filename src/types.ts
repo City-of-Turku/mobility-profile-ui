@@ -29,6 +29,7 @@ interface Option {
   value_en: string;
   value_sv: string;
   sub_question: string;
+  is_other?: boolean;
 }
 
 interface SubQuestion {
@@ -59,6 +60,7 @@ interface QuestionAnswer {
   question: number;
   option: number;
   sub_question?: string | number;
+  other?: boolean;
 }
 
 interface TableCommonProps {

@@ -112,6 +112,18 @@ body {
   text-align: center;
 }
 
+.input-submit {
+  background-color: $color-green;
+  color: $color-white;
+  padding: 0.25rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.input-text {
+  width: 100%;
+}
+
 .input-w50 {
   width: 50px;
 }
@@ -141,14 +153,6 @@ body {
   &:focus {
     box-shadow: none !important;
   }
-}
-
-.input-submit {
-  background-color: $color-green;
-  color: $color-white;
-  padding: 0.25rem 0.5rem;
-  border: none;
-  border-radius: 5px;
 }
 
 .footer {

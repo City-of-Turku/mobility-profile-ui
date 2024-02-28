@@ -253,17 +253,31 @@ const fetchSubQuestionConditionMet = async (subQuestionId: number, token: string
   }
 };
 
-const postQuestionAnswer = async (questionAnswer: QuestionAnswer, token: string) => {
+const postQuestionAnswer = async (
+  questionAnswer: QuestionAnswer,
+  otherValue: string,
+  token: string,
+) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: `Token ${token}`,
   });
 
-  const questionAnswerObj = {
+  const isOther = questionAnswer.other;
+
+  const questionAnswerDefault = {
     question: questionAnswer.question,
     option: questionAnswer.option,
   };
+
+  const questionAnswerExtended = {
+    question: questionAnswer.question,
+    option: questionAnswer.option,
+    other: otherValue,
+  };
+
+  const questionAnswerObj = isOther ? questionAnswerExtended : questionAnswerDefault;
 
   const subQuestionanswerObj = {
     question: questionAnswer.question,

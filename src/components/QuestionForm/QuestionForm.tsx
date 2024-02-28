@@ -42,6 +42,7 @@ const QuestionForm = () => {
     subQuestionAnswer,
     question3Answer,
     question7Answer,
+    otherValue,
     questionApiError,
   } = useAppSelector((state) => state.question);
   const { localeSelection } = useAppSelector((state) => state.settings);
@@ -89,11 +90,11 @@ const QuestionForm = () => {
   const postAllAnswers = () => {
     if (questionData.sub_questions) {
       subQuestionAnswer.forEach((item) => {
-        postQuestionAnswer(item, csrfToken);
+        postQuestionAnswer(item, otherValue, csrfToken);
       });
     }
     questionAnswer.forEach((item) => {
-      postQuestionAnswer(item, csrfToken);
+      postQuestionAnswer(item, otherValue, csrfToken);
     });
     setUserHasAnswered(questionData.number);
   };
