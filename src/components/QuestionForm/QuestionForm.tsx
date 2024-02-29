@@ -78,11 +78,6 @@ const QuestionForm = () => {
     }
   }, [lastItem, questionData.number]);
 
-  /** Function that fetches poll result */
-  const endPoll = () => {
-    fetchUserResult(csrfToken, setProfileResult);
-  };
-
   /**
    * Post answers into API.
    * Map the array containing answers and POST each into API endpoint.
@@ -97,6 +92,12 @@ const QuestionForm = () => {
       postQuestionAnswer(item, otherValue, csrfToken);
     });
     setUserHasAnswered(questionData.number);
+  };
+
+  /** Function that fetches poll result */
+  const endPoll = () => {
+    postAllAnswers();
+    fetchUserResult(csrfToken, setProfileResult);
   };
 
   const findNextQuestion = (indexVal: number) => {
