@@ -63,14 +63,14 @@ const ResultPage = () => {
         </div>
       ) : null}
       <React.Fragment>
-        {userResult?.topic_fi?.length ? (
+        {userResult?.value_fi?.length ? (
           <div className="text-container mb-2">
             <p className="header-h4">
               {renderLocaleValue(
                 getLocaleText,
-                userResult.topic_fi,
-                userResult.topic_en,
-                userResult.topic_sv,
+                userResult.value_fi,
+                userResult.value_en,
+                userResult.value_sv,
               )}
             </p>
           </div>
