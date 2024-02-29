@@ -1,6 +1,7 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import questionSlice from '../../../redux/slices/questionSlice';
 import { Option, QuestionAnswer, TableCommonProps } from '../../../types';
@@ -15,6 +16,7 @@ import { renderLocaleValue } from '../../../utils/utils';
 const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   const [mainOptions, setMainOptions] = useState<QuestionAnswer[]>([]);
   const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
+  const [otherCount, setOtherCount] = useState(0);
 
   const dispatch = useAppDispatch();
   const {
@@ -26,17 +28,22 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   } = bindActionCreators(questionSlice.actions, dispatch);
 
   const { otherValue } = useAppSelector((state) => state.question);
+  const intl = useIntl();
 
   const numberOfOptions = question.number_of_options_to_choose;
   // This applies only to 1 question
   const limitSelections = question.number_of_options_to_choose === '3';
-
+  const maxCount = 60;
   const getLocaleText = useLocaleText();
 
   useEffect(() => {
     resetOtherValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setOtherCount(otherValue.length);
+  }, [otherValue]);
 
   useEffect(() => {
     setQuestionAnswer(mainOptions);
@@ -138,7 +145,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                     type="text"
                     value={otherValue}
                     className="input-text"
-                    maxLength={100}
+                    maxLength={maxCount}
                     onChange={(event) => setOtherValue(event.target.value)}
                     placeholder={renderLocaleValue(
                       getLocaleText,
@@ -147,6 +154,9 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                       option.value_sv,
                     )}
                   />
+                  <small>{`${otherCount}/${maxCount} ${intl.formatMessage({
+                    id: 'app.form.helperText.characters',
+                  })}`}</small>
                 </td>
               ) : (
                 <td>

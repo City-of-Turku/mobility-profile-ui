@@ -28,6 +28,7 @@
   "app.form.info.question": "Miksi tein testin?",
   "app.form.helperText.year": "Vuosi",
   "app.form.helperText.postCode": "Postinumero",
+  "app.form.helperText.characters": "merkkiä",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",

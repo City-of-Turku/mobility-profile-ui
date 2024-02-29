@@ -15,6 +15,7 @@ import { renderLocaleValue } from '../../../utils/utils';
 
 const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const [subOptions, setSubOptions] = useState<QuestionAnswer[]>([]);
+  const [otherCount, setOtherCount] = useState(0);
 
   const intl = useIntl();
 
@@ -27,13 +28,17 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const { question3Answer, otherValue } = useAppSelector((state) => state.question);
 
   const getLocaleText = useLocaleText();
-
+  const maxCount = 60;
   const isQuestionFour = questionData.number === '4';
 
   useEffect(() => {
     resetOtherValue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setOtherCount(otherValue.length);
+  }, [otherValue]);
 
   const getTransportType = (str: string) => {
     const lower = str.toLowerCase();
@@ -178,7 +183,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                       type="text"
                       value={otherValue}
                       className="input-text"
-                      maxLength={100}
+                      maxLength={maxCount}
                       onChange={(event) => setOtherValue(event.target.value)}
                       placeholder={renderLocaleValue(
                         getLocaleText,
@@ -187,6 +192,9 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                         option.value_sv,
                       )}
                     />
+                    <small>{`${otherCount}/${maxCount} ${intl.formatMessage({
+                      id: 'app.form.helperText.characters',
+                    })}`}</small>
                   </td>
                 ) : (
                   <td>
