@@ -40,6 +40,7 @@ const QuestionForm = () => {
     allQuestions,
     questionAnswer,
     subQuestionAnswer,
+    question1cAnswer,
     question3Answer,
     question7Answer,
     otherValue,
@@ -114,11 +115,20 @@ const QuestionForm = () => {
   };
 
   /**
+   * Check if question exists
+   * @param questionNum
+   * @returns boolean
+   */
+  const checkIfQuestionExist = (questionNum: string) => {
+    return filteredQuestions.some((item) => item.number === questionNum);
+  };
+
+  /**
    * Create array of those of questions that are conditional and related to the question 1.
    * @returns array of objects
    */
   const createSetOfQuestions = () => {
-    const questions = ['1a', '1b1', '1b2', '1b3', '1c', '1d', '9'];
+    const questions = ['1a', '1b1', '1b2', '1b3', '1c', '9'];
     return conditionalQuestions.filter((item) => questions.includes(item.number));
   };
 
@@ -160,7 +170,8 @@ const QuestionForm = () => {
   };
 
   /**
-   * Check condition status of a single question
+   * Check condition status of a single question.
+   * Get boolean value from API endpoint.
    * @param userAnswer
    * @param nextQuestionNum
    */
@@ -179,9 +190,19 @@ const QuestionForm = () => {
     }
   };
 
-  const checkSingleQuestionLocally = async (nextQuestionNum: string) => {
-    const conditionMet = question7Answer === 'Kyllä.';
-    if (userHasAnswered === '7') {
+  /**
+   * Set next questiondata if the next question has condition
+   * and condition value is in state
+   * @param userAnswer
+   * @param nextQuestionNum
+   * @param conditionMet
+   */
+  const setNextQuestionData = (
+    userAnswer: string,
+    nextQuestionNum: string,
+    conditionMet: boolean,
+  ) => {
+    if (userHasAnswered === userAnswer) {
       const next = findQuestionByNumber(nextQuestionNum);
       if (next) {
         if (conditionMet) {
@@ -194,13 +215,55 @@ const QuestionForm = () => {
     }
   };
 
+  /**
+   * Check if question '1d' should be shown
+   * @param nextQuestionNum
+   * @param userAnswer
+   */
+  const checkQuestion1dCondition = async (nextQuestionNum: string, userAnswer: string) => {
+    const conditionMet = question1cAnswer !== 'Pyöräilen ympäri vuoden.';
+    setNextQuestionData(userAnswer, nextQuestionNum, conditionMet);
+  };
+
+  /**
+   * Check if question 8 should be shown
+   * @param nextQuestionNum
+   * @param userAnswer
+   */
+  const checkQuestion8Condition = async (nextQuestionNum: string, userAnswer: string) => {
+    const conditionMet = question7Answer === 'Kyllä.';
+    setNextQuestionData(userAnswer, nextQuestionNum, conditionMet);
+  };
+
+  /**
+   * Check if question 1c exists in data. If not then filter 1d as well.
+   * Condition of 1d is based on the asnwer of 1c.
+   */
+  useEffect(() => {
+    if (questionData.number === '1a' || questionData.number === '1b1') {
+      const questionExists = checkIfQuestionExist('1c');
+      if (!questionExists) {
+        const question1d = findQuestionByNumber('1d');
+        if (question1d) {
+          filterQuestion(question1d.id);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questionData.number]);
+
   useEffect(() => {
     checkSingleQuestion('4', '5');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userHasAnswered, questionIndex]);
 
   useEffect(() => {
-    checkSingleQuestionLocally('8');
+    checkQuestion8Condition('8', '7');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userHasAnswered, questionIndex]);
+
+  useEffect(() => {
+    checkQuestion1dCondition('1d', '1c');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userHasAnswered, questionIndex]);
 
@@ -216,7 +279,11 @@ const QuestionForm = () => {
       if (questionData.number === '1') {
         await checkMultipleConditions();
         setQuestionData(findNextQuestion(questionIndex));
-      } else if (questionData.number !== '4' && questionData.number !== '7') {
+      } else if (
+        questionData.number !== '1c' &&
+        questionData.number !== '4' &&
+        questionData.number !== '7'
+      ) {
         setQuestionData(nextQuestion);
       }
     }

@@ -21,6 +21,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   const dispatch = useAppDispatch();
   const {
     setQuestionAnswer,
+    setQuestion1cAnswer,
     setQuestion3Answer,
     setQuestion7Answer,
     setOtherValue,
@@ -85,6 +86,9 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
         sv: option.value_sv,
       };
       setQuestion3Answer(values);
+    }
+    if (question.number === '1c') {
+      setQuestion1cAnswer(option.value);
     }
     if (question.number === '7') {
       setQuestion7Answer(option.value);
