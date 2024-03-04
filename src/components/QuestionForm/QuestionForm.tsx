@@ -41,6 +41,7 @@ const QuestionForm = () => {
     questionAnswer,
     subQuestionAnswer,
     question1cAnswer,
+    carCount,
     question3Answer,
     question7Answer,
     otherValue,
@@ -101,6 +102,11 @@ const QuestionForm = () => {
     fetchUserResult(csrfToken, setProfileResult);
   };
 
+  /**
+   * Find question by index value
+   * @param indexVal
+   * @returns object
+   */
   const findNextQuestion = (indexVal: number) => {
     return filteredQuestions[indexVal];
   };
@@ -236,7 +242,20 @@ const QuestionForm = () => {
   };
 
   /**
-   * Check if question 1c exists in data. If not then filter 1d as well.
+   * Set second question data based on the car count value.
+   */
+  const setSecondQuestion = () => {
+    const question1a = findQuestionByNumber('1a');
+    const question1b1 = findQuestionByNumber('1b1');
+    if (carCount.length && carCount === '0' && question1b1) {
+      setQuestionData(question1b1);
+    } else if (carCount.length && question1a) {
+      setQuestionData(question1a);
+    }
+  };
+
+  /**
+   * Check beforehand if question 1c exists in data. If not then filter question 1d as well.
    * Condition of 1d is based on the asnwer of 1c.
    */
   useEffect(() => {
@@ -278,7 +297,7 @@ const QuestionForm = () => {
       // Check if we are in first question
       if (questionData.number === '1') {
         await checkMultipleConditions();
-        setQuestionData(findNextQuestion(questionIndex));
+        setSecondQuestion();
       } else if (
         questionData.number !== '1c' &&
         questionData.number !== '4' &&

@@ -44,6 +44,7 @@ export const initialState = {
       sub_question: 1,
     },
   ],
+  carCount: '',
   question1cAnswer: '',
   question3Answer: {
     fi: '',
@@ -71,6 +72,9 @@ export const questionSlice = createSlice({
     setSubQuestionAnswer: (state, action) => {
       state.subQuestionAnswer = action.payload;
     },
+    setCarCount: (state, action) => {
+      state.carCount = action.payload;
+    },
     setQuestion1cAnswer: (state, action) => {
       state.question1cAnswer = action.payload;
     },
@@ -97,6 +101,7 @@ export const {
   setAllQuestions,
   setQuestionAnswer,
   setSubQuestionAnswer,
+  setCarCount,
   setQuestion1cAnswer,
   setQuestion3Answer,
   setQuestion7Answer,

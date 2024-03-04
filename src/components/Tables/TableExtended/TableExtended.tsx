@@ -20,7 +20,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const intl = useIntl();
 
   const dispatch = useAppDispatch();
-  const { setSubQuestionAnswer, setOtherValue, resetOtherValue } = bindActionCreators(
+  const { setSubQuestionAnswer, setCarCount, setOtherValue, resetOtherValue } = bindActionCreators(
     questionSlice.actions,
     dispatch,
   );
@@ -90,7 +90,11 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subOptions]);
 
-  const createAnswerEvent = (event: React.ChangeEvent<HTMLInputElement>, option: Option) => {
+  const createAnswerEvent = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    option: Option,
+    description: string,
+  ) => {
     setSubOptions((prevSubOptions) => [
       ...prevSubOptions,
       {
@@ -100,6 +104,10 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
         other: option.is_other,
       },
     ]);
+
+    if (questionData.number === '1' && description === 'Car') {
+      setCarCount(option.value);
+    }
   };
 
   const commonCellStyle = {
@@ -146,7 +154,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                     name={`row-${item.id}`}
                     type="radio"
                     value={option.id}
-                    onChange={(event) => createAnswerEvent(event, option)}
+                    onChange={(event) => createAnswerEvent(event, option, item.description_en)}
                   />
                 </td>
               ))}
@@ -173,7 +181,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                     name={`row-${item.id}`}
                     type="radio"
                     value={option.id}
-                    onChange={(event) => createAnswerEvent(event, option)}
+                    onChange={(event) => createAnswerEvent(event, option, item.description_en)}
                   />
                 </td>
                 {option.is_other ? (
