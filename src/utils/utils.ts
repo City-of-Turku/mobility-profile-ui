@@ -27,4 +27,12 @@ const sortQuestionsData = (questionsData: Question[]) => {
   });
 };
 
-export { renderLocaleValue, sortQuestionsData };
+const isObjectValid = (objData: Question) => {
+  if (objData && Object.entries(objData).length) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export { renderLocaleValue, sortQuestionsData, isObjectValid };

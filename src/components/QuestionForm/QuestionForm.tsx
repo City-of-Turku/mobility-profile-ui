@@ -13,6 +13,7 @@ import {
   postQuestionAnswer,
 } from '../../utils/mobilityProfileAPI';
 import useLocaleText from '../../utils/useLocaleText';
+import { isObjectValid } from '../../utils/utils';
 import HomeButton from '../Buttons/HomeButton/HomeButton';
 import ErrorComponent from '../Errors/ErrorComponent/ErrorComponent';
 import TableCommon from '../Tables/TableCommon/TableCommon';
@@ -286,14 +287,13 @@ const QuestionForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userHasAnswered, questionIndex]);
 
-  // TODO Improve skip question logic
   const handleNext = async () => {
     setQuestionIndex((prevIndex) => prevIndex + 1);
     postAllAnswers();
     // Get next question object
     const nextQuestion = findNextQuestion(questionIndex);
     // Check that next question object is valid
-    if (nextQuestion && Object.keys(nextQuestion).length) {
+    if (isObjectValid(nextQuestion)) {
       // Check if we are in first question
       if (questionData.number === '1') {
         await checkMultipleConditions();
