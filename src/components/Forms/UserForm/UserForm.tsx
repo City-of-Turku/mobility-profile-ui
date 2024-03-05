@@ -90,27 +90,32 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     defaultValues: {
       gender: null,
       year_of_birth: 1,
-      postal_code: '1',
+      postal_code: null,
       optional_postal_code: null,
       is_filled_for_fun: true,
       result_can_be_used: true,
     },
   });
 
+  const removePostalCodes = (data: UserFormTypes) => {
+    if (serviceMapApiError) {
+      delete data.postal_code;
+      delete data.optional_postal_code;
+      return data;
+    } else {
+      return data;
+    }
+  };
+
   const onSubmit: SubmitHandler<UserFormTypes> = (data) => {
     if (userId?.length) {
-      postUserInfo(data, userId, setAnswerStatus, setIsApiError, token);
+      postUserInfo(removePostalCodes(data), userId, setAnswerStatus, setIsApiError, token);
     }
   };
 
   return (
     <div className="mb-3">
       <div>
-        {serviceMapApiError && (
-          <div className="container mb-2">
-            <p className="text-error">{intl.formatMessage({ id: 'app.postalcodes.error' })}</p>
-          </div>
-        )}
         {!isError ? (
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="container flex-center">
@@ -166,60 +171,64 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   </div>
                 )}
               </div>
-              <div className="mb-2 form-group container-sm center-text">
-                <div>
-                  <label htmlFor="postal_code" className="text-label mb-1">
-                    {intl.formatMessage({ id: 'app.form.postalCode.label' })}
-                  </label>
-                </div>
-                <div>
-                  <select
-                    {...register('postal_code', { required: !serviceMapApiError ? true : false })}
-                    role="listbox"
-                    aria-required={!serviceMapApiError ? 'true' : 'false'}
-                    aria-invalid={errors.postal_code ? true : false}
-                    className="select-field"
-                  >
-                    {renderOptions()}
-                  </select>
-                </div>
-                <div className="mb-1">
-                  <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
-                </div>
-                {errors.postal_code && (
-                  <div className="mb-2">
-                    <p className="text-normal">{errors.postal_code.message}</p>
+              {!serviceMapApiError ? (
+                <div className="mb-2 form-group container-sm center-text">
+                  <div>
+                    <label htmlFor="postal_code" className="text-label mb-1">
+                      {intl.formatMessage({ id: 'app.form.postalCode.label' })}
+                    </label>
                   </div>
-                )}
-              </div>
-              <div className="mb-2 form-group container-sm center-text">
-                <div>
-                  <label htmlFor="optional_postal_code" className="text-label mb-1">
-                    {intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
-                  </label>
-                </div>
-                <div>
-                  <select
-                    {...register('optional_postal_code', {
-                      required: false,
-                    })}
-                    role="listbox"
-                    aria-required="false"
-                    aria-invalid={errors.optional_postal_code ? true : false}
-                    className="select-field"
-                  >
-                    {renderOptions()}
-                  </select>
-                </div>
-                <div className="mb-1">
-                  <small>{intl.formatMessage({ id: 'app.form.optional.field' })}</small>
-                </div>
-                {errors.optional_postal_code && (
-                  <div className="mb-2">
-                    <p className="text-normal">{errors.optional_postal_code.message}</p>
+                  <div>
+                    <select
+                      {...register('postal_code', { required: !serviceMapApiError ? true : false })}
+                      role="listbox"
+                      aria-required={!serviceMapApiError ? 'true' : 'false'}
+                      aria-invalid={errors.postal_code ? true : false}
+                      className="select-field"
+                    >
+                      {renderOptions()}
+                    </select>
                   </div>
-                )}
-              </div>
+                  <div className="mb-1">
+                    <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+                  </div>
+                  {errors.postal_code && (
+                    <div className="mb-2">
+                      <p className="text-normal">{errors.postal_code.message}</p>
+                    </div>
+                  )}
+                </div>
+              ) : null}
+              {!serviceMapApiError ? (
+                <div className="mb-2 form-group container-sm center-text">
+                  <div>
+                    <label htmlFor="optional_postal_code" className="text-label mb-1">
+                      {intl.formatMessage({ id: 'app.form.optionalPostalCode.label' })}
+                    </label>
+                  </div>
+                  <div>
+                    <select
+                      {...register('optional_postal_code', {
+                        required: false,
+                      })}
+                      role="listbox"
+                      aria-required="false"
+                      aria-invalid={errors.optional_postal_code ? true : false}
+                      className="select-field"
+                    >
+                      {renderOptions()}
+                    </select>
+                  </div>
+                  <div className="mb-1">
+                    <small>{intl.formatMessage({ id: 'app.form.optional.field' })}</small>
+                  </div>
+                  {errors.optional_postal_code && (
+                    <div className="mb-2">
+                      <p className="text-normal">{errors.optional_postal_code.message}</p>
+                    </div>
+                  )}
+                </div>
+              ) : null}
               <div className="mb-2 container-sm center-text">
                 <p className="text-normal">
                   {intl.formatMessage({ id: 'app.form.info.question' })}

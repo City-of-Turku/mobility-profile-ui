@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import capercaillieImg from '../../../assets/images/capercaillie.webp';
 import deerImg from '../../../assets/images/deer.webp';
@@ -12,9 +12,10 @@ import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
 import EmailForm from '../../Forms/EmailForm/EmailForm';
 
-//TODO finalize logout functionality, texts & styles
-
+//TODO finalize logout functionality
 const ResultPage = () => {
+  const [resultError, setResultError] = useState(false);
+
   const intl = useIntl();
 
   const getLocaleText = useLocaleText();
@@ -52,12 +53,18 @@ const ResultPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (!userResult || !userResult?.topic.length) {
+      setResultError(true);
+    }
+  }, [userResult]);
+
   return (
     <section className="container flex-center">
       <div className="text-container">
         <h3 className="header-h3 mb-2">{intl.formatMessage({ id: 'app.general.summary' })}</h3>
       </div>
-      {!userResult || !userResult?.topic?.length ? (
+      {resultError ? (
         <div className="mb-3">
           <p className="text-error">{intl.formatMessage({ id: 'app.result.error' })}</p>
         </div>
