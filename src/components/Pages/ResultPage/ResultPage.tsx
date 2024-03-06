@@ -100,7 +100,7 @@ const ResultPage = () => {
           </div>
         ) : null}
       </React.Fragment>
-      <EmailForm />
+      {!resultError ? <EmailForm /> : null}
       <HomeButton />
     </section>
   );

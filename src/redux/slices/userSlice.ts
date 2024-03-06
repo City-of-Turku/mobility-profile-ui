@@ -33,9 +33,37 @@ export const userSlice = createSlice({
     setProfileResult: (state, action) => {
       state.profileResult = action.payload;
     },
+    resetUserId: (state) => {
+      state.userId = '';
+    },
+    resetCsrfToken: (state) => {
+      state.csrfToken = '';
+    },
+    resetProfileResult: (state) => {
+      state.profileResult = {
+        id: 0,
+        topic: '',
+        topic_fi: '',
+        topic_en: '',
+        topic_sv: '',
+        value_fi: '',
+        value_en: '',
+        value_sv: '',
+        description_fi: '',
+        description_en: '',
+        description_sv: '',
+      };
+    },
   },
 });
 
-export const { setUserId, setCsrfToken, setProfileResult } = userSlice.actions;
+export const {
+  setUserId,
+  setCsrfToken,
+  setProfileResult,
+  resetUserId,
+  resetCsrfToken,
+  resetProfileResult,
+} = userSlice.actions;
 
 export default userSlice;
