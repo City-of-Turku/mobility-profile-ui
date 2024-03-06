@@ -31,8 +31,14 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     }
   }, [userId]);
 
+  const sortPostalCodes = (data: PostalCode[]) => {
+    return data.sort((a, b) => a.name.fi.localeCompare(b.name.fi, undefined, { numeric: true }));
+  };
+
   const renderOptions = () => {
-    return postalCodeData?.map((item) => (
+    const sortedPostalCodes = sortPostalCodes(postalCodeData);
+
+    return sortedPostalCodes?.map((item) => (
       <option
         key={item?.id}
         value={item?.name?.fi}
