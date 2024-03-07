@@ -40,15 +40,15 @@ const EmailForm = () => {
   return (
     <div className="mb-3">
       <div className="flex-center">
-        <div className="mb-2">
+        <div className="text-container mb-2">
           <p className="text-normal">{intl.formatMessage({ id: 'app.text.newsletter' })}</p>
         </div>
-        <div>
+        <div className="text-container">
           <a href={registerLink} target="_blank" rel="noopener noreferrer">
             <p className="text-link">{intl.formatMessage({ id: 'app.text.newsletter.link' })}</p>
           </a>
         </div>
-        <div className="mb-2">
+        <div className="text-container mb-2">
           <p className="text-normal">
             {intl.formatMessage({ id: 'app.text.newsletter.description' })}
           </p>
@@ -75,7 +75,7 @@ const EmailForm = () => {
             />
           </div>
           {errors.email && (
-            <div className="mb-2">
+            <div className="text-container mb-2">
               <p className="text-normal">{errors.email.message}</p>
             </div>
           )}
