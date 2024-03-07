@@ -404,7 +404,9 @@ const QuestionForm = () => {
           </div>
           {questionData.sub_questions && (
             <div className="form-list-container">
-              <TableExtended questionData={questionData} />
+              <Form.Group>
+                <TableExtended questionData={questionData} />
+              </Form.Group>
             </div>
           )}
         </div>
