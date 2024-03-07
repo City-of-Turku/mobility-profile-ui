@@ -101,7 +101,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
       optional_postal_code: null,
       is_interested_in_mobility: false,
       is_filled_for_fun: false,
-      result_can_be_used: true,
+      result_can_be_used: false,
     },
   });
 
