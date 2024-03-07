@@ -137,6 +137,10 @@ interface PostalCode {
   };
 }
 
+interface ResultImageProps {
+  topic: string;
+}
+
 export {
   SettingsState,
   User,
@@ -158,4 +162,5 @@ export {
   TextBasicProps,
   ErrorComponentProps,
   PostalCode,
+  ResultImageProps,
 };
