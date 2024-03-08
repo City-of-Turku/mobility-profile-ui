@@ -412,25 +412,19 @@ const QuestionForm = () => {
         </div>
         <div className="buttons-container-flex">
           {!isLastPage && (
-            <Button
-              className="button-primary"
-              role="button"
-              onClick={() => handleNext()}
-              aria-label={intl.formatMessage({ id: 'app.buttons.next' })}
-            >
+            <Button className="button-primary" role="button" onClick={() => handleNext()}>
               <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
             </Button>
           )}
           {isLastPage && (
             <Link to="/info">
               <Button
-                className="button-submit"
+                className="button-primary"
                 role="button"
                 type="submit"
                 onClick={() => endPoll()}
-                aria-label={intl.formatMessage({ id: 'app.buttons.submit' })}
               >
-                <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.submit' })}</p>
+                <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
               </Button>
             </Link>
           )}
