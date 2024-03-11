@@ -56,7 +56,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
       case 'polkupyörällä tai sähköpyörällä':
         return 'polkupyörä tai sähköpyörä tms';
       case 'sähköpotkulaudalla tai muulla vastaavalla':
-        return 'muu';
+        return 'Sähköpotkulauta, segway tai muu vastaava';
       default:
         return null;
     }
