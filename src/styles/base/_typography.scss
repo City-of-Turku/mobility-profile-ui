@@ -1,3 +1,5 @@
+@import '_breakpoints.scss';
+
 .header-root {
   font-family: Helvetica Neue, sans-serif;
   font-weight: 700;
@@ -75,4 +77,36 @@
   @extend .header-root;
   font-size: 1rem;
   line-height: 1.25rem;
+}
+
+@media (max-width: $screen-sm-max) {
+  .header-h1 {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+  }
+
+  .header-h2 {
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+  }
+
+  .header-h3 {
+    font-size: 1.2rem;
+    line-height: 1.3rem;
+  }
+
+  .header-h4 {
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+  }
+
+  .header-h5 {
+    font-size: 1.05rem;
+    line-height: 1.15rem;
+  }
+
+  .header-h6 {
+    font-size: 1rem;
+    line-height: 1.1rem;
+  }
 }
