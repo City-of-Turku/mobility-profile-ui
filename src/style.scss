@@ -194,6 +194,11 @@ body {
   .form-wrapper {
     margin: 0 0.5rem;
   }
+
+  .logo-container {
+    margin-left: 0.5rem;
+    justify-content: center;
+  }
 }
 
 @media (max-width: $screen-xs-max) {
