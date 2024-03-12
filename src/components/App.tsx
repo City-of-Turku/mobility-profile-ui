@@ -9,6 +9,7 @@ import InfoPage from './Pages/InfoPage/InfoPage';
 import Layout from './Pages/Layout/Layout';
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 import ResultPage from './Pages/ResultPage/ResultPage';
+import ProtectedRoute from './routes/ProtectedRoute/ProtectedRoute';
 
 const App = () => {
   const { localeSelection } = useAppSelector((state) => state.settings);
@@ -21,8 +22,22 @@ const App = () => {
           <Routes>
             <Route index element={<HomePage />} />
             <Route path="/questions" element={<Content />} />
-            <Route path="/info" element={<InfoPage />} />
-            <Route path="/summary" element={<ResultPage />} />
+            <Route
+              path="/info"
+              element={
+                <ProtectedRoute>
+                  <InfoPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/summary"
+              element={
+                <ProtectedRoute>
+                  <ResultPage />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

@@ -12,7 +12,10 @@ import { sortQuestionsData } from '../../../utils/utils';
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
-  const { setUserId, setCsrfToken } = bindActionCreators(userSlice.actions, dispatch);
+  const { setUserId, setCsrfToken, setIsAuthenticated } = bindActionCreators(
+    userSlice.actions,
+    dispatch,
+  );
   const { setFirstQuestion, setAllQuestions, setQuestionApiError } = bindActionCreators(
     questionSlice.actions,
     dispatch,
@@ -55,6 +58,7 @@ const HomePage = () => {
 
   const handleClick = async () => {
     const userValues = await startPoll();
+    setIsAuthenticated(true);
     setUserId(userValues?.id);
     setCsrfToken(userValues?.token);
   };
