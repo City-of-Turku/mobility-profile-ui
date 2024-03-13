@@ -26,6 +26,12 @@ body {
   align-items: center;
 }
 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .active {
   background-color: $color-black !important;
 }

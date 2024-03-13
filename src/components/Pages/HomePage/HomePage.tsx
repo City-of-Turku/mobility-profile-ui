@@ -70,8 +70,7 @@ const HomePage = () => {
   const handleClick = async () => {
     const captchaValue = recaptcha.current?.getValue();
     if (captchaValue) {
-      const userValues = await startPoll(captchaValue);
-      setIsAuthenticated(true);
+      const userValues = await startPoll(captchaValue, setIsAuthenticated);
       setUserId(userValues?.id);
       setCsrfToken(userValues?.token);
     }

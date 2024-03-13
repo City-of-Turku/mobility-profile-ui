@@ -110,7 +110,7 @@ const fetchUserResult = async (
   }
 };
 
-const startPoll = async (captchaValue: string) => {
+const startPoll = async (captchaValue: string, setAuth: (a: boolean) => void) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -128,6 +128,7 @@ const startPoll = async (captchaValue: string) => {
     const response = await fetch(`${apiUrl}/question/start_poll/`, requestOptions);
     const jsonData = await response.json();
     const userValues = jsonData;
+    setAuth(true);
     return userValues;
   } catch (error) {
     let message;
