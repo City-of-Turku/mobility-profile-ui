@@ -12,7 +12,7 @@ import { fetchQuestions, startPoll } from '../../../utils/mobilityProfileAPI';
 import { sortQuestionsData } from '../../../utils/utils';
 
 const HomePage = () => {
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const [isUserHuman, setIsUserHuman] = useState(false);
 
   const dispatch = useAppDispatch();
   const { setUserId, setCsrfToken, setIsAuthenticated } = bindActionCreators(
@@ -64,7 +64,7 @@ const HomePage = () => {
   }, [firstQuestion, setFirstQuestion]);
 
   const onCaptchaChange = () => {
-    setIsCaptchaVerified(true);
+    setIsUserHuman(true);
   };
 
   const handleClick = async () => {
@@ -92,7 +92,7 @@ const HomePage = () => {
               <Button
                 className="button-primary p-2"
                 role="button"
-                disabled={!isCaptchaVerified}
+                disabled={!isUserHuman}
                 aria-label={intl.formatMessage({ id: 'app.buttons.survey.start' })}
                 onClick={() => handleClick()}
               >
