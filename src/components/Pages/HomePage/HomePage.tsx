@@ -1,6 +1,7 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import bgImage from '../../../assets/images/mobility-profile-up.webp';
@@ -11,6 +12,8 @@ import { fetchQuestions, startPoll } from '../../../utils/mobilityProfileAPI';
 import { sortQuestionsData } from '../../../utils/utils';
 
 const HomePage = () => {
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+
   const dispatch = useAppDispatch();
   const { setUserId, setCsrfToken, setIsAuthenticated } = bindActionCreators(
     userSlice.actions,
@@ -22,6 +25,10 @@ const HomePage = () => {
   );
 
   const { allQuestions } = useAppSelector((state) => state.question);
+
+  const siteKey = process.env.REACT_APP_SITE_KEY ? process.env.REACT_APP_SITE_KEY : '';
+
+  const recaptcha = useRef<ReCAPTCHA | null>(null);
 
   const intl = useIntl();
 
@@ -56,11 +63,18 @@ const HomePage = () => {
     }
   }, [firstQuestion, setFirstQuestion]);
 
+  const onCaptchaChange = () => {
+    setIsCaptchaVerified(true);
+  };
+
   const handleClick = async () => {
-    const userValues = await startPoll();
-    setIsAuthenticated(true);
-    setUserId(userValues?.id);
-    setCsrfToken(userValues?.token);
+    const captchaValue = recaptcha.current?.getValue();
+    if (captchaValue) {
+      const userValues = await startPoll(captchaValue);
+      setIsAuthenticated(true);
+      setUserId(userValues?.id);
+      setCsrfToken(userValues?.token);
+    }
   };
 
   return (
@@ -79,6 +93,7 @@ const HomePage = () => {
               <Button
                 className="button-primary p-2"
                 role="button"
+                disabled={!isCaptchaVerified}
                 aria-label={intl.formatMessage({ id: 'app.buttons.survey.start' })}
                 onClick={() => handleClick()}
               >
@@ -87,6 +102,9 @@ const HomePage = () => {
                 </p>
               </Button>
             </Link>
+          </div>
+          <div className="mt-2">
+            <ReCAPTCHA ref={recaptcha} sitekey={siteKey} onChange={onCaptchaChange} />
           </div>
         </div>
       </div>

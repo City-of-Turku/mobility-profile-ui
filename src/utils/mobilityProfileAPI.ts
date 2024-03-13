@@ -110,14 +110,18 @@ const fetchUserResult = async (
   }
 };
 
-const startPoll = async () => {
+const startPoll = async (captchaValue: string) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
   });
+  const bodyObj = {
+    token: captchaValue,
+  };
   const requestOptions: RequestInit = {
     method: 'POST',
     headers: headers,
+    body: JSON.stringify(bodyObj),
   };
 
   try {
