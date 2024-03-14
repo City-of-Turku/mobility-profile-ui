@@ -110,7 +110,7 @@ const fetchUserResult = async (
   }
 };
 
-const startPoll = async () => {
+const startPoll = async (setLoggedIn: (a: boolean) => void) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -124,6 +124,7 @@ const startPoll = async () => {
     const response = await fetch(`${apiUrl}/question/start_poll/`, requestOptions);
     const jsonData = await response.json();
     const userValues = jsonData;
+    setLoggedIn(true);
     return userValues;
   } catch (error) {
     let message;

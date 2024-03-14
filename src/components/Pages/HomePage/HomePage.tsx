@@ -57,10 +57,9 @@ const HomePage = () => {
   }, [firstQuestion, setFirstQuestion]);
 
   const handleClick = async () => {
-    const userValues = await startPoll();
+    const userValues = await startPoll(setIsLoggedIn);
     setUserId(userValues?.id);
     setCsrfToken(userValues?.token);
-    setIsLoggedIn(true);
   };
 
   return (
