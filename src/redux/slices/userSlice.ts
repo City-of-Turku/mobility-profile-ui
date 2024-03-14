@@ -5,6 +5,7 @@ import { User } from '../../types';
 export const initialState: User = {
   userId: '',
   csrfToken: '',
+  isLoggedIn: false,
   profileResult: {
     id: 0,
     topic: '',
@@ -29,6 +30,9 @@ export const userSlice = createSlice({
     },
     setCsrfToken: (state, action: PayloadAction<string>) => {
       state.csrfToken = action.payload;
+    },
+    setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
     },
     setProfileResult: (state, action) => {
       state.profileResult = action.payload;
@@ -60,6 +64,7 @@ export const userSlice = createSlice({
 export const {
   setUserId,
   setCsrfToken,
+  setIsLoggedIn,
   setProfileResult,
   resetUserId,
   resetCsrfToken,

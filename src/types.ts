@@ -11,6 +11,7 @@ interface SettingsState {
 interface User {
   userId: string;
   csrfToken: string;
+  isLoggedIn: boolean;
   profileResult: Result;
 }
 
@@ -141,6 +142,10 @@ interface ResultImageProps {
   topic: string;
 }
 
+interface ProtectedRouteProps {
+  children: ReactNode;
+}
+
 export {
   SettingsState,
   User,
@@ -163,4 +168,5 @@ export {
   ErrorComponentProps,
   PostalCode,
   ResultImageProps,
+  ProtectedRouteProps,
 };
