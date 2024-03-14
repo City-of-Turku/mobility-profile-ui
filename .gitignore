@@ -17,6 +17,8 @@
 .env.test.local
 .env.production.local
 
+/ssl
+
 .prettierrc
 /dist
 /.idea
