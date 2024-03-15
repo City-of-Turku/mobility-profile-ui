@@ -1,4 +1,5 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
+import CryptoJS from 'crypto-js';
 import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useIntl } from 'react-intl';
@@ -24,6 +25,8 @@ const HomePage = () => {
   const { allQuestions } = useAppSelector((state) => state.question);
 
   const intl = useIntl();
+
+  const secret = process.env.REACT_APP_TOKEN_SECRET ? process.env.REACT_APP_TOKEN_SECRET : '';
 
   useEffect(() => {
     fetchQuestions(setAllQuestions, setQuestionApiError);
@@ -56,10 +59,18 @@ const HomePage = () => {
     }
   }, [firstQuestion, setFirstQuestion]);
 
+  const decryptString = (cipher_text: string, key: string | CryptoJS.lib.WordArray) => {
+    const bytes = CryptoJS.AES.decrypt(cipher_text, key, { mode: CryptoJS.mode.ECB });
+    return bytes.toString(CryptoJS.enc.Utf8);
+  };
+
   const handleClick = async () => {
     const userValues = await startPoll(setIsLoggedIn);
+    const dataStr = userValues?.data;
+    const key = CryptoJS.enc.Utf8.parse(secret);
+    const decrypted = decryptString(dataStr, key);
     setUserId(userValues?.id);
-    setCsrfToken(userValues?.token);
+    setCsrfToken(decrypted);
   };
 
   return (
