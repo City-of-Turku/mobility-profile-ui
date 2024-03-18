@@ -26,7 +26,7 @@ const HomePage = () => {
 
   const intl = useIntl();
 
-  const secret = process.env.REACT_APP_TOKEN_SECRET ? process.env.REACT_APP_TOKEN_SECRET : '';
+  const secret = process.env.REACT_APP_DATA_SECRET ? process.env.REACT_APP_DATA_SECRET : '';
 
   useEffect(() => {
     fetchQuestions(setAllQuestions, setQuestionApiError);
@@ -59,16 +59,22 @@ const HomePage = () => {
     }
   }, [firstQuestion, setFirstQuestion]);
 
-  const decryptString = (cipher_text: string, key: string | CryptoJS.lib.WordArray) => {
-    const bytes = CryptoJS.AES.decrypt(cipher_text, key, { mode: CryptoJS.mode.ECB });
+  const decryptString = (
+    cipher_text: string,
+    key: string | CryptoJS.lib.WordArray,
+    iv: CryptoJS.lib.WordArray,
+  ) => {
+    const bytes = CryptoJS.AES.decrypt(cipher_text, key, { iv: iv, mode: CryptoJS.mode.CBC });
     return bytes.toString(CryptoJS.enc.Utf8);
   };
 
   const handleClick = async () => {
     const userValues = await startPoll(setIsLoggedIn);
-    const dataStr = userValues?.data;
+    const dataStr = userValues?.data[0];
+    const iv = userValues?.data[1];
     const key = CryptoJS.enc.Utf8.parse(secret);
-    const decrypted = decryptString(dataStr, key);
+    const ivParsed = CryptoJS.enc.Base64.parse(iv);
+    const decrypted = decryptString(dataStr, key, ivParsed);
     setUserId(userValues?.id);
     setCsrfToken(decrypted);
   };
