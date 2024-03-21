@@ -17,11 +17,15 @@ FROM nginx:alpine
 # Copy nginx conf file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Copy SSL sertificates
+COPY ./sertit/star_turku_fi.crt /etc/nginx/star_turku_fi.crt
+COPY ./sertit/star_turku_fi.key /etc/nginx/star_turku_fi.key
+
 # Copy the built React app to Nginx's web server directory
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80 for the Nginx server
-EXPOSE 80
+EXPOSE 443
 
 # Start Nginx when the container runs
 CMD ["nginx", "-g", "daemon off;"]
