@@ -72,7 +72,8 @@ const HomePage = () => {
     const userValues = await startPoll(setIsLoggedIn);
     const dataStr = userValues?.data[0];
     const iv = userValues?.data[1];
-    const key = CryptoJS.enc.Utf8.parse(secret);
+    const secretParse = window.atob(secret);
+    const key = CryptoJS.enc.Utf8.parse(secretParse);
     const ivParsed = CryptoJS.enc.Base64.parse(iv);
     const decrypted = decryptString(dataStr, key, ivParsed);
     setUserId(userValues?.id);
