@@ -28,7 +28,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const { question3Answer, otherValue } = useAppSelector((state) => state.question);
 
   const getLocaleText = useLocaleText();
-  const maxCount = 60;
+  const maxCount = 200;
   const isQuestionFour = questionData.number === '4';
 
   useEffect(() => {

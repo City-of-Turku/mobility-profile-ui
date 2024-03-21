@@ -7,7 +7,6 @@ import HomeButton from '../../Buttons/HomeButton/HomeButton';
 import EmailForm from '../../Forms/EmailForm/EmailForm';
 import ResultImage from './components/ResultImage/ResultImage';
 
-//TODO finalize logout functionality
 const ResultPage = () => {
   const [resultError, setResultError] = useState(false);
 

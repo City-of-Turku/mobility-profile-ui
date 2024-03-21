@@ -34,7 +34,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   const numberOfOptions = question.number_of_options_to_choose;
   // This applies only to 1 question
   const limitSelections = question.number_of_options_to_choose === '3';
-  const maxCount = 60;
+  const maxCount = 200;
   const getLocaleText = useLocaleText();
 
   useEffect(() => {
