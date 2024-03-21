@@ -13,15 +13,15 @@ class LocaleUtility {
   // Translation messages
   static messages = {
     fi: messagesFi,
-    en: messagesEn,
     sv: messagesSv,
+    en: messagesEn,
   };
 
   static availableLocales = Object.keys(LocaleUtility.messages);
 
   // Figure out if give locale is valid locale
   static isValidLocale = (locale: string) =>
-    locale && Object.prototype.hasOwnProperty.call(LocaleUtility.messages, locale);
+    locale && Object.hasOwn(LocaleUtility.messages, locale);
 
   // Get data object with locale and messages (for React Intl)
   static intlData = (locale: string) => {

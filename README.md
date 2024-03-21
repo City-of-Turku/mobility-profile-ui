@@ -2,6 +2,9 @@
 
 The Mobility Profile UI
 
+[![Mobility Profile UI CI](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/codeql-analysis.yml/badge.svg?branch=develop)](https://github.com/City-of-Turku/mobility-profile-ui/actions/workflows/codeql-analysis.yml)
+
 ## Requirements
 
 Using following:
@@ -16,7 +19,7 @@ In the project directory, you can run:
 
 Runs the app by starting node server using build files.
 
-### `npm build`
+### `npm run build`
 
 Builds the app for production to the `dist` folder.<br>
 
@@ -25,8 +28,17 @@ Builds the app for production to the `dist` folder.<br>
 For development:
 
 - Make sure npm packages are installed by running `npm install`in project root.
-- Make sure you have environment variables set. `.env.example` should have all required values so you can copy it to `.env`.
+- Make sure you have environment variables set. `.env.example` should have all required values so you can copy it to `.env` file.
 - Then you can start development server using `npm run dev`. Which watches files and updates on code changes.
 - Code can be linted by running `npm run lint` which will check code for linting errors.
-- Code can be formatted by running `npm run format` which will format the code using Prettier.
+- Code can be formatted by running `npm run format` which will format the code using Prettier settings.
 - You can run unit tests by running `npm test`.
+
+For production
+
+- Command `npm run build` builds the project into `/dist` -folder.
+
+For Docker
+
+- Command `docker build -t mobility-profile-ui .` builds the image.
+- Command `docker run --name mobility-profile-ui -p 80:80 -d mobility-profile-ui` starts the container.

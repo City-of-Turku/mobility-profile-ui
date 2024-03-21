@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
+import questionSlice from './slices/questionSlice';
 import settingsSlice from './slices/settingsSlice';
+import userSlice from './slices/userSlice';
 
 export const store = () =>
   configureStore({
     reducer: {
       settings: settingsSlice.reducer,
+      user: userSlice.reducer,
+      question: questionSlice.reducer,
     },
   });
 

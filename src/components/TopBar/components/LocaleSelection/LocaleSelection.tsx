@@ -1,63 +1,47 @@
-import { ButtonBase, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import { useIntl } from 'react-intl';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import settingsSlice from '../../../../redux/slices/settingsSlice';
+import LocaleUtility from '../../../../utils/locale';
 
 const LocaleSelection: React.FC = () => {
-  const theme = useTheme();
   const dispatch = useAppDispatch();
   const { setLocaleSelection } = bindActionCreators(settingsSlice.actions, dispatch);
 
-  const { settings } = useAppSelector((state) => state);
-  const locale = settings.localeSelection;
+  const { localeSelection } = useAppSelector((state) => state.settings);
+
+  const intl = useIntl();
 
   const handleChange = (lng: string) => {
     return setLocaleSelection(lng);
   };
 
-  const setFontWeight = (langId: string) => {
-    if (langId === locale) {
-      return '700';
-    }
-    return '400';
-  };
-
-  const languages = [
-    {
-      id: 'fi',
-      label: 'Suomeksi',
-    },
-    {
-      id: 'en',
-      label: 'In English',
-    },
-    {
-      id: 'sv',
-      label: 'På svenska',
-    },
-  ];
-
   return (
     <div className="locale-header">
       <nav className="locale-list">
-        {languages.map((item) => (
-          <ButtonBase key={item.id} role="button" onClick={() => handleChange(item.id)}>
-            <Typography
-              component="p"
-              variant="subtitle2"
-              sx={{
-                mb: '0.3rem',
-                pl: '0.7rem',
-                color: '#ffffff',
-                fontSize: theme.typography.body1.fontSize,
-                fontWeight: setFontWeight(item.id),
-              }}
+        {LocaleUtility.availableLocales.map((currentLocale) => (
+          <Button
+            key={currentLocale}
+            className="button-locale"
+            variant="link"
+            role="link"
+            lang={currentLocale}
+            tabIndex={0}
+            aria-current={currentLocale === localeSelection ? 'true' : false}
+            aria-label={intl.formatMessage({ id: `app.general.language.${currentLocale}` })}
+            onClick={() => handleChange(currentLocale)}
+          >
+            <p
+              className={`mb-1 pl-2 ${
+                currentLocale === localeSelection ? 'header-h6' : 'text-normal'
+              }`}
+              style={{ color: currentLocale === localeSelection ? '#fff' : '#DEDEF1' }}
             >
-              {item.label}
-            </Typography>
-          </ButtonBase>
+              {intl.formatMessage({ id: `app.general.language.${currentLocale}` })}
+            </p>
+          </Button>
         ))}
       </nav>
     </div>

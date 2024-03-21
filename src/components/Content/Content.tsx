@@ -1,20 +1,12 @@
 import React from 'react';
-import Footer from '../Footer/Footer';
-import TopBar from '../TopBar/TopBar';
-import TextBasic from '../Typography/TextBasic/TextBasic';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import Loading from '../Loading/Loading';
+import QuestionForm from '../QuestionForm/QuestionForm';
 
 const Content = () => {
-  return (
-    <div className="flex">
-      <TopBar />
-      <main>
-        <div className="content-container">
-          <TextBasic text="app.subtitle" />
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
+  const { isLoggedIn } = useAppSelector((state) => state.user);
+
+  return <div className="content-inner">{isLoggedIn ? <QuestionForm /> : <Loading />}</div>;
 };
 
 export default Content;

@@ -1,13 +1,18 @@
-import { Typography } from '@mui/material';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import scaleUpLogo from '../../assets/images/scale-up-logo.webp';
+import turkuLogo from '../../assets/images/turku-logo-sm.webp';
 
 const Footer = () => {
   return (
     <div className="footer">
-      <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>
-        <FormattedMessage id="app.footer" />
-      </Typography>
+      <div className="logo-container">
+        <div className="mr-2">
+          <img src={turkuLogo} alt="turku-logo" className="img-logo img-fluid" />
+        </div>
+        <div>
+          <img src={scaleUpLogo} alt="scale-up-logo" className="img-logo img-fluid" />
+        </div>
+      </div>
     </div>
   );
 };

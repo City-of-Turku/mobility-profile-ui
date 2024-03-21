@@ -1,0 +1,112 @@
+@import '_breakpoints.scss';
+
+.header-root {
+  font-family: Helvetica Neue, sans-serif;
+  font-weight: 700;
+}
+
+.text-root {
+  font-family: Helvetica Neue, sans-serif;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.text-normal {
+  @extend .text-root;
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
+.text-normal-bold {
+  @extend .text-root;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  font-weight: 700;
+}
+
+.text-label {
+  @extend .text-root;
+  font-size: 0.95rem;
+  line-height: 1.2rem;
+}
+
+.text-subtitle {
+  @extend .text-root;
+  font-size: 1.2rem;
+  line-height: 1.3rem;
+}
+
+.text-error {
+  @extend .text-root;
+  font-size: 1.2rem;
+  line-height: 1.35rem;
+  color: red;
+}
+
+.header-h1 {
+  @extend .header-root;
+  font-size: 1.625rem;
+  line-height: 1.8rem;
+}
+
+.header-h2 {
+  @extend .header-root;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+
+.header-h3 {
+  @extend .header-root;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+}
+
+.header-h4 {
+  @extend .header-root;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+}
+
+.header-h5 {
+  @extend .header-root;
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+}
+
+.header-h6 {
+  @extend .header-root;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+@media (max-width: $screen-sm-max) {
+  .header-h1 {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+  }
+
+  .header-h2 {
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+  }
+
+  .header-h3 {
+    font-size: 1.2rem;
+    line-height: 1.3rem;
+  }
+
+  .header-h4 {
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+  }
+
+  .header-h5 {
+    font-size: 1.05rem;
+    line-height: 1.15rem;
+  }
+
+  .header-h6 {
+    font-size: 1rem;
+    line-height: 1.1rem;
+  }
+}
