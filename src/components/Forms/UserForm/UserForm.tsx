@@ -98,7 +98,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
       gender: null,
       year_of_birth: 1,
       postal_code: null,
+      postal_code_other: null,
       optional_postal_code: null,
+      optional_postal_code_other: null,
       is_interested_in_mobility: false,
       is_filled_for_fun: false,
       result_can_be_used: false,
@@ -191,9 +193,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   </div>
                   <div>
                     <select
-                      {...register('postal_code', { required: !serviceMapApiError ? true : false })}
+                      {...register('postal_code', { required: false })}
                       role="listbox"
-                      aria-required={!serviceMapApiError ? 'true' : 'false'}
+                      aria-required="false"
                       aria-invalid={errors.postal_code ? true : false}
                       className="select-field"
                     >
@@ -201,7 +203,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     </select>
                   </div>
                   <div className="mb-1">
-                    <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+                    <small>{intl.formatMessage({ id: 'app.form.postalCode.field' })}</small>
                   </div>
                   {errors.postal_code && (
                     <div className="mb-2">
@@ -240,6 +242,58 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   )}
                 </div>
               ) : null}
+              <div className="mb-2 form-group container-sm center-text">
+                <div>
+                  <label htmlFor="postal_code_other" className="text-label mb-1">
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.label' })}
+                  </label>
+                </div>
+                <div className="flex-input">
+                  <input
+                    {...register('postal_code_other', { required: false, maxLength: 10 })}
+                    type="text"
+                    aria-required="false"
+                    aria-invalid={errors.postal_code_other ? true : false}
+                    className="form-control text-field-w75"
+                  />
+                </div>
+                <div className="mb-1">
+                  <small>
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
+                  </small>
+                </div>
+                {errors.postal_code_other && (
+                  <div className="mb-2">
+                    <p className="text-normal">{errors.postal_code_other.message}</p>
+                  </div>
+                )}
+              </div>
+              <div className="mb-2 form-group container-sm center-text">
+                <div>
+                  <label htmlFor="optional_postal_code_other" className="text-label mb-1">
+                    {intl.formatMessage({ id: 'app.form.optionalPostalCode.other.label' })}
+                  </label>
+                </div>
+                <div className="flex-input">
+                  <input
+                    {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
+                    type="text"
+                    aria-required="false"
+                    aria-invalid={errors.optional_postal_code_other ? true : false}
+                    className="form-control text-field-w75"
+                  />
+                </div>
+                <div className="mb-1">
+                  <small>
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
+                  </small>
+                </div>
+                {errors.optional_postal_code_other && (
+                  <div className="mb-2">
+                    <p className="text-normal">{errors.optional_postal_code_other.message}</p>
+                  </div>
+                )}
+              </div>
               <div className="mb-2 container-sm center-text">
                 <p className="text-normal">
                   {intl.formatMessage({ id: 'app.form.info.question' })}
