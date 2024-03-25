@@ -212,6 +212,32 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   )}
                 </div>
               ) : null}
+              <div className="mb-2 form-group container-sm center-text">
+                <div>
+                  <label htmlFor="postal_code_other" className="text-label mb-1">
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.label' })}
+                  </label>
+                </div>
+                <div className="flex-input">
+                  <input
+                    {...register('postal_code_other', { required: false, maxLength: 10 })}
+                    type="text"
+                    aria-required="false"
+                    aria-invalid={errors.postal_code_other ? true : false}
+                    className="form-control text-field-w60"
+                  />
+                </div>
+                <div className="mb-1">
+                  <small>
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
+                  </small>
+                </div>
+                {errors.postal_code_other && (
+                  <div className="mb-2">
+                    <p className="text-normal">{errors.postal_code_other.message}</p>
+                  </div>
+                )}
+              </div>
               {!serviceMapApiError ? (
                 <div className="mb-2 form-group container-sm center-text">
                   <div>
@@ -244,32 +270,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
               ) : null}
               <div className="mb-2 form-group container-sm center-text">
                 <div>
-                  <label htmlFor="postal_code_other" className="text-label mb-1">
-                    {intl.formatMessage({ id: 'app.form.postalCode.other.label' })}
-                  </label>
-                </div>
-                <div className="flex-input">
-                  <input
-                    {...register('postal_code_other', { required: false, maxLength: 10 })}
-                    type="text"
-                    aria-required="false"
-                    aria-invalid={errors.postal_code_other ? true : false}
-                    className="form-control text-field-w75"
-                  />
-                </div>
-                <div className="mb-1">
-                  <small>
-                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
-                  </small>
-                </div>
-                {errors.postal_code_other && (
-                  <div className="mb-2">
-                    <p className="text-normal">{errors.postal_code_other.message}</p>
-                  </div>
-                )}
-              </div>
-              <div className="mb-2 form-group container-sm center-text">
-                <div>
                   <label htmlFor="optional_postal_code_other" className="text-label mb-1">
                     {intl.formatMessage({ id: 'app.form.optionalPostalCode.other.label' })}
                   </label>
@@ -280,7 +280,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     type="text"
                     aria-required="false"
                     aria-invalid={errors.optional_postal_code_other ? true : false}
-                    className="form-control text-field-w75"
+                    className="form-control text-field-w60"
                   />
                 </div>
                 <div className="mb-1">
