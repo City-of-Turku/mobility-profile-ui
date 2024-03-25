@@ -31,6 +31,7 @@
   "app.form.helperText.year": "År",
   "app.form.helperText.postCode": "Postnummer",
   "app.form.helperText.characters": "tecken",
+  "app.form.empty.value": "Tömma",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",

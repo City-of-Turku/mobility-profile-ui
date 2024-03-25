@@ -31,6 +31,7 @@
   "app.form.helperText.year": "Year",
   "app.form.helperText.postCode": "Post code",
   "app.form.helperText.characters": "characters",
+  "app.form.empty.value": "Empty",
   "app.general.language.fi": "Suomeksi",
   "app.general.language.en": "In English",
   "app.general.language.sv": "På svenska",
