@@ -125,13 +125,18 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const isForFun = watch('is_filled_for_fun');
 
   /**
-   * In case postal code value is empty string, replace with null value for API compatibility.
+   * In case 1 or both postal code values are empty string, replace with null value for API compatibility.
    * @param data
    * @returns data
    */
   const formatPostalCodes = (data: UserFormTypes) => {
-    if (data.postal_code === '') {
-      data.postal_code = null;
+    if (data.postal_code === '' || data.optional_postal_code === '') {
+      if (data.postal_code === '') {
+        data.postal_code = null;
+      }
+      if (data.optional_postal_code === '') {
+        data.optional_postal_code = null;
+      }
       return data;
     } else {
       return data;
