@@ -130,17 +130,14 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
    * @returns data
    */
   const formatPostalCodes = (data: UserFormTypes) => {
-    if (data.postal_code === '' || data.optional_postal_code === '') {
-      if (data.postal_code === '') {
-        data.postal_code = null;
-      }
-      if (data.optional_postal_code === '') {
-        data.optional_postal_code = null;
-      }
-      return data;
-    } else {
-      return data;
+    const updatedData = { ...data };
+    if (updatedData.postal_code === '') {
+      updatedData.postal_code = null;
     }
+    if (updatedData.optional_postal_code === '') {
+      updatedData.optional_postal_code = null;
+    }
+    return updatedData;
   };
 
   const onSubmit: SubmitHandler<UserFormTypes> = (data) => {
