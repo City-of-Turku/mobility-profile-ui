@@ -46,6 +46,7 @@ const QuestionForm = () => {
     question3Answer,
     question7Answer,
     otherValue,
+    allowNext,
     questionApiError,
   } = useAppSelector((state) => state.question);
   const { localeSelection } = useAppSelector((state) => state.settings);
@@ -412,7 +413,12 @@ const QuestionForm = () => {
         </div>
         <div className="buttons-container-flex">
           {!isLastPage && (
-            <Button className="button-primary" role="button" onClick={() => handleNext()}>
+            <Button
+              className="button-primary"
+              role="button"
+              disabled={!allowNext}
+              onClick={() => handleNext()}
+            >
               <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
             </Button>
           )}
