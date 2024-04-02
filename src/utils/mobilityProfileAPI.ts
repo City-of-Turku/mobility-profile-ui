@@ -39,50 +39,6 @@ const fetchQuestionsWithConditions = async (
   }
 };
 
-const fetchOneQuestion = async (
-  questionId: number,
-  setData: React.Dispatch<React.SetStateAction<Question>>,
-) => {
-  try {
-    const response = await fetch(`${apiUrl}/question/${questionId}/`);
-    const jsonData = await response.json();
-    setData(jsonData);
-  } catch (error) {
-    let message;
-    if (error instanceof Error) message = error.message;
-    else message = String(error);
-    console.warn(message);
-  }
-};
-
-const fetchQuestionStates = async (token: string) => {
-  const headers = new Headers({
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: `Token ${token}`,
-  });
-
-  const requestOptions: RequestInit = {
-    headers: headers,
-    credentials: 'include',
-  };
-
-  try {
-    const response = await fetch(
-      `${apiUrl}/question/get_questions_conditions_states/`,
-      requestOptions,
-    );
-    const jsonData = await response.json();
-    const values = jsonData;
-    return values;
-  } catch (error) {
-    let message;
-    if (error instanceof Error) message = error.message;
-    else message = String(error);
-    console.warn(message);
-  }
-};
-
 const fetchUserResult = async (
   token: string,
   setData: React.Dispatch<React.SetStateAction<Result>>,
@@ -212,40 +168,6 @@ const fetchQuestionConditionMet = async (questionId: number, token: string) => {
     const jsonData = await response.json();
     const conditionValue = jsonData;
     return conditionValue;
-  } catch (error) {
-    let message;
-    if (error instanceof Error) message = error.message;
-    else message = String(error);
-    console.warn(message);
-  }
-};
-
-const fetchSubQuestionConditionMet = async (subQuestionId: number, token: string) => {
-  const headers = new Headers({
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: `Token ${token}`,
-  });
-  const bodyObj = {
-    sub_question: subQuestionId,
-  };
-  const requestOptions: RequestInit = {
-    method: 'POST',
-    headers: headers,
-    credentials: 'include',
-    body: JSON.stringify(bodyObj),
-  };
-
-  try {
-    const response = await fetch(
-      `${apiUrl}/question/check_if_sub_question_condition_met/`,
-      requestOptions,
-    );
-    const jsonData = await response.json();
-    const conditionValue = jsonData;
-    if (conditionValue?.condition_met) {
-      return true;
-    } else return false;
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
@@ -406,14 +328,11 @@ const fetchPostalCodes = async (
 export {
   fetchQuestions,
   fetchQuestionsWithConditions,
-  fetchOneQuestion,
-  fetchQuestionStates,
   fetchUserResult,
   startPoll,
   logoutUser,
   hasQuestionCondition,
   fetchQuestionConditionMet,
-  fetchSubQuestionConditionMet,
   postQuestionAnswer,
   postUserInfo,
   postSubscribeInfo,
