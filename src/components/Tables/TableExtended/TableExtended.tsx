@@ -49,8 +49,26 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     setOtherCount(otherValue.length);
   }, [otherValue]);
 
+  /**
+   * Count number of unique sub option values
+   * @returns array
+   */
+  const getSubOptionValues = () => {
+    const subOptionNumbers: (string | number | undefined)[] = [];
+    subOptions.forEach((item) => {
+      if (!subOptionNumbers.includes(item.sub_question)) {
+        subOptionNumbers.push(item.sub_question);
+      }
+    });
+    return subOptionNumbers;
+  };
+
   useEffect(() => {
-    if (subOptions.length) {
+    const subOptionValues = getSubOptionValues();
+    if (questionData.number === '1' && subOptionValues?.length === 8) {
+      setAllowNext(true);
+    }
+    if (questionData.number !== '1' && subOptionValues?.length) {
       setAllowNext(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
