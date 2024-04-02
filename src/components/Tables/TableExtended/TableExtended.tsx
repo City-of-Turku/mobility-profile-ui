@@ -64,8 +64,9 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   useEffect(() => {
+    const maxCount = questionData?.sub_questions?.length;
     const subOptionValues = getSubOptionValues();
-    if (questionData.number === '1' && subOptionValues?.length === 8) {
+    if (questionData.number === '1' && subOptionValues?.length === maxCount) {
       setAllowNext(true);
     }
     if (questionData.number !== '1' && subOptionValues?.length) {
