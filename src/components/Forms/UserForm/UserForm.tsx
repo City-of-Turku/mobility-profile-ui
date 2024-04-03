@@ -128,6 +128,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
 
   /**
    * In case 1 or both postal code values are empty string, replace with null value for API compatibility.
+   * Also add values from text fields into keys that are recognized by API in case they are not null.
    * @param data
    * @returns data
    */
@@ -138,6 +139,12 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     }
     if (updatedData.optional_postal_code === '') {
       updatedData.optional_postal_code = null;
+    }
+    if (updatedData.postal_code_other?.length && !updatedData.postal_code) {
+      updatedData.postal_code = updatedData.postal_code_other;
+    }
+    if (updatedData.optional_postal_code_other?.length && !updatedData.optional_postal_code) {
+      updatedData.optional_postal_code = updatedData.optional_postal_code_other;
     }
     return updatedData;
   };
@@ -244,6 +251,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   <input
                     {...register('postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
+                    maxLength={10}
                     aria-required="false"
                     aria-invalid={errors.postal_code_other ? true : false}
                     className="form-control text-field-w60"
@@ -300,6 +308,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   <input
                     {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
+                    maxLength={10}
                     aria-required="false"
                     aria-invalid={errors.optional_postal_code_other ? true : false}
                     className="form-control text-field-w60"
