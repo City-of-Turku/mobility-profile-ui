@@ -38,15 +38,31 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const renderOptions = () => {
     const sortedPostalCodes = sortPostalCodes(postalCodeData);
 
-    return sortedPostalCodes?.map((item) => (
+    const options = [];
+
+    options.push(
       <option
-        key={item?.id}
-        value={item?.name?.fi}
-        aria-label={`${intl.formatMessage({ id: 'app.form.helperText.postCode' })} ${item.name.fi}`}
-      >
-        {item?.name?.fi}
-      </option>
-    ));
+        key="empty"
+        value=""
+        aria-label={intl.formatMessage({ id: 'app.form.empty.value' })}
+      />,
+    );
+
+    sortedPostalCodes.forEach((item) => {
+      options.push(
+        <option
+          key={item?.id}
+          value={item?.name?.fi}
+          aria-label={`${intl.formatMessage({ id: 'app.form.helperText.postCode' })} ${
+            item?.name?.fi
+          }`}
+        >
+          {item?.name?.fi}
+        </option>,
+      );
+    });
+
+    return options;
   };
 
   const currentYear = new Date().getFullYear();
@@ -110,19 +126,25 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const isInterestedInMobility = watch('is_interested_in_mobility');
   const isForFun = watch('is_filled_for_fun');
 
-  const removePostalCodes = (data: UserFormTypes) => {
-    if (serviceMapApiError) {
-      delete data.postal_code;
-      delete data.optional_postal_code;
-      return data;
-    } else {
-      return data;
+  /**
+   * In case 1 or both postal code values are empty string, replace with null value for API compatibility.
+   * @param data
+   * @returns data
+   */
+  const formatPostalCodes = (data: UserFormTypes) => {
+    const updatedData = { ...data };
+    if (updatedData.postal_code === '') {
+      updatedData.postal_code = null;
     }
+    if (updatedData.optional_postal_code === '') {
+      updatedData.optional_postal_code = null;
+    }
+    return updatedData;
   };
 
   const onSubmit: SubmitHandler<UserFormTypes> = (data) => {
     if (userId?.length) {
-      postUserInfo(removePostalCodes(data), userId, setAnswerStatus, setIsApiError, token);
+      postUserInfo(formatPostalCodes(data), userId, setAnswerStatus, setIsApiError, token);
     }
   };
 
