@@ -400,16 +400,13 @@ const QuestionForm = () => {
           </div>
           <div className="form-list-container">
             <Form.Group>
-              <TableCommon question={questionData} />
+              {questionData.sub_questions ? (
+                <TableExtended questionData={questionData} />
+              ) : (
+                <TableCommon question={questionData} />
+              )}
             </Form.Group>
           </div>
-          {questionData.sub_questions && (
-            <div className="form-list-container">
-              <Form.Group>
-                <TableExtended questionData={questionData} />
-              </Form.Group>
-            </div>
-          )}
         </div>
         <div className="buttons-container-flex">
           {!isLastPage && (
