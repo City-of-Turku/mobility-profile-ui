@@ -57,6 +57,7 @@
   "app.transport.train": "train",
   "app.transport.walk": "walk",
   "app.transport.scooter": "e-scooter or similar",
-  "app.question.1.description": "If you do not have an opportunity to use a mode, choose 0",
+  "app.question.1.description": "If you do not have an opportunity to use a mode, choose 0.",
+  "app.questions.answer.text": "Please answer the question before proceeding.",
   "app.questions.api.error": "An error occurred. Questions can't be displayed."
 }

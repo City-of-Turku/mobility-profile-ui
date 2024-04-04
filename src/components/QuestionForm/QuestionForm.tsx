@@ -405,6 +405,9 @@ const QuestionForm = () => {
               </h4>
             </div>
           ) : null}
+          <div className="text-container ml-0">
+            <p className="text-normal">{intl.formatMessage({ id: 'app.questions.answer.text' })}</p>
+          </div>
           <div className="form-list-container">
             <Form.Group>
               {questionData.sub_questions ? (
