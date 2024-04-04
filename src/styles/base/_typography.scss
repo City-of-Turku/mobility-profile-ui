@@ -80,6 +80,11 @@
 }
 
 @media (max-width: $screen-sm-max) {
+  .text-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+  }
+
   .header-h1 {
     font-size: 1.5rem;
     line-height: 1.6rem;

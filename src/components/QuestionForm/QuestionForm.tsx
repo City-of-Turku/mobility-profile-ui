@@ -398,18 +398,25 @@ const QuestionForm = () => {
                   questionData.question_sv,
                 )}
           </div>
+          {questionData.number === '1' ? (
+            <div className="text-container ml-0">
+              <h4 className="header-h4">
+                {intl.formatMessage({ id: 'app.question.1.description' })}
+              </h4>
+            </div>
+          ) : null}
+          <div className="text-container ml-0">
+            <p className="text-normal">{intl.formatMessage({ id: 'app.questions.answer.text' })}</p>
+          </div>
           <div className="form-list-container">
             <Form.Group>
-              <TableCommon question={questionData} />
+              {questionData.sub_questions ? (
+                <TableExtended questionData={questionData} />
+              ) : (
+                <TableCommon question={questionData} />
+              )}
             </Form.Group>
           </div>
-          {questionData.sub_questions && (
-            <div className="form-list-container">
-              <Form.Group>
-                <TableExtended questionData={questionData} />
-              </Form.Group>
-            </div>
-          )}
         </div>
         <div className="buttons-container-flex">
           {!isLastPage && (
