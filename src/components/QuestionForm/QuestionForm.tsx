@@ -398,6 +398,13 @@ const QuestionForm = () => {
                   questionData.question_sv,
                 )}
           </div>
+          {questionData.number === '1' ? (
+            <div className="text-container ml-0">
+              <h4 className="header-h4">
+                {intl.formatMessage({ id: 'app.question.1.description' })}
+              </h4>
+            </div>
+          ) : null}
           <div className="form-list-container">
             <Form.Group>
               {questionData.sub_questions ? (

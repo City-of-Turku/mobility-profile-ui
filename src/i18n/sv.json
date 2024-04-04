@@ -57,5 +57,6 @@
   "app.transport.train": "tåg",
   "app.transport.walk": "gående",
   "app.transport.scooter": "e-skoter eller liknande",
+  "app.question.1.description": "Om du inte har tillgång till ett transportsätt, välj 0",
   "app.questions.api.error": "Ett fel uppstod. Frågor kan inte visas."
 }
