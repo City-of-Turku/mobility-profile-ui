@@ -20,10 +20,14 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   const intl = useIntl();
 
   const dispatch = useAppDispatch();
-  const { setSubQuestionAnswer, setCarCount, setOtherValue, resetOtherValue } = bindActionCreators(
-    questionSlice.actions,
-    dispatch,
-  );
+  const {
+    setSubQuestionAnswer,
+    setCarCount,
+    setOtherValue,
+    resetOtherValue,
+    setAllowNext,
+    resetAllowNext,
+  } = bindActionCreators(questionSlice.actions, dispatch);
 
   const { question3Answer, otherValue } = useAppSelector((state) => state.question);
 
@@ -37,8 +41,39 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   }, []);
 
   useEffect(() => {
+    resetAllowNext();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     setOtherCount(otherValue.length);
   }, [otherValue]);
+
+  /**
+   * Count number of unique sub option values
+   * @returns array
+   */
+  const getSubOptionValues = () => {
+    const subOptionNumbers: (string | number | undefined)[] = [];
+    subOptions.forEach((item) => {
+      if (!subOptionNumbers.includes(item.sub_question)) {
+        subOptionNumbers.push(item.sub_question);
+      }
+    });
+    return subOptionNumbers;
+  };
+
+  useEffect(() => {
+    const maxLength = questionData?.sub_questions?.length;
+    const subOptionValues = getSubOptionValues();
+    if (questionData.number === '1' && subOptionValues?.length === maxLength) {
+      setAllowNext(true);
+    }
+    if (questionData.number !== '1' && subOptionValues?.length) {
+      setAllowNext(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subOptions]);
 
   const getTransportType = (str: string) => {
     const lower = str.toLowerCase();

@@ -26,6 +26,8 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
     setQuestion7Answer,
     setOtherValue,
     resetOtherValue,
+    setAllowNext,
+    resetAllowNext,
   } = bindActionCreators(questionSlice.actions, dispatch);
 
   const { otherValue } = useAppSelector((state) => state.question);
@@ -43,11 +45,25 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   }, []);
 
   useEffect(() => {
+    if (!mainOptions.length) {
+      resetAllowNext();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainOptions]);
+
+  useEffect(() => {
     setOtherCount(otherValue.length);
   }, [otherValue]);
 
   useEffect(() => {
     setQuestionAnswer(mainOptions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainOptions]);
+
+  useEffect(() => {
+    if (mainOptions.length) {
+      setAllowNext(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainOptions]);
 

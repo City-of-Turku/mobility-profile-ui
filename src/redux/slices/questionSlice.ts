@@ -53,6 +53,7 @@ export const initialState = {
   },
   question7Answer: '',
   otherValue: '',
+  allowNext: false,
   questionApiError: false,
 };
 
@@ -90,6 +91,12 @@ export const questionSlice = createSlice({
     resetOtherValue: (state) => {
       state.otherValue = '';
     },
+    setAllowNext: (state, action) => {
+      state.allowNext = action.payload;
+    },
+    resetAllowNext: (state) => {
+      state.allowNext = false;
+    },
     setQuestionApiError: (state, action) => {
       state.questionApiError = action.payload;
     },
@@ -107,6 +114,8 @@ export const {
   setQuestion7Answer,
   setOtherValue,
   resetOtherValue,
+  setAllowNext,
+  resetAllowNext,
   setQuestionApiError,
 } = questionSlice.actions;
 
