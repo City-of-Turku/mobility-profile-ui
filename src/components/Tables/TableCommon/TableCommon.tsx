@@ -45,9 +45,11 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   }, []);
 
   useEffect(() => {
-    resetAllowNext();
+    if (!mainOptions.length) {
+      resetAllowNext();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [mainOptions]);
 
   useEffect(() => {
     setOtherCount(otherValue.length);
