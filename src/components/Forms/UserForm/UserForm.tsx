@@ -14,6 +14,10 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const [postalCodeData, setPostalCodeData] = useState<PostalCode[]>([]);
   const [serviceMapApiError, setServiceMapApiError] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isPostalCodeOther, setIsPostalCodeOther] = useState(false);
+  const [isOptionalPostalCodeOther, setIsOptionalPostalCodeOther] = useState(false);
+  const [isPostalCode, setIsPostalCode] = useState(false);
+  const [isOptionalPostalCode, setIsOptionalPostalCode] = useState(false);
 
   const intl = useIntl();
 
@@ -126,6 +130,46 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const isInterestedInMobility = watch('is_interested_in_mobility');
   const isForFun = watch('is_filled_for_fun');
 
+  const handlePostalCodeOther = (event: { target: { value: string } }) => {
+    const textValue = event.target.value;
+    if (textValue?.length) {
+      setIsPostalCodeOther(true);
+    }
+    if (!textValue || !textValue.length) {
+      setIsPostalCodeOther(false);
+    }
+  };
+
+  const handlePostalCode = (event: { target: { value: string } }) => {
+    const textValue = event.target.value;
+    if (textValue?.length) {
+      setIsPostalCode(true);
+    }
+    if (!textValue || !textValue.length) {
+      setIsPostalCode(false);
+    }
+  };
+
+  const handleOptionalPostalCodeOther = (event: { target: { value: string } }) => {
+    const textValue = event.target.value;
+    if (textValue?.length) {
+      setIsOptionalPostalCodeOther(true);
+    }
+    if (!textValue || !textValue.length) {
+      setIsOptionalPostalCodeOther(false);
+    }
+  };
+
+  const handleOptionalPostalCode = (event: { target: { value: string } }) => {
+    const textValue = event.target.value;
+    if (textValue?.length) {
+      setIsOptionalPostalCode(true);
+    }
+    if (!textValue || !textValue.length) {
+      setIsOptionalPostalCode(false);
+    }
+  };
+
   /**
    * In case 1 or both postal code values are empty string, replace with null value for API compatibility.
    * Also add values from text fields into keys that are recognized by API in case they are not null.
@@ -224,6 +268,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     <select
                       {...register('postal_code', { required: false })}
                       role="listbox"
+                      onChange={handlePostalCode}
+                      disabled={isPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.postal_code ? true : false}
                       className="select-field"
@@ -252,6 +298,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     {...register('postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
                     maxLength={10}
+                    onChange={handlePostalCodeOther}
+                    disabled={isPostalCode}
                     aria-required="false"
                     aria-invalid={errors.postal_code_other ? true : false}
                     className="form-control text-field-w60"
@@ -281,6 +329,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                         required: false,
                       })}
                       role="listbox"
+                      onChange={handleOptionalPostalCode}
+                      disabled={isOptionalPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.optional_postal_code ? true : false}
                       className="select-field"
@@ -309,6 +359,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
                     maxLength={10}
+                    onChange={handleOptionalPostalCodeOther}
+                    disabled={isOptionalPostalCode}
                     aria-required="false"
                     aria-invalid={errors.optional_postal_code_other ? true : false}
                     className="form-control text-field-w60"
