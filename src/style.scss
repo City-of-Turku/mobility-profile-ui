@@ -32,6 +32,11 @@ body {
   align-items: center;
 }
 
+.flex-input {
+  display: flex;
+  justify-content: center;
+}
+
 .active {
   background-color: $color-black !important;
 }
@@ -130,6 +135,11 @@ body {
 
 .input-w50 {
   width: 50px;
+}
+
+.text-field-w60 {
+  width: 60%;
+  height: 27px;
 }
 
 .select-field {
