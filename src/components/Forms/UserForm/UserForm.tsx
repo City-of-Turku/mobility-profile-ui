@@ -14,10 +14,10 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const [postalCodeData, setPostalCodeData] = useState<PostalCode[]>([]);
   const [serviceMapApiError, setServiceMapApiError] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isPostalCodeOther, setIsPostalCodeOther] = useState(false);
-  const [isOptionalPostalCodeOther, setIsOptionalPostalCodeOther] = useState(false);
   const [isPostalCode, setIsPostalCode] = useState(false);
   const [isOptionalPostalCode, setIsOptionalPostalCode] = useState(false);
+  const [isPostalCodeOther, setIsPostalCodeOther] = useState(false);
+  const [isOptionalPostalCodeOther, setIsOptionalPostalCodeOther] = useState(false);
 
   const intl = useIntl();
 
@@ -130,43 +130,22 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const isInterestedInMobility = watch('is_interested_in_mobility');
   const isForFun = watch('is_filled_for_fun');
 
-  const handlePostalCodeOther = (event: { target: { value: string } }) => {
+  /**
+   * Set disabled status of either select or text input so that user can't fill both at the same time.
+   * Select element is for those that live in Turku and text input is for those who don't.
+   * @param event
+   * @param setState
+   */
+  const handlePostalCodes = (
+    event: { target: { value: string } },
+    setState: (a: boolean) => void,
+  ) => {
     const textValue = event.target.value;
     if (textValue?.length) {
-      setIsPostalCodeOther(true);
+      setState(true);
     }
     if (!textValue || !textValue.length) {
-      setIsPostalCodeOther(false);
-    }
-  };
-
-  const handlePostalCode = (event: { target: { value: string } }) => {
-    const textValue = event.target.value;
-    if (textValue?.length) {
-      setIsPostalCode(true);
-    }
-    if (!textValue || !textValue.length) {
-      setIsPostalCode(false);
-    }
-  };
-
-  const handleOptionalPostalCodeOther = (event: { target: { value: string } }) => {
-    const textValue = event.target.value;
-    if (textValue?.length) {
-      setIsOptionalPostalCodeOther(true);
-    }
-    if (!textValue || !textValue.length) {
-      setIsOptionalPostalCodeOther(false);
-    }
-  };
-
-  const handleOptionalPostalCode = (event: { target: { value: string } }) => {
-    const textValue = event.target.value;
-    if (textValue?.length) {
-      setIsOptionalPostalCode(true);
-    }
-    if (!textValue || !textValue.length) {
-      setIsOptionalPostalCode(false);
+      setState(false);
     }
   };
 
@@ -268,7 +247,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     <select
                       {...register('postal_code', { required: false })}
                       role="listbox"
-                      onChange={handlePostalCode}
+                      onChange={(event) => handlePostalCodes(event, setIsPostalCode)}
                       disabled={isPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.postal_code ? true : false}
@@ -298,7 +277,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     {...register('postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
                     maxLength={10}
-                    onChange={handlePostalCodeOther}
+                    onChange={(event) => handlePostalCodes(event, setIsPostalCodeOther)}
                     disabled={isPostalCode}
                     aria-required="false"
                     aria-invalid={errors.postal_code_other ? true : false}
@@ -329,7 +308,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                         required: false,
                       })}
                       role="listbox"
-                      onChange={handleOptionalPostalCode}
+                      onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCode)}
                       disabled={isOptionalPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.optional_postal_code ? true : false}
@@ -359,7 +338,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
                     maxLength={10}
-                    onChange={handleOptionalPostalCodeOther}
+                    onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCodeOther)}
                     disabled={isOptionalPostalCode}
                     aria-required="false"
                     aria-invalid={errors.optional_postal_code_other ? true : false}
