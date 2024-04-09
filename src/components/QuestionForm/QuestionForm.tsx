@@ -430,6 +430,7 @@ const QuestionForm = () => {
               className="button-primary"
               role="button"
               disabled={!allowNext}
+              aria-disabled={!allowNext}
               onClick={() => handleNext()}
             >
               <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
