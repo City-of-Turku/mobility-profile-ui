@@ -54,6 +54,8 @@ const QuestionForm = () => {
 
   const [filteredQuestions, setFilteredQuestions] = useState(allQuestions);
 
+  const isQuestion1 = questionData.number === '1';
+
   /**
    * Set first question
    */
@@ -296,7 +298,7 @@ const QuestionForm = () => {
     // Check that next question object is valid
     if (isObjectValid(nextQuestion)) {
       // Check if we are in first question
-      if (questionData.number === '1') {
+      if (isQuestion1) {
         await checkMultipleConditions();
         setSecondQuestion();
       } else if (
@@ -398,7 +400,7 @@ const QuestionForm = () => {
                   questionData.question_sv,
                 )}
           </div>
-          {questionData.number === '1' ? (
+          {isQuestion1 ? (
             <div className="text-container ml-0">
               <h4 className="header-h4">
                 {intl.formatMessage({ id: 'app.question.1.description' })}
@@ -406,7 +408,11 @@ const QuestionForm = () => {
             </div>
           ) : null}
           <div className="text-container ml-0">
-            <p className="text-normal">{intl.formatMessage({ id: 'app.questions.answer.text' })}</p>
+            <p className="text-normal">
+              {intl.formatMessage({
+                id: isQuestion1 ? 'app.questions.1.answer.text' : 'app.questions.answer.text',
+              })}
+            </p>
           </div>
           <div className="form-list-container">
             <Form.Group>
