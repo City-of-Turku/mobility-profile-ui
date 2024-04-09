@@ -14,6 +14,10 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const [postalCodeData, setPostalCodeData] = useState<PostalCode[]>([]);
   const [serviceMapApiError, setServiceMapApiError] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isPostalCode, setIsPostalCode] = useState(false);
+  const [isOptionalPostalCode, setIsOptionalPostalCode] = useState(false);
+  const [isPostalCodeOther, setIsPostalCodeOther] = useState(false);
+  const [isOptionalPostalCodeOther, setIsOptionalPostalCodeOther] = useState(false);
 
   const intl = useIntl();
 
@@ -114,7 +118,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
       gender: null,
       year_of_birth: 1,
       postal_code: null,
+      postal_code_other: null,
       optional_postal_code: null,
+      optional_postal_code_other: null,
       is_interested_in_mobility: false,
       is_filled_for_fun: false,
       result_can_be_used: false,
@@ -125,7 +131,27 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const isForFun = watch('is_filled_for_fun');
 
   /**
+   * Set disabled status of either select or text input so that user can't fill both at the same time.
+   * Select element is for those that live in Turku and text input is for those who don't.
+   * @param event
+   * @param setState
+   */
+  const handlePostalCodes = (
+    event: { target: { value: string } },
+    setState: (a: boolean) => void,
+  ) => {
+    const textValue = event.target.value;
+    if (textValue?.length) {
+      setState(true);
+    }
+    if (!textValue || !textValue.length) {
+      setState(false);
+    }
+  };
+
+  /**
    * In case 1 or both postal code values are empty string, replace with null value for API compatibility.
+   * Also add values from text fields into keys that are recognized by API in case they are not null.
    * @param data
    * @returns data
    */
@@ -136,6 +162,12 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     }
     if (updatedData.optional_postal_code === '') {
       updatedData.optional_postal_code = null;
+    }
+    if (updatedData.postal_code_other?.length && !updatedData.postal_code) {
+      updatedData.postal_code = updatedData.postal_code_other;
+    }
+    if (updatedData.optional_postal_code_other?.length && !updatedData.optional_postal_code) {
+      updatedData.optional_postal_code = updatedData.optional_postal_code_other;
     }
     return updatedData;
   };
@@ -215,6 +247,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     <select
                       {...register('postal_code', { required: false })}
                       role="listbox"
+                      onChange={(event) => handlePostalCodes(event, setIsPostalCode)}
+                      disabled={isPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.postal_code ? true : false}
                       className="select-field"
@@ -232,6 +266,35 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   )}
                 </div>
               ) : null}
+              <div className="mb-2 form-group container-sm center-text">
+                <div>
+                  <label htmlFor="postal_code_other" className="text-label mb-1">
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.label' })}
+                  </label>
+                </div>
+                <div className="flex-input">
+                  <input
+                    {...register('postal_code_other', { required: false, maxLength: 10 })}
+                    type="text"
+                    maxLength={10}
+                    onChange={(event) => handlePostalCodes(event, setIsPostalCodeOther)}
+                    disabled={isPostalCode}
+                    aria-required="false"
+                    aria-invalid={errors.postal_code_other ? true : false}
+                    className="form-control text-field-w60"
+                  />
+                </div>
+                <div className="mb-1">
+                  <small>
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
+                  </small>
+                </div>
+                {errors.postal_code_other && (
+                  <div className="mb-2">
+                    <p className="text-normal">{errors.postal_code_other.message}</p>
+                  </div>
+                )}
+              </div>
               {!serviceMapApiError ? (
                 <div className="mb-2 form-group container-sm center-text">
                   <div>
@@ -245,6 +308,8 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                         required: false,
                       })}
                       role="listbox"
+                      onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCode)}
+                      disabled={isOptionalPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.optional_postal_code ? true : false}
                       className="select-field"
@@ -262,6 +327,35 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   )}
                 </div>
               ) : null}
+              <div className="mb-2 form-group container-sm center-text">
+                <div>
+                  <label htmlFor="optional_postal_code_other" className="text-label mb-1">
+                    {intl.formatMessage({ id: 'app.form.optionalPostalCode.other.label' })}
+                  </label>
+                </div>
+                <div className="flex-input">
+                  <input
+                    {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
+                    type="text"
+                    maxLength={10}
+                    onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCodeOther)}
+                    disabled={isOptionalPostalCode}
+                    aria-required="false"
+                    aria-invalid={errors.optional_postal_code_other ? true : false}
+                    className="form-control text-field-w60"
+                  />
+                </div>
+                <div className="mb-1">
+                  <small>
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
+                  </small>
+                </div>
+                {errors.optional_postal_code_other && (
+                  <div className="mb-2">
+                    <p className="text-normal">{errors.optional_postal_code_other.message}</p>
+                  </div>
+                )}
+              </div>
               <div className="mb-2 container-sm center-text">
                 <p className="text-normal">
                   {intl.formatMessage({ id: 'app.form.info.question' })}

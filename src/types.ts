@@ -104,7 +104,9 @@ interface UserFormTypes {
   gender: string | null;
   year_of_birth: number;
   postal_code?: string | null;
+  postal_code_other?: string | null;
   optional_postal_code?: string | null;
+  optional_postal_code_other?: string | null;
   is_filled_for_fun: boolean;
   result_can_be_used: boolean;
 }

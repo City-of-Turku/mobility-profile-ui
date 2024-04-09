@@ -371,7 +371,7 @@ const QuestionForm = () => {
           <h3 className="header-h3">
             {localeSelection === 'en'
               ? `${parts[0]} ${formatTransportType(question3Answer.fi)} ${parts[2]}`
-              : `${parts[0]} ${formatTransportType(question3Answer.fi)}`}
+              : `${parts[0]} ${formatTransportType(question3Answer.fi)}:`}
           </h3>
         );
       }
