@@ -249,7 +249,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                       role="listbox"
                       onChange={(event) => handlePostalCodes(event, setIsPostalCode)}
                       disabled={isPostalCodeOther}
-                      aria-disabled={isPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.postal_code ? true : false}
                       className="select-field"
@@ -280,7 +279,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     maxLength={10}
                     onChange={(event) => handlePostalCodes(event, setIsPostalCodeOther)}
                     disabled={isPostalCode}
-                    aria-disabled={isPostalCode}
                     aria-required="false"
                     aria-invalid={errors.postal_code_other ? true : false}
                     className="form-control text-field-w60"
@@ -312,7 +310,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                       role="listbox"
                       onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCode)}
                       disabled={isOptionalPostalCodeOther}
-                      aria-disabled={isOptionalPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.optional_postal_code ? true : false}
                       className="select-field"
@@ -343,7 +340,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     maxLength={10}
                     onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCodeOther)}
                     disabled={isOptionalPostalCode}
-                    aria-disabled={isOptionalPostalCode}
                     aria-required="false"
                     aria-invalid={errors.optional_postal_code_other ? true : false}
                     className="form-control text-field-w60"
@@ -372,7 +368,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   aria-required="false"
                   aria-invalid={errors.is_interested_in_mobility ? true : false}
                   disabled={isForFun}
-                  aria-disabled={isForFun}
                   className="form-check-input"
                 />
                 <label htmlFor="is_filled_for_fun" className="text-label">
@@ -386,7 +381,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   aria-required="false"
                   aria-invalid={errors.is_filled_for_fun ? true : false}
                   disabled={isInterestedInMobility}
-                  aria-disabled={isInterestedInMobility}
                   className="form-check-input"
                 />
                 <label htmlFor="is_filled_for_fun" className="text-label">
@@ -410,7 +404,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   type="submit"
                   role="button"
                   disabled={answerStatus}
-                  aria-disabled={answerStatus}
                   className="input-submit"
                 >
                   {intl.formatMessage({ id: 'app.input.submit.user' })}
