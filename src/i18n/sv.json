@@ -62,6 +62,7 @@
   "app.transport.walk": "gående",
   "app.transport.scooter": "e-skoter eller liknande",
   "app.question.1.description": "Om du inte har tillgång till ett transportsätt, välj 0.",
+  "app.questions.1.answer.text": "Vänligen svara på alla alternativ innan du går vidare.",
   "app.questions.answer.text": "Vänligen svara på frågan innan du går vidare.",
   "app.questions.api.error": "Ett fel uppstod. Frågor kan inte visas."
 }

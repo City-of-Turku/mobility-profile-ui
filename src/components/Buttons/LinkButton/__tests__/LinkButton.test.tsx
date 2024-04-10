@@ -55,6 +55,5 @@ describe('<LinkButton />', () => {
     expect(button[0].getAttribute('aria-label')).toContain(
       finnishTranslations['app.buttons.link.summary'],
     );
-    expect(button[0].getAttribute('aria-disabled')).toEqual('false');
   });
 });

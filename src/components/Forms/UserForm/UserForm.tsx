@@ -368,7 +368,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   aria-required="false"
                   aria-invalid={errors.is_interested_in_mobility ? true : false}
                   disabled={isForFun}
-                  aria-disabled={isForFun}
                   className="form-check-input"
                 />
                 <label htmlFor="is_filled_for_fun" className="text-label">
@@ -382,7 +381,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   aria-required="false"
                   aria-invalid={errors.is_filled_for_fun ? true : false}
                   disabled={isInterestedInMobility}
-                  aria-disabled={isInterestedInMobility}
                   className="form-check-input"
                 />
                 <label htmlFor="is_filled_for_fun" className="text-label">
@@ -406,7 +404,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   type="submit"
                   role="button"
                   disabled={answerStatus}
-                  aria-disabled={answerStatus}
                   className="input-submit"
                 >
                   {intl.formatMessage({ id: 'app.input.submit.user' })}
