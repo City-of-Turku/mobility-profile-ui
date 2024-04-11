@@ -54,6 +54,7 @@
   "app.postalcodes.error": "Postinumeroita ei voitu hakea.",
   "app.result.success": "Kiitos vastauksestasi.",
   "app.result.newsletter.success": "Olet tilannut uutiskirjeen.",
+  "app.result.newsletter.error": "Sähköpostin lähetyksessä tapahtui virhe.",
   "app.transport.car": "auto",
   "app.transport.motorbike": "mopo tai skootteri",
   "app.transport.bicycle": "polkupyörä tai sähköpyörä",

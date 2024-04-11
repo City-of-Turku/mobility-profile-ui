@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
+import { logoutUser } from '../../../utils/mobilityProfileAPI';
 import useLocaleText from '../../../utils/useLocaleText';
 import { renderLocaleValue } from '../../../utils/utils';
 import HomeButton from '../../Buttons/HomeButton/HomeButton';
@@ -17,12 +18,19 @@ const ResultPage = () => {
   const { user } = useAppSelector((state) => state);
 
   const userResult = user.profileResult;
+  const token = user.csrfToken;
 
   useEffect(() => {
     if (!userResult || !userResult?.topic.length) {
       setResultError(true);
     }
   }, [userResult]);
+
+  useEffect(() => {
+    if (token?.length) {
+      logoutUser(token);
+    }
+  }, [token]);
 
   return (
     <section className="container flex-center">

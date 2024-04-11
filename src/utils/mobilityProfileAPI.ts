@@ -271,20 +271,18 @@ const postUserInfo = async (
 
 const postSubscribeInfo = async (
   email: string,
-  resultId: number,
+  userId: string,
   setAnswer: (a: boolean) => void,
   setError: (a: boolean) => void,
-  token: string,
 ) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${token}`,
   });
 
   const emailData = {
     email: email,
-    result: resultId,
+    user: userId,
   };
 
   const requestOptions: RequestInit = {
@@ -298,10 +296,10 @@ const postSubscribeInfo = async (
     await fetch(`${apiBaseUrl}/account/profile/subscribe/`, requestOptions);
     setAnswer(true);
   } catch (error) {
+    setError(true);
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
-    setError(true);
     console.warn(message);
   }
 };
@@ -317,10 +315,10 @@ const fetchPostalCodes = async (
     const jsonData = await response.json();
     setData(jsonData.results);
   } catch (error) {
+    setError(true);
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
-    setError(true);
     console.warn(message);
   }
 };

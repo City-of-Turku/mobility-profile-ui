@@ -70,12 +70,12 @@ const HomePage = () => {
 
   const handleClick = async () => {
     const userValues = await startPoll(setIsLoggedIn);
-    const dataStr = userValues?.data[0];
-    const iv = userValues?.data[1];
+    const dataStr = userValues?.data?.[0];
+    const iv = userValues?.data?.[1];
     const secretParse = window.atob(secret);
     const key = CryptoJS.enc.Utf8.parse(secretParse);
-    const ivParsed = CryptoJS.enc.Base64.parse(iv);
-    const decrypted = decryptString(dataStr, key, ivParsed);
+    const ivParsed = iv ? CryptoJS.enc.Base64.parse(iv) : null;
+    const decrypted = ivParsed ? decryptString(dataStr, key, ivParsed) : '';
     setUserId(userValues?.id);
     setCsrfToken(decrypted);
   };

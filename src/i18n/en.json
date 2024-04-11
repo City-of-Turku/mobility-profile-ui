@@ -54,6 +54,7 @@
   "app.postalcodes.error": "Postal codes couldn't be retrieved.",
   "app.result.success": "Thank you for your answer.",
   "app.result.newsletter.success": "You have subscribed to our newsletter.",
+  "app.result.newsletter.error": "An error occurred while sending the email address.",
   "app.transport.car": "car",
   "app.transport.motorbike": "moped or scooter",
   "app.transport.bicycle": "bicycle or e-bicycle",
