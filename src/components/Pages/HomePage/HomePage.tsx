@@ -13,7 +13,7 @@ import { sortQuestionsData } from '../../../utils/utils';
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
-  const { setUserId, setCsrfToken, setIsLoggedIn } = bindActionCreators(
+  const { setUserId, setCsrfToken, setIsLoggedIn, setIsError } = bindActionCreators(
     userSlice.actions,
     dispatch,
   );
@@ -69,7 +69,7 @@ const HomePage = () => {
   };
 
   const handleClick = async () => {
-    const userValues = await startPoll(setIsLoggedIn);
+    const userValues = await startPoll(setIsLoggedIn, setIsError);
     const dataStr = userValues?.data?.[0];
     const iv = userValues?.data?.[1];
     const secretParse = window.atob(secret);

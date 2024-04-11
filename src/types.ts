@@ -13,6 +13,7 @@ interface User {
   csrfToken: string;
   isLoggedIn: boolean;
   profileResult: Result;
+  isError: boolean;
 }
 
 interface LocaleTextObject {

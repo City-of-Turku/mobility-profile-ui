@@ -19,6 +19,7 @@ export const initialState: User = {
     description_en: '',
     description_sv: '',
   },
+  isError: false,
 };
 
 export const userSlice = createSlice({
@@ -58,6 +59,9 @@ export const userSlice = createSlice({
         description_sv: '',
       };
     },
+    setIsError: (state, action: PayloadAction<boolean>) => {
+      state.isError = action.payload;
+    },
   },
 });
 
@@ -69,6 +73,7 @@ export const {
   resetUserId,
   resetCsrfToken,
   resetProfileResult,
+  setIsError,
 } = userSlice.actions;
 
 export default userSlice;
