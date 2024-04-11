@@ -107,7 +107,6 @@ interface UserFormTypes {
   postal_code_other?: string | null;
   optional_postal_code?: string | null;
   optional_postal_code_other?: string | null;
-  is_filled_for_fun: boolean;
   result_can_be_used: boolean;
 }
 

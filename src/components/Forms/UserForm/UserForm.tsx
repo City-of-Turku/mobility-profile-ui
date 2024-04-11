@@ -112,7 +112,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm({
     defaultValues: {
       gender: null,
@@ -122,13 +121,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
       optional_postal_code: null,
       optional_postal_code_other: null,
       is_interested_in_mobility: false,
-      is_filled_for_fun: false,
       result_can_be_used: false,
     },
   });
-
-  const isInterestedInMobility = watch('is_interested_in_mobility');
-  const isForFun = watch('is_filled_for_fun');
 
   /**
    * Set disabled status of either select or text input so that user can't fill both at the same time.
@@ -367,24 +362,10 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   {...register('is_interested_in_mobility', { required: false })}
                   aria-required="false"
                   aria-invalid={errors.is_interested_in_mobility ? true : false}
-                  disabled={isForFun}
                   className="form-check-input"
                 />
                 <label htmlFor="is_filled_for_fun" className="text-label">
                   {intl.formatMessage({ id: 'app.form.interestedInMobility.label' })}
-                </label>
-              </div>
-              <div className="mb-3 form-check container-sm center-text">
-                <input
-                  type="checkbox"
-                  {...register('is_filled_for_fun', { required: false })}
-                  aria-required="false"
-                  aria-invalid={errors.is_filled_for_fun ? true : false}
-                  disabled={isInterestedInMobility}
-                  className="form-check-input"
-                />
-                <label htmlFor="is_filled_for_fun" className="text-label">
-                  {intl.formatMessage({ id: 'app.form.filledForFun.label' })}
                 </label>
               </div>
               <div className="mb-3 form-check container-sm center-text">
