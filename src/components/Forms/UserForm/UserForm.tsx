@@ -131,7 +131,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
    * @param event
    * @param setState
    */
-  const handlePostalCodes = (
+  const handlePostalCodeStates = (
     event: { target: { value: string } },
     setState: (a: boolean) => void,
   ) => {
@@ -242,7 +242,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     <select
                       {...register('postal_code', { required: false })}
                       role="listbox"
-                      onChange={(event) => handlePostalCodes(event, setIsPostalCode)}
+                      onChange={(event) => handlePostalCodeStates(event, setIsPostalCode)}
                       disabled={isPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.postal_code ? true : false}
@@ -272,7 +272,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     {...register('postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
                     maxLength={10}
-                    onChange={(event) => handlePostalCodes(event, setIsPostalCodeOther)}
+                    onChange={(event) => handlePostalCodeStates(event, setIsPostalCodeOther)}
                     disabled={isPostalCode}
                     aria-required="false"
                     aria-invalid={errors.postal_code_other ? true : false}
@@ -303,7 +303,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                         required: false,
                       })}
                       role="listbox"
-                      onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCode)}
+                      onChange={(event) => handlePostalCodeStates(event, setIsOptionalPostalCode)}
                       disabled={isOptionalPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.optional_postal_code ? true : false}
@@ -333,7 +333,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
                     type="text"
                     maxLength={10}
-                    onChange={(event) => handlePostalCodes(event, setIsOptionalPostalCodeOther)}
+                    onChange={(event) =>
+                      handlePostalCodeStates(event, setIsOptionalPostalCodeOther)
+                    }
                     disabled={isOptionalPostalCode}
                     aria-required="false"
                     aria-invalid={errors.optional_postal_code_other ? true : false}
