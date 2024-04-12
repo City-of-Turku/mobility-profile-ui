@@ -54,6 +54,7 @@
   "app.postalcodes.error": "Postnummer kunde inte hämtas.",
   "app.result.success": "Tack för ditt svar.",
   "app.result.newsletter.success": "Du har prenumererat på nyhetsbrevet.",
+  "app.result.newsletter.error": "Ett fel uppstod när e-postadressen skickades.",
   "app.transport.car": "bil",
   "app.transport.motorbike": "moped eller skoter",
   "app.transport.bicycle": "cykel eller e-cykel",

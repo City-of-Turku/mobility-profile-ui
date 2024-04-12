@@ -66,7 +66,7 @@ const fetchUserResult = async (
   }
 };
 
-const startPoll = async (setLoggedIn: (a: boolean) => void) => {
+const startPoll = async (setLoggedIn: (a: boolean) => void, setError: (a: boolean) => void) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -80,8 +80,12 @@ const startPoll = async (setLoggedIn: (a: boolean) => void) => {
     const response = await fetch(`${apiUrl}/question/start_poll/`, requestOptions);
     const jsonData = await response.json();
     const userValues = jsonData;
-    setLoggedIn(true);
-    return userValues;
+    if (response.ok) {
+      setLoggedIn(true);
+      return userValues;
+    } else {
+      setError(true);
+    }
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
@@ -258,33 +262,34 @@ const postUserInfo = async (
   };
 
   try {
-    await fetch(`${apiBaseUrl}/account/profile/${userId}/`, requestOptions);
-    setAnswerStatus(true);
+    const response = await fetch(`${apiBaseUrl}/account/profile/${userId}/`, requestOptions);
+    if (response.ok) {
+      setAnswerStatus(true);
+    } else {
+      setError(true);
+    }
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
-    setError(true);
     console.warn(message);
   }
 };
 
 const postSubscribeInfo = async (
   email: string,
-  resultId: number,
+  userId: string,
   setAnswer: (a: boolean) => void,
   setError: (a: boolean) => void,
-  token: string,
 ) => {
   const headers = new Headers({
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Token ${token}`,
   });
 
   const emailData = {
     email: email,
-    result: resultId,
+    user: userId,
   };
 
   const requestOptions: RequestInit = {
@@ -295,13 +300,16 @@ const postSubscribeInfo = async (
   };
 
   try {
-    await fetch(`${apiBaseUrl}/account/profile/subscribe/`, requestOptions);
-    setAnswer(true);
+    const response = await fetch(`${apiBaseUrl}/account/profile/subscribe/`, requestOptions);
+    if (response.ok) {
+      setAnswer(true);
+    } else {
+      setError(true);
+    }
   } catch (error) {
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
-    setError(true);
     console.warn(message);
   }
 };
@@ -317,10 +325,10 @@ const fetchPostalCodes = async (
     const jsonData = await response.json();
     setData(jsonData.results);
   } catch (error) {
+    setError(true);
     let message;
     if (error instanceof Error) message = error.message;
     else message = String(error);
-    setError(true);
     console.warn(message);
   }
 };
