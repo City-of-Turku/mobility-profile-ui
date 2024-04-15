@@ -59,9 +59,10 @@ describe('<TableExtended />', () => {
       <TableExtended questionData={mockProps.questionData} />,
     );
 
+    const p = container.querySelectorAll('p');
     const label = container.querySelectorAll('label');
-    expect(label[0].textContent).toContain(mockProps.questionData.options[0].value_fi);
-    expect(label[1].textContent).toContain(mockProps.questionData.sub_questions[0].description_fi);
+    expect(p[0].textContent).toContain(mockProps.questionData.options[0].value_fi);
+    expect(label[0].textContent).toContain(mockProps.questionData.sub_questions[0].description_fi);
   });
 
   it('does contain input', () => {
