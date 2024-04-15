@@ -141,6 +141,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
             <tr key={option.id}>
               <td className="center-input input-w50">
                 <input
+                  id={`option_${option.id}`}
                   name={'id'}
                   type={numberOfOptions === '1' ? 'radio' : 'checkbox'}
                   value={option.id}
@@ -161,12 +162,14 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
               {option.is_other ? (
                 <td>
                   <input
+                    id={`other_${option.id}`}
                     name={'id'}
                     type="text"
                     value={otherValue}
                     className="input-text"
                     maxLength={maxCount}
                     onChange={(event) => setOtherValue(event.target.value)}
+                    aria-describedby={`charCount_${option.id}`}
                     placeholder={renderLocaleValue(
                       getLocaleText,
                       option.value_fi,
@@ -174,13 +177,15 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                       option.value_sv,
                     )}
                   />
-                  <small>{`${otherCount}/${maxCount} ${intl.formatMessage({
+                  <small
+                    id={`charCount_${option.id}`}
+                  >{`${otherCount}/${maxCount} ${intl.formatMessage({
                     id: 'app.form.helperText.characters',
                   })}`}</small>
                 </td>
               ) : (
                 <td>
-                  <label>
+                  <label htmlFor={`option_${option.id}`}>
                     {renderLocaleValue(
                       getLocaleText,
                       option.value_fi,
