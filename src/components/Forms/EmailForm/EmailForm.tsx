@@ -57,6 +57,7 @@ const EmailForm = () => {
             </label>
             <input
               type="email"
+              id="email"
               placeholder={intl.formatMessage({ id: 'app.form.email.label' })}
               {...register('email', {
                 required: true,

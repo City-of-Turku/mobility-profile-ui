@@ -161,9 +161,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
           <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
           {optionsArray?.map((item) => (
             <th key={item.value_fi} style={commonCellStyle}>
-              <label>
-                {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
-              </label>
+              <p>{renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}</p>
             </th>
           ))}
         </tr>
@@ -172,14 +170,14 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
         {subQuestionsArray?.map((item) => (
           <tr key={item.id}>
             <td style={commonCellStyle}>
-              <p>
+              <label htmlFor={`row-${item.id}`}>
                 {renderLocaleValue(
                   getLocaleText,
                   item.description_fi,
                   item.description_en,
                   item.description_sv,
                 )}
-              </p>
+              </label>
             </td>
             {item.options
               .filter((option) => option.value !== 'None')

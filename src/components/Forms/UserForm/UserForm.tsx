@@ -181,13 +181,14 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
             <div className="container flex-center">
               <div className="mb-2 form-group container-sm center-text">
                 <div>
-                  <label htmlFor="year_of_birth" className="text-label mb-1">
+                  <label htmlFor="gender" className="text-label mb-1">
                     {intl.formatMessage({ id: 'app.form.gender.label' })}
                   </label>
                 </div>
                 <div>
                   <select
                     {...register('gender', { required: true })}
+                    id="gender"
                     role="listbox"
                     aria-required="true"
                     aria-invalid={errors.gender ? true : false}
@@ -214,6 +215,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <div>
                   <select
                     {...register('year_of_birth', { required: true })}
+                    id="year_of_birth"
                     role="listbox"
                     aria-required="true"
                     aria-invalid={errors.year_of_birth ? true : false}
@@ -241,6 +243,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   <div>
                     <select
                       {...register('postal_code', { required: false })}
+                      id="postal_code"
                       role="listbox"
                       onChange={(event) => handlePostalCodeStates(event, setIsPostalCode)}
                       disabled={isPostalCodeOther}
@@ -270,6 +273,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <div className="flex-input">
                   <input
                     {...register('postal_code_other', { required: false, maxLength: 10 })}
+                    id="postal_code_other"
                     type="text"
                     maxLength={10}
                     onChange={(event) => handlePostalCodeStates(event, setIsPostalCodeOther)}
@@ -303,6 +307,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                         required: false,
                       })}
                       role="listbox"
+                      id="optional_postal_code"
                       onChange={(event) => handlePostalCodeStates(event, setIsOptionalPostalCode)}
                       disabled={isOptionalPostalCodeOther}
                       aria-required="false"
@@ -331,6 +336,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <div className="flex-input">
                   <input
                     {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
+                    id="optional_postal_code_other"
                     type="text"
                     maxLength={10}
                     onChange={(event) =>
@@ -362,11 +368,12 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <input
                   type="checkbox"
                   {...register('is_interested_in_mobility', { required: false })}
+                  id="is_interested_in_mobility"
                   aria-required="false"
                   aria-invalid={errors.is_interested_in_mobility ? true : false}
                   className="form-check-input"
                 />
-                <label htmlFor="is_filled_for_fun" className="text-label">
+                <label htmlFor="is_interested_in_mobility" className="text-label">
                   {intl.formatMessage({ id: 'app.form.interestedInMobility.label' })}
                 </label>
               </div>
@@ -374,6 +381,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <input
                   type="checkbox"
                   {...register('result_can_be_used', { required: false })}
+                  id="result_can_be_used"
                   aria-required="false"
                   aria-invalid={errors.result_can_be_used ? true : false}
                   className="form-check-input"
