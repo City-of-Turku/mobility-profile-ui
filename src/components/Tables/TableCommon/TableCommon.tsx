@@ -147,11 +147,6 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                   value={option.id}
                   checked={mainOptions.some((mainOption) => mainOption.option === option.id)}
                   onChange={(event) => createAnswerEvent(event, option)}
-                  aria-disabled={
-                    limitSelections &&
-                    mainOptions.length >= 3 &&
-                    disabledOptions.includes(option.id)
-                  }
                   disabled={
                     limitSelections &&
                     mainOptions.length >= 3 &&
