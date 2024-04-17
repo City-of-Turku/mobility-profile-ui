@@ -161,9 +161,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
           <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
           {optionsArray?.map((item) => (
             <th key={item.value_fi} style={commonCellStyle}>
-              <label>
-                {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
-              </label>
+              <p>{renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}</p>
             </th>
           ))}
         </tr>
@@ -172,7 +170,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
         {subQuestionsArray?.map((item) => (
           <tr key={item.id}>
             <td style={commonCellStyle}>
-              <label>
+              <label htmlFor={`row-${item.id}`}>
                 {renderLocaleValue(
                   getLocaleText,
                   item.description_fi,
@@ -186,6 +184,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
               .map((option) => (
                 <td key={option.id} className="center-input">
                   <input
+                    id={`row-${item.id}`}
                     name={`row-${item.id}`}
                     type="radio"
                     value={option.id}
@@ -213,6 +212,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
               <tr key={option.id}>
                 <td className="center-input input-w50">
                   <input
+                    id={`row-${item.id}`}
                     name={`row-${item.id}`}
                     type="radio"
                     value={option.id}
@@ -222,12 +222,14 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                 {option.is_other ? (
                   <td>
                     <input
+                      id={`row-${item.id}`}
                       name={`row-${item.id}`}
                       type="text"
                       value={otherValue}
                       className="input-text"
                       maxLength={maxCount}
                       onChange={(event) => setOtherValue(event.target.value)}
+                      aria-describedby={`charCount_${option.id}`}
                       placeholder={renderLocaleValue(
                         getLocaleText,
                         option.value_fi,
@@ -235,13 +237,15 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                         option.value_sv,
                       )}
                     />
-                    <small>{`${otherCount}/${maxCount} ${intl.formatMessage({
+                    <small
+                      id={`charCount_${option.id}`}
+                    >{`${otherCount}/${maxCount} ${intl.formatMessage({
                       id: 'app.form.helperText.characters',
                     })}`}</small>
                   </td>
                 ) : (
                   <td>
-                    <label>
+                    <label htmlFor={`row-${item.id}`}>
                       {renderLocaleValue(
                         getLocaleText,
                         option.value_fi,
