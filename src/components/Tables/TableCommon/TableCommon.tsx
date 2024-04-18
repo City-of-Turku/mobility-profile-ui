@@ -26,6 +26,8 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
     setQuestion7Answer,
     setOtherValue,
     resetOtherValue,
+    setAllowNext,
+    resetAllowNext,
   } = bindActionCreators(questionSlice.actions, dispatch);
 
   const { otherValue } = useAppSelector((state) => state.question);
@@ -43,11 +45,25 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   }, []);
 
   useEffect(() => {
+    if (!mainOptions.length) {
+      resetAllowNext();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainOptions]);
+
+  useEffect(() => {
     setOtherCount(otherValue.length);
   }, [otherValue]);
 
   useEffect(() => {
     setQuestionAnswer(mainOptions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainOptions]);
+
+  useEffect(() => {
+    if (mainOptions.length) {
+      setAllowNext(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainOptions]);
 
@@ -125,16 +141,12 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
             <tr key={option.id}>
               <td className="center-input input-w50">
                 <input
+                  id={`option_${option.id}`}
                   name={'id'}
                   type={numberOfOptions === '1' ? 'radio' : 'checkbox'}
                   value={option.id}
                   checked={mainOptions.some((mainOption) => mainOption.option === option.id)}
                   onChange={(event) => createAnswerEvent(event, option)}
-                  aria-disabled={
-                    limitSelections &&
-                    mainOptions.length >= 3 &&
-                    disabledOptions.includes(option.id)
-                  }
                   disabled={
                     limitSelections &&
                     mainOptions.length >= 3 &&
@@ -145,12 +157,14 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
               {option.is_other ? (
                 <td>
                   <input
+                    id={`other_${option.id}`}
                     name={'id'}
                     type="text"
                     value={otherValue}
                     className="input-text"
                     maxLength={maxCount}
                     onChange={(event) => setOtherValue(event.target.value)}
+                    aria-describedby={`charCount_${option.id}`}
                     placeholder={renderLocaleValue(
                       getLocaleText,
                       option.value_fi,
@@ -158,13 +172,15 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                       option.value_sv,
                     )}
                   />
-                  <small>{`${otherCount}/${maxCount} ${intl.formatMessage({
+                  <small
+                    id={`charCount_${option.id}`}
+                  >{`${otherCount}/${maxCount} ${intl.formatMessage({
                     id: 'app.form.helperText.characters',
                   })}`}</small>
                 </td>
               ) : (
                 <td>
-                  <label>
+                  <label htmlFor={`option_${option.id}`}>
                     {renderLocaleValue(
                       getLocaleText,
                       option.value_fi,

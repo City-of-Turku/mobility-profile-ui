@@ -46,12 +46,15 @@ const QuestionForm = () => {
     question3Answer,
     question7Answer,
     otherValue,
+    allowNext,
     questionApiError,
   } = useAppSelector((state) => state.question);
   const { localeSelection } = useAppSelector((state) => state.settings);
   const { csrfToken } = useAppSelector((state) => state.user);
 
   const [filteredQuestions, setFilteredQuestions] = useState(allQuestions);
+
+  const isQuestion1 = questionData.number === '1';
 
   /**
    * Set first question
@@ -295,7 +298,7 @@ const QuestionForm = () => {
     // Check that next question object is valid
     if (isObjectValid(nextQuestion)) {
       // Check if we are in first question
-      if (questionData.number === '1') {
+      if (isQuestion1) {
         await checkMultipleConditions();
         setSecondQuestion();
       } else if (
@@ -370,7 +373,7 @@ const QuestionForm = () => {
           <h3 className="header-h3">
             {localeSelection === 'en'
               ? `${parts[0]} ${formatTransportType(question3Answer.fi)} ${parts[2]}`
-              : `${parts[0]} ${formatTransportType(question3Answer.fi)}`}
+              : `${parts[0]} ${formatTransportType(question3Answer.fi)}:`}
           </h3>
         );
       }
@@ -397,22 +400,38 @@ const QuestionForm = () => {
                   questionData.question_sv,
                 )}
           </div>
+          {isQuestion1 ? (
+            <div className="text-container ml-0">
+              <h4 className="header-h4">
+                {intl.formatMessage({ id: 'app.question.1.description' })}
+              </h4>
+            </div>
+          ) : null}
+          <div className="text-container ml-0">
+            <p className="text-normal">
+              {intl.formatMessage({
+                id: isQuestion1 ? 'app.questions.1.answer.text' : 'app.questions.answer.text',
+              })}
+            </p>
+          </div>
           <div className="form-list-container">
             <Form.Group>
-              <TableCommon question={questionData} />
+              {questionData.sub_questions ? (
+                <TableExtended questionData={questionData} />
+              ) : (
+                <TableCommon question={questionData} />
+              )}
             </Form.Group>
           </div>
-          {questionData.sub_questions && (
-            <div className="form-list-container">
-              <Form.Group>
-                <TableExtended questionData={questionData} />
-              </Form.Group>
-            </div>
-          )}
         </div>
         <div className="buttons-container-flex">
           {!isLastPage && (
-            <Button className="button-primary" role="button" onClick={() => handleNext()}>
+            <Button
+              className="button-primary"
+              role="button"
+              disabled={!allowNext}
+              onClick={() => handleNext()}
+            >
               <p className="text-normal">{intl.formatMessage({ id: 'app.buttons.next' })}</p>
             </Button>
           )}

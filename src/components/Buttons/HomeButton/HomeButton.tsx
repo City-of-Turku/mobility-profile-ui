@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import userSlice from '../../../redux/slices/userSlice';
-import { logoutUser } from '../../../utils/mobilityProfileAPI';
 
 const HomeButton = () => {
   const intl = useIntl();
@@ -17,7 +16,6 @@ const HomeButton = () => {
 
   const endPoll = () => {
     if (token?.length) {
-      logoutUser(token);
       setIsLoggedIn(false);
     }
     return;

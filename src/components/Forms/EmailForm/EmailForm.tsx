@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { EmailField } from '../../../types';
 import { postSubscribeInfo } from '../../../utils/mobilityProfileAPI';
-import ErrorText from '../../Typography/ErrorText/ErrorText';
 import TextBasic from '../../Typography/TextBasic/TextBasic';
 
 const EmailForm = () => {
@@ -15,9 +14,7 @@ const EmailForm = () => {
   const intl = useIntl();
 
   const { user } = useAppSelector((state) => state);
-  const resultId = user?.profileResult?.id;
   const userId = user?.userId;
-  const token = user?.csrfToken;
 
   const registerLink = 'https://rekisteri.turku.fi/Saabe_data';
 
@@ -33,7 +30,7 @@ const EmailForm = () => {
 
   const onSubmit: SubmitHandler<EmailField> = (data) => {
     if (userId?.length) {
-      postSubscribeInfo(data.email, resultId, setHasUserAnswered, setIsApiError, token);
+      postSubscribeInfo(data.email, userId, setHasUserAnswered, setIsApiError);
     }
   };
 
@@ -60,6 +57,7 @@ const EmailForm = () => {
             </label>
             <input
               type="email"
+              id="email"
               placeholder={intl.formatMessage({ id: 'app.form.email.label' })}
               {...register('email', {
                 required: true,
@@ -80,18 +78,17 @@ const EmailForm = () => {
             </div>
           )}
           <div className="mb-2 center-text">
-            <Button
-              type="submit"
-              role="button"
-              disabled={hasUserAnswered}
-              aria-disabled={hasUserAnswered}
-              className="input-submit"
-            >
+            <Button type="submit" role="button" disabled={hasUserAnswered} className="input-submit">
               {intl.formatMessage({ id: 'app.input.submit.newsletter' })}
             </Button>
-            {hasUserAnswered ? <TextBasic translationId="app.result.newsletter.success" /> : null}
+            {hasUserAnswered ? (
+              <TextBasic
+                translationId={
+                  isApiError ? 'app.result.newsletter.error' : 'app.result.newsletter.success'
+                }
+              />
+            ) : null}
           </div>
-          {isApiError ? <ErrorText /> : null}
         </form>
       </div>
     </div>

@@ -13,6 +13,7 @@ interface User {
   csrfToken: string;
   isLoggedIn: boolean;
   profileResult: Result;
+  isError: boolean;
 }
 
 interface LocaleTextObject {
@@ -104,8 +105,9 @@ interface UserFormTypes {
   gender: string | null;
   year_of_birth: number;
   postal_code?: string | null;
+  postal_code_other?: string | null;
   optional_postal_code?: string | null;
-  is_filled_for_fun: boolean;
+  optional_postal_code_other?: string | null;
   result_can_be_used: boolean;
 }
 

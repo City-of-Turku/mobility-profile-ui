@@ -14,6 +14,10 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const [postalCodeData, setPostalCodeData] = useState<PostalCode[]>([]);
   const [serviceMapApiError, setServiceMapApiError] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isPostalCode, setIsPostalCode] = useState(false);
+  const [isOptionalPostalCode, setIsOptionalPostalCode] = useState(false);
+  const [isPostalCodeOther, setIsPostalCodeOther] = useState(false);
+  const [isOptionalPostalCodeOther, setIsOptionalPostalCodeOther] = useState(false);
 
   const intl = useIntl();
 
@@ -38,15 +42,31 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
   const renderOptions = () => {
     const sortedPostalCodes = sortPostalCodes(postalCodeData);
 
-    return sortedPostalCodes?.map((item) => (
+    const options = [];
+
+    options.push(
       <option
-        key={item?.id}
-        value={item?.name?.fi}
-        aria-label={`${intl.formatMessage({ id: 'app.form.helperText.postCode' })} ${item.name.fi}`}
-      >
-        {item?.name?.fi}
-      </option>
-    ));
+        key="empty"
+        value=""
+        aria-label={intl.formatMessage({ id: 'app.form.empty.value' })}
+      />,
+    );
+
+    sortedPostalCodes.forEach((item) => {
+      options.push(
+        <option
+          key={item?.id}
+          value={item?.name?.fi}
+          aria-label={`${intl.formatMessage({ id: 'app.form.helperText.postCode' })} ${
+            item?.name?.fi
+          }`}
+        >
+          {item?.name?.fi}
+        </option>,
+      );
+    });
+
+    return options;
   };
 
   const currentYear = new Date().getFullYear();
@@ -92,35 +112,64 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm({
     defaultValues: {
       gender: null,
       year_of_birth: 1,
       postal_code: null,
+      postal_code_other: null,
       optional_postal_code: null,
+      optional_postal_code_other: null,
       is_interested_in_mobility: false,
-      is_filled_for_fun: false,
       result_can_be_used: false,
     },
   });
 
-  const isInterestedInMobility = watch('is_interested_in_mobility');
-  const isForFun = watch('is_filled_for_fun');
-
-  const removePostalCodes = (data: UserFormTypes) => {
-    if (serviceMapApiError) {
-      delete data.postal_code;
-      delete data.optional_postal_code;
-      return data;
-    } else {
-      return data;
+  /**
+   * Set disabled status of either select or text input so that user can't fill both at the same time.
+   * Select element is for those that live in Turku and text input is for those who don't.
+   * @param event
+   * @param setState
+   */
+  const handlePostalCodeStates = (
+    event: { target: { value: string } },
+    setState: (a: boolean) => void,
+  ) => {
+    const textValue = event.target.value;
+    if (textValue?.length) {
+      setState(true);
     }
+    if (!textValue || !textValue.length) {
+      setState(false);
+    }
+  };
+
+  /**
+   * In case 1 or both postal code values are empty string, replace with null value for API compatibility.
+   * Also add values from text fields into keys that are recognized by API in case they are not null.
+   * @param data
+   * @returns data
+   */
+  const formatPostalCodes = (data: UserFormTypes) => {
+    const updatedData = { ...data };
+    if (updatedData.postal_code === '') {
+      updatedData.postal_code = null;
+    }
+    if (updatedData.optional_postal_code === '') {
+      updatedData.optional_postal_code = null;
+    }
+    if (updatedData.postal_code_other?.length && !updatedData.postal_code) {
+      updatedData.postal_code = updatedData.postal_code_other;
+    }
+    if (updatedData.optional_postal_code_other?.length && !updatedData.optional_postal_code) {
+      updatedData.optional_postal_code = updatedData.optional_postal_code_other;
+    }
+    return updatedData;
   };
 
   const onSubmit: SubmitHandler<UserFormTypes> = (data) => {
     if (userId?.length) {
-      postUserInfo(removePostalCodes(data), userId, setAnswerStatus, setIsApiError, token);
+      postUserInfo(formatPostalCodes(data), userId, setAnswerStatus, setIsApiError, token);
     }
   };
 
@@ -132,13 +181,14 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
             <div className="container flex-center">
               <div className="mb-2 form-group container-sm center-text">
                 <div>
-                  <label htmlFor="year_of_birth" className="text-label mb-1">
+                  <label htmlFor="gender" className="text-label mb-1">
                     {intl.formatMessage({ id: 'app.form.gender.label' })}
                   </label>
                 </div>
                 <div>
                   <select
                     {...register('gender', { required: true })}
+                    id="gender"
                     role="listbox"
                     aria-required="true"
                     aria-invalid={errors.gender ? true : false}
@@ -165,6 +215,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <div>
                   <select
                     {...register('year_of_birth', { required: true })}
+                    id="year_of_birth"
                     role="listbox"
                     aria-required="true"
                     aria-invalid={errors.year_of_birth ? true : false}
@@ -191,9 +242,12 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   </div>
                   <div>
                     <select
-                      {...register('postal_code', { required: !serviceMapApiError ? true : false })}
+                      {...register('postal_code', { required: false })}
+                      id="postal_code"
                       role="listbox"
-                      aria-required={!serviceMapApiError ? 'true' : 'false'}
+                      onChange={(event) => handlePostalCodeStates(event, setIsPostalCode)}
+                      disabled={isPostalCodeOther}
+                      aria-required="false"
                       aria-invalid={errors.postal_code ? true : false}
                       className="select-field"
                     >
@@ -201,7 +255,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     </select>
                   </div>
                   <div className="mb-1">
-                    <small>{intl.formatMessage({ id: 'app.form.mandatory.field' })}</small>
+                    <small>{intl.formatMessage({ id: 'app.form.postalCode.field' })}</small>
                   </div>
                   {errors.postal_code && (
                     <div className="mb-2">
@@ -210,6 +264,36 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   )}
                 </div>
               ) : null}
+              <div className="mb-2 form-group container-sm center-text">
+                <div>
+                  <label htmlFor="postal_code_other" className="text-label mb-1">
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.label' })}
+                  </label>
+                </div>
+                <div className="flex-input">
+                  <input
+                    {...register('postal_code_other', { required: false, maxLength: 10 })}
+                    id="postal_code_other"
+                    type="text"
+                    maxLength={10}
+                    onChange={(event) => handlePostalCodeStates(event, setIsPostalCodeOther)}
+                    disabled={isPostalCode}
+                    aria-required="false"
+                    aria-invalid={errors.postal_code_other ? true : false}
+                    className="form-control text-field-w60"
+                  />
+                </div>
+                <div className="mb-1">
+                  <small>
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
+                  </small>
+                </div>
+                {errors.postal_code_other && (
+                  <div className="mb-2">
+                    <p className="text-normal">{errors.postal_code_other.message}</p>
+                  </div>
+                )}
+              </div>
               {!serviceMapApiError ? (
                 <div className="mb-2 form-group container-sm center-text">
                   <div>
@@ -223,6 +307,9 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                         required: false,
                       })}
                       role="listbox"
+                      id="optional_postal_code"
+                      onChange={(event) => handlePostalCodeStates(event, setIsOptionalPostalCode)}
+                      disabled={isOptionalPostalCodeOther}
                       aria-required="false"
                       aria-invalid={errors.optional_postal_code ? true : false}
                       className="select-field"
@@ -240,6 +327,38 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   )}
                 </div>
               ) : null}
+              <div className="mb-2 form-group container-sm center-text">
+                <div>
+                  <label htmlFor="optional_postal_code_other" className="text-label mb-1">
+                    {intl.formatMessage({ id: 'app.form.optionalPostalCode.other.label' })}
+                  </label>
+                </div>
+                <div className="flex-input">
+                  <input
+                    {...register('optional_postal_code_other', { required: false, maxLength: 10 })}
+                    id="optional_postal_code_other"
+                    type="text"
+                    maxLength={10}
+                    onChange={(event) =>
+                      handlePostalCodeStates(event, setIsOptionalPostalCodeOther)
+                    }
+                    disabled={isOptionalPostalCode}
+                    aria-required="false"
+                    aria-invalid={errors.optional_postal_code_other ? true : false}
+                    className="form-control text-field-w60"
+                  />
+                </div>
+                <div className="mb-1">
+                  <small>
+                    {intl.formatMessage({ id: 'app.form.postalCode.other.text.small' })}
+                  </small>
+                </div>
+                {errors.optional_postal_code_other && (
+                  <div className="mb-2">
+                    <p className="text-normal">{errors.optional_postal_code_other.message}</p>
+                  </div>
+                )}
+              </div>
               <div className="mb-2 container-sm center-text">
                 <p className="text-normal">
                   {intl.formatMessage({ id: 'app.form.info.question' })}
@@ -249,34 +368,20 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                 <input
                   type="checkbox"
                   {...register('is_interested_in_mobility', { required: false })}
+                  id="is_interested_in_mobility"
                   aria-required="false"
                   aria-invalid={errors.is_interested_in_mobility ? true : false}
-                  disabled={isForFun}
-                  aria-disabled={isForFun}
                   className="form-check-input"
                 />
-                <label htmlFor="is_filled_for_fun" className="text-label">
+                <label htmlFor="is_interested_in_mobility" className="text-label">
                   {intl.formatMessage({ id: 'app.form.interestedInMobility.label' })}
                 </label>
               </div>
               <div className="mb-3 form-check container-sm center-text">
                 <input
                   type="checkbox"
-                  {...register('is_filled_for_fun', { required: false })}
-                  aria-required="false"
-                  aria-invalid={errors.is_filled_for_fun ? true : false}
-                  disabled={isInterestedInMobility}
-                  aria-disabled={isInterestedInMobility}
-                  className="form-check-input"
-                />
-                <label htmlFor="is_filled_for_fun" className="text-label">
-                  {intl.formatMessage({ id: 'app.form.filledForFun.label' })}
-                </label>
-              </div>
-              <div className="mb-3 form-check container-sm center-text">
-                <input
-                  type="checkbox"
                   {...register('result_can_be_used', { required: false })}
+                  id="result_can_be_used"
                   aria-required="false"
                   aria-invalid={errors.result_can_be_used ? true : false}
                   className="form-check-input"
@@ -290,7 +395,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                   type="submit"
                   role="button"
                   disabled={answerStatus}
-                  aria-disabled={answerStatus}
                   className="input-submit"
                 >
                   {intl.formatMessage({ id: 'app.input.submit.user' })}
