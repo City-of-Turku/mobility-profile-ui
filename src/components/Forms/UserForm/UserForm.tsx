@@ -280,6 +280,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     disabled={isPostalCode}
                     aria-required="false"
                     aria-invalid={errors.postal_code_other ? true : false}
+                    autoComplete="off"
                     className="form-control text-field-w60"
                   />
                 </div>
@@ -345,6 +346,7 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     disabled={isOptionalPostalCode}
                     aria-required="false"
                     aria-invalid={errors.optional_postal_code_other ? true : false}
+                    autoComplete="off"
                     className="form-control text-field-w60"
                   />
                 </div>
