@@ -120,7 +120,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
       postal_code_other: null,
       optional_postal_code: null,
       optional_postal_code_other: null,
-      is_interested_in_mobility: false,
       result_can_be_used: false,
     },
   });
@@ -360,24 +359,6 @@ const UserForm = ({ answerStatus, setAnswerStatus }: UserFormProps) => {
                     <p className="text-normal">{errors.optional_postal_code_other.message}</p>
                   </div>
                 )}
-              </div>
-              <div className="mb-2 container-sm center-text">
-                <p className="text-normal">
-                  {intl.formatMessage({ id: 'app.form.info.question' })}
-                </p>
-              </div>
-              <div className="mb-3 form-check container-sm center-text">
-                <input
-                  type="checkbox"
-                  {...register('is_interested_in_mobility', { required: false })}
-                  id="is_interested_in_mobility"
-                  aria-required="false"
-                  aria-invalid={errors.is_interested_in_mobility ? true : false}
-                  className="form-check-input"
-                />
-                <label htmlFor="is_interested_in_mobility" className="text-label">
-                  {intl.formatMessage({ id: 'app.form.interestedInMobility.label' })}
-                </label>
               </div>
               <div className="mb-3 form-check container-sm center-text">
                 <input

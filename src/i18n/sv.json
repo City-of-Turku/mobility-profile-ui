@@ -30,7 +30,6 @@
   "app.form.postalCode.other.text.small": "Fyll i detta om du bor utanför Åbo",
   "app.form.email.invalid": "Skriv in en giltig e-postadress",
   "app.form.numeric.field": "Skriv in en giltig postnummer",
-  "app.form.info.question": "Varför gjorde jag testet?",
   "app.form.postalCode.other.value": "Annat postnummer",
   "app.form.helperText.year": "År",
   "app.form.helperText.postCode": "Postnummer",

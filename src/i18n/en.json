@@ -30,7 +30,6 @@
   "app.form.postalCode.other.text.small": "Fill this, in case you don't live in Turku",
   "app.form.email.invalid": "Enter valid email address",
   "app.form.numeric.field": "Enter valid postalcode",
-  "app.form.info.question": "Why did I do the test?",
   "app.form.postalCode.other.value": "Other postal code",
   "app.form.helperText.year": "Year",
   "app.form.helperText.postCode": "Post code",
