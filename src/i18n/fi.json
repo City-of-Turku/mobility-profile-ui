@@ -30,7 +30,6 @@
   "app.form.postalCode.other.text.small": "Täytä tämä, jos asut Turun ulkopuolella",
   "app.form.email.invalid": "Kirjoita kelvollinen sähköpostiosoite",
   "app.form.numeric.field": "Kirjoita kelvollinen postinumero",
-  "app.form.info.question": "Miksi tein testin?",
   "app.form.postalCode.other.value": "Muu postinumero",
   "app.form.helperText.year": "Vuosi",
   "app.form.helperText.postCode": "Postinumero",
