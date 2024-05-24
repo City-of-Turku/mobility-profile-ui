@@ -251,7 +251,7 @@ const QuestionForm = () => {
   const setSecondQuestion = () => {
     const question1a = findQuestionByNumber('1a');
     const question1b1 = findQuestionByNumber('1b1');
-    if (carCount.length && carCount === '0' && question1b1) {
+    if (carCount.length && carCount === 'en koskaan' && question1b1) {
       setQuestionData(question1b1);
     } else if (carCount.length && question1a) {
       setQuestionData(question1a);
