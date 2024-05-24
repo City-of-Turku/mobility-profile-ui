@@ -160,7 +160,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
         <tr>
           <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
           {optionsArray?.map((item) => (
-            <th key={item.value_fi} style={commonCellStyle}>
+            <th key={item.value_fi} style={commonCellStyle} className="table-header-md">
               <p>{renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}</p>
             </th>
           ))}
