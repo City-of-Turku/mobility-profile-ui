@@ -146,7 +146,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   const commonCellStyle = {
-    fontSize: isQuestionFour ? '0.8rem' : '1rem',
+    fontSize: '0.8rem',
   };
 
   /**
@@ -158,7 +158,9 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     <>
       <thead>
         <tr>
-          <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
+          <th className="table-header-first" style={commonCellStyle}>
+            {intl.formatMessage({ id: 'app.text.options' })}
+          </th>
           {optionsArray?.map((item) => (
             <th key={item.value_fi} style={commonCellStyle} className="table-header-md">
               <p>{renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}</p>

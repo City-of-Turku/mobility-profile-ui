@@ -339,6 +339,7 @@ const QuestionForm = () => {
     }
   };
 
+  // TODO update to format question 1 separately
   /**
    * Append answer of question 3 into the question string of question number 4. Otherwise use default format.
    * @param formatType
