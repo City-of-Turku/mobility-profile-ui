@@ -372,7 +372,7 @@ const QuestionForm = () => {
       const parts = localeText.split('(');
       return (
         <>
-          <h3 className="header-h3 mb-3">{`${parts[0]}.`}</h3>
+          <h3 className="header-h3 mb-3">{parts[0]}</h3>
           <h4 className="header-h4 mb-3">
             {intl.formatMessage(
               { id: 'app.questions.1.subtitle' },

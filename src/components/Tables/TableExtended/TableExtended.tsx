@@ -146,7 +146,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   const commonCellStyle = {
-    fontSize: '0.8rem',
+    fontSize: '0.9rem',
   };
 
   /**
