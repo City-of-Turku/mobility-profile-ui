@@ -162,7 +162,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
             {intl.formatMessage({ id: 'app.text.options' })}
           </th>
           {optionsArray?.map((item) => (
-            <th key={item.value_fi} style={commonCellStyle} className="table-header-md">
+            <th key={item.value_fi} style={commonCellStyle}>
               <p>{renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}</p>
             </th>
           ))}
@@ -273,8 +273,8 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   return (
-    <div className="table-responsive">
-      <Table bordered striped hover>
+    <div>
+      <Table bordered striped hover responsive size="sm">
         {renderTable()}
       </Table>
     </div>
