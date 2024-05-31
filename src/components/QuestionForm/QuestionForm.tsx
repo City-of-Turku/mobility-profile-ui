@@ -339,14 +339,79 @@ const QuestionForm = () => {
     }
   };
 
-  // TODO update to format question 1 separately
+  const removeCharacters = (str: string) => str.replace(')', '');
+
   /**
-   * Append answer of question 3 into the question string of question number 4. Otherwise use default format.
-   * @param formatType
-   * @param texts
-   * @returns JSX element
+   * Format long strings into 2 separate text elements.
+   * Split if text contains parenthesis.
+   * @param localeText
+   * @returns TSX element
    */
-  const formatText = (formatType: 'default' | 'withAnswer', ...texts: string[]) => {
+  const formatLocaleText = (localeText: string) => {
+    if (localeText.includes('(')) {
+      const parts = localeText.split('(');
+      return (
+        <>
+          <h3 className="header-h3 mb-3">{parts[0]}</h3>
+          <h4 className="header-h4 mb-3">{removeCharacters(parts[1])}</h4>
+        </>
+      );
+    }
+    return <h3 className="header-h3">{localeText}</h3>;
+  };
+
+  /**
+   * Format long strings into 2 separate text elements in different way.
+   * Also include translation text.
+   * Split if text contains parenthesis.
+   * @param localeText
+   * @returns TSX element
+   */
+  const formatQuestionOne = (localeText: string) => {
+    if (localeText.includes('(')) {
+      const parts = localeText.split('(');
+      return (
+        <>
+          <h3 className="header-h3 mb-3">{`${parts[0]}.`}</h3>
+          <h4 className="header-h4 mb-3">
+            {intl.formatMessage(
+              { id: 'app.questions.1.subtitle' },
+              { value: removeCharacters(parts[1]) },
+            )}
+          </h4>
+        </>
+      );
+    }
+    return <h3 className="header-h3">{localeText}</h3>;
+  };
+
+  /**
+   * Format long strings into 2 separate text elements and append answer from state into it.
+   * Split if text contains << characters
+   * @param localeText
+   * @param localeSelection
+   * @param question3Answer
+   * @returns TSX element
+   */
+  const formatQuestionFour = (
+    localeText: string,
+    localeSelection: string,
+    question3Answer: { fi: string },
+  ) => {
+    if (localeText.includes('<<') || localeText.includes('>>')) {
+      const parts = localeText.split(/<<|>>/g);
+      return (
+        <h3 className="header-h3">
+          {localeSelection === 'en'
+            ? `${parts[0]} ${formatTransportType(question3Answer.fi)} ${parts[2]}`
+            : `${parts[0]} ${formatTransportType(question3Answer.fi)}:`}
+        </h3>
+      );
+    }
+    return null;
+  };
+
+  const formatText = (questionNumber: string, ...texts: string[]) => {
     const localeTexts = {
       fi: texts[0],
       en: texts[1],
@@ -354,32 +419,14 @@ const QuestionForm = () => {
     };
     const localeText = getLocaleText(localeTexts);
 
-    if (formatType === 'default') {
-      if (localeText.includes('(')) {
-        const parts = localeText.split('(');
-        return (
-          <>
-            <h3 className="header-h3 mb-3">{`${parts[0]}`}</h3>
-            <h4 className="header-h4 mb-3">{parts[1].replace(')', '')}</h4>
-          </>
-        );
-      }
-      return <h3 className="header-h3">{localeText}</h3>;
+    switch (questionNumber) {
+      case '1':
+        return formatQuestionOne(localeText);
+      case '4':
+        return formatQuestionFour(localeText, localeSelection, question3Answer);
+      default:
+        return formatLocaleText(localeText);
     }
-
-    if (formatType === 'withAnswer') {
-      if (localeText.includes('<<') || localeText.includes('>>')) {
-        const parts = localeText.split(/<<|>>/g);
-        return (
-          <h3 className="header-h3">
-            {localeSelection === 'en'
-              ? `${parts[0]} ${formatTransportType(question3Answer.fi)} ${parts[2]}`
-              : `${parts[0]} ${formatTransportType(question3Answer.fi)}:`}
-          </h3>
-        );
-      }
-    }
-    return null;
   };
 
   const renderList = () => {
@@ -387,19 +434,12 @@ const QuestionForm = () => {
       <div className="form-content">
         <div key={questionData.id} className="form-content-inner">
           <div className="text-container ml-0">
-            {questionData.number === '4'
-              ? formatText(
-                  'withAnswer',
-                  questionData.question_fi,
-                  questionData.question_en,
-                  questionData.question_sv,
-                )
-              : formatText(
-                  'default',
-                  questionData.question_fi,
-                  questionData.question_en,
-                  questionData.question_sv,
-                )}
+            {formatText(
+              questionData.number,
+              questionData.question_fi,
+              questionData.question_en,
+              questionData.question_sv,
+            )}
           </div>
           {isQuestion1 ? (
             <div className="text-container ml-0">

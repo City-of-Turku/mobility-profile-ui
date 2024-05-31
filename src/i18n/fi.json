@@ -62,6 +62,7 @@
   "app.transport.walk": "kävely",
   "app.transport.scooter": "sähköpotkulauta tai muu vastaava",
   "app.question.1.description": "Jos sinulla ei ole mahdollisuutta johonkin kulkumuotoon, valitse en koskaan.",
+  "app.questions.1.subtitle": "Välillä {value}.",
   "app.questions.1.answer.text": "Vastaathan kaikkiin kohtiin ennen kuin siirryt eteenpäin.",
   "app.questions.answer.text": "Vastaathan kysymykseen ennen kuin siirryt eteenpäin.",
   "app.questions.api.error": "Tapahtui virhe. Kysymyksiä ei voida näyttää."
