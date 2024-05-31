@@ -433,7 +433,7 @@ const QuestionForm = () => {
     return (
       <div className="form-content">
         <div key={questionData.id} className="form-content-inner">
-          <div className="text-container ml-0">
+          <div className="text-container break-word ml-0">
             {formatText(
               questionData.number,
               questionData.question_fi,
@@ -442,13 +442,13 @@ const QuestionForm = () => {
             )}
           </div>
           {isQuestion1 ? (
-            <div className="text-container ml-0">
+            <div className="text-container break-word ml-0">
               <h4 className="header-h4">
                 {intl.formatMessage({ id: 'app.question.1.description' })}
               </h4>
             </div>
           ) : null}
-          <div className="text-container ml-0">
+          <div className="text-container break-word ml-0">
             <p className="text-normal">
               {intl.formatMessage({
                 id: isQuestion1 ? 'app.questions.1.answer.text' : 'app.questions.answer.text',
