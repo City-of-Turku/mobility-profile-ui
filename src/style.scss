@@ -224,10 +224,6 @@ body {
     margin-left: 0.5rem;
     justify-content: center;
   }
-
-  .table-header-first {
-    width: 90px;
-  }
 }
 
 @media (max-width: $screen-xs-max) {
@@ -237,9 +233,5 @@ body {
 
   .container-sm {
     width: 100%;
-  }
-
-  .table-header-first {
-    width: 70px;
   }
 }
