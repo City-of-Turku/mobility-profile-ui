@@ -146,7 +146,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   const commonCellStyle = {
-    fontSize: isQuestionFour ? '0.8rem' : '1rem',
+    fontSize: '0.9rem',
   };
 
   /**
@@ -271,8 +271,8 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
   };
 
   return (
-    <div className="table-responsive">
-      <Table bordered striped hover>
+    <div>
+      <Table bordered striped hover responsive size="sm">
         {renderTable()}
       </Table>
     </div>
