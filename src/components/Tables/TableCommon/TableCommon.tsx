@@ -122,7 +122,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
   }, [mainOptions, question, limitSelections]);
 
   return (
-    <div className="table-responsive">
+    <div>
       {limitSelections ? (
         <div className="mb-2">
           <p className="text-normal">
@@ -135,7 +135,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
           </p>
         </div>
       ) : null}
-      <Table bordered striped hover>
+      <Table bordered striped hover responsive>
         <tbody>
           {question?.options?.map((option) => (
             <tr key={option.id}>
