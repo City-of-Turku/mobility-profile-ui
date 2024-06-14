@@ -180,7 +180,7 @@ const TableCommon: React.FC<TableCommonProps> = ({ question }) => {
                 </td>
               ) : (
                 <td>
-                  <label htmlFor={`option_${option.id}`}>
+                  <label className="text-label" htmlFor={`option_${option.id}`}>
                     {renderLocaleValue(
                       getLocaleText,
                       option.value_fi,

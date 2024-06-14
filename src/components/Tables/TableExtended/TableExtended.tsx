@@ -145,10 +145,6 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     }
   };
 
-  const commonCellStyle = {
-    fontSize: '0.9rem',
-  };
-
   /**
    * Medium sized table with only few options that are rendered horizontally.
    * Suitable for question 1.
@@ -158,10 +154,16 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
     <>
       <thead>
         <tr>
-          <th style={commonCellStyle}>{intl.formatMessage({ id: 'app.text.options' })}</th>
+          <th>
+            <p className="text-normal-secondary">
+              {intl.formatMessage({ id: 'app.text.options' })}
+            </p>
+          </th>
           {optionsArray?.map((item) => (
-            <th key={item.value_fi} style={commonCellStyle}>
-              <p>{renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}</p>
+            <th key={item.value_fi}>
+              <p className="text-normal-secondary">
+                {renderLocaleValue(getLocaleText, item.value_fi, item.value_en, item.value_sv)}
+              </p>
             </th>
           ))}
         </tr>
@@ -169,8 +171,8 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
       <tbody>
         {subQuestionsArray?.map((item) => (
           <tr key={item.id}>
-            <td style={commonCellStyle}>
-              <label htmlFor={`row-${item.id}`}>
+            <td>
+              <label className="text-label-secondary" htmlFor={`row-${item.id}`}>
                 {renderLocaleValue(
                   getLocaleText,
                   item.description_fi,
@@ -245,7 +247,7 @@ const TableExtended: React.FC<TableExtendedProps> = ({ questionData }) => {
                   </td>
                 ) : (
                   <td>
-                    <label htmlFor={`row-${item.id}`}>
+                    <label className="text-label" htmlFor={`row-${item.id}`}>
                       {renderLocaleValue(
                         getLocaleText,
                         option.value_fi,

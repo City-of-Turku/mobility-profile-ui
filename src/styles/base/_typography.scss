@@ -17,6 +17,12 @@
   line-height: 1.2rem;
 }
 
+.text-normal-secondary {
+  @extend .text-root;
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
 .text-normal-bold {
   @extend .text-root;
   font-size: 1rem;
@@ -25,6 +31,12 @@
 }
 
 .text-label {
+  @extend .text-root;
+  font-size: 0.95rem;
+  line-height: 1.2rem;
+}
+
+.text-label-secondary {
   @extend .text-root;
   font-size: 0.95rem;
   line-height: 1.2rem;
@@ -80,14 +92,22 @@
 }
 
 @media (max-width: $screen-sm-max) {
+  .text-normal {
+    line-height: 1.1rem;
+  }
+
+  .text-normal-bold {
+    line-height: 1.1rem;
+  }
+
   .text-subtitle {
     font-size: 1.1rem;
     line-height: 1.2rem;
   }
 
   .header-h1 {
-    font-size: 1.5rem;
-    line-height: 1.6rem;
+    font-size: 1.4rem;
+    line-height: 1.5rem;
   }
 
   .header-h2 {
@@ -106,12 +126,66 @@
   }
 
   .header-h5 {
-    font-size: 1.05rem;
-    line-height: 1.15rem;
+    font-size: 1.1rem;
+    line-height: 1.2rem;
   }
 
   .header-h6 {
     font-size: 1rem;
     line-height: 1.1rem;
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .text-normal-secondary {
+    font-size: 0.75rem;
+    line-height: 0.85rem;
+  }
+
+  .text-label-secondary {
+    font-size: 0.75rem;
+    line-height: 0.85rem;
+  }
+
+  .header-h1 {
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+  }
+
+  .header-h2 {
+    font-size: 1.2rem;
+    line-height: 1.3rem;
+  }
+
+  .header-h3 {
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+  }
+
+  .header-h4 {
+    font-size: 1rem;
+    line-height: 1.1rem;
+  }
+
+  .header-h5 {
+    font-size: 0.95rem;
+    line-height: 1.05rem;
+  }
+
+  .header-h6 {
+    font-size: 0.9rem;
+    line-height: 1rem;
+  }
+}
+
+@media (max-width: $screen-xxs-max) {
+  .text-normal-secondary {
+    font-size: 0.65rem;
+    line-height: 0.7rem;
+  }
+
+  .text-label-secondary {
+    font-size: 0.65rem;
+    line-height: 0.7rem;
   }
 }
