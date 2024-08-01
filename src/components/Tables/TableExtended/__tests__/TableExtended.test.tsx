@@ -1,4 +1,5 @@
 import React from 'react';
+import finnishTranslations from '../../../../i18n/fi.json';
 import { renderWithProviders } from '../../../../testUtils/testUtils';
 import TableExtended from '../TableExtended';
 
@@ -61,7 +62,8 @@ describe('<TableExtended />', () => {
 
     const p = container.querySelectorAll('p');
     const label = container.querySelectorAll('label');
-    expect(p[0].textContent).toContain(mockProps.questionData.options[0].value_fi);
+    expect(p[0].textContent).toContain(finnishTranslations['app.text.options']);
+    expect(p[1].textContent).toContain(mockProps.questionData.options[0].value_fi);
     expect(label[0].textContent).toContain(mockProps.questionData.sub_questions[0].description_fi);
   });
 

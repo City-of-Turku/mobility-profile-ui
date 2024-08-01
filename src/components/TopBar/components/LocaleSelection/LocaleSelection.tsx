@@ -35,7 +35,7 @@ const LocaleSelection: React.FC = () => {
           >
             <p
               className={`mb-1 pl-2 ${
-                currentLocale === localeSelection ? 'header-h6' : 'text-normal'
+                currentLocale === localeSelection ? 'text-normal-bold' : 'text-normal'
               }`}
               style={{ color: currentLocale === localeSelection ? '#fff' : '#DEDEF1' }}
             >
